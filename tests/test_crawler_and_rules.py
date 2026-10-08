@@ -281,3 +281,13 @@ def test_scoring_is_deterministic(site) -> None:  # type: ignore[no-untyped-def]
     first = score(analyse(crawl(site)))
     second = score(analyse(crawl(site)))
     assert first == second
+
+
+def test_politeness_delay_is_respected_per_host(site) -> None:  # type: ignore[no-untyped-def]
+    links = "".join(f'<a href="/x{i}">Link {i}</a>' for i in range(8))
+    site.page("/", html_page("Politeness test home page", links))
+    with SafeClient(user_agent="t", policy=POLICY, timeout=3) as client:
+        Crawler(client, CrawlLimits(max_pages=1, delay=0.2)).run(site.base + "/")
+    gaps = [b - a for a, b in zip(site.hit_times, site.hit_times[1:], strict=False)]
+    assert len(site.hit_times) >= 8
+    assert min(gaps) >= 0.18, gaps

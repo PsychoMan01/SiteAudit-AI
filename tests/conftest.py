@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import re
 import threading
+import time
 from collections.abc import Callable, Iterator
 from dataclasses import dataclass, field
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -42,6 +43,7 @@ class SiteServer:
     def __init__(self) -> None:
         self.routes: dict[str, Route] = {}
         self.hits: list[tuple[str, str, dict[str, str]]] = []
+        self.hit_times: list[float] = []
         server = self
 
         class Handler(BaseHTTPRequestHandler):
@@ -50,6 +52,7 @@ class SiteServer:
             def _serve(self, with_body: bool) -> None:
                 path = self.path.split("#", 1)[0]
                 server.hits.append((self.command, path, dict(self.headers.items())))
+                server.hit_times.append(time.monotonic())
                 route = server.routes.get(path) or server.routes.get(path.split("?", 1)[0])
                 if route is None:
                     route = Route(
@@ -58,8 +61,6 @@ class SiteServer:
                         {"Content-Type": "text/html; charset=utf-8"},
                     )
                 if route.delay:
-                    import time
-
                     time.sleep(route.delay)
                 body = route.body.encode() if isinstance(route.body, str) else route.body
                 self.send_response(route.status)
