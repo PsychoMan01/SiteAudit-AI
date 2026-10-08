@@ -28,7 +28,7 @@ from ...models import SEVERITIES, Audit, AuditIssue, Report, User, utcnow
 from ...plans import get_plan
 from ...reports.pdf import render_pdf
 from ...security import auth as A
-from ..deps import SESSION_COOKIE, get_db, redirect, render, require_user
+from ..deps import DB, SESSION_COOKIE, redirect, render, require_user
 
 router = APIRouter()
 log = logging.getLogger(__name__)
@@ -51,9 +51,7 @@ def _owned_audit(db: Session, user: User, public_id: str) -> Audit:
 
 
 @router.get("/dashboard")
-def dashboard(
-    request: Request, user: User = Depends(require_user), db: Session = Depends(get_db)
-) -> Response:
+def dashboard(request: Request, user: User = Depends(require_user), db: Session = DB) -> Response:
     since = _visible_since(user)
     base = select(Audit).where(Audit.user_id == user.id)
     if since is not None:
@@ -106,7 +104,7 @@ def audit_list(
     page: int = 1,
     q: str = "",
     user: User = Depends(require_user),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     page = max(1, min(page, 1000))
     query = select(Audit).where(Audit.user_id == user.id)
@@ -137,7 +135,7 @@ def audit_list(
 
 @router.post("/audits")
 def audit_create(
-    request: Request, url: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)
+    request: Request, url: str = Form(""), user: User = Depends(require_user), db: Session = DB
 ) -> Response:
     try:
         audit = create_audit(db, user, url, get_settings())
@@ -161,7 +159,7 @@ def audit_create(
 
 @router.get("/audits/new")
 def audit_new(
-    request: Request, url: str = "", user: User = Depends(require_user), db: Session = Depends(get_db)
+    request: Request, url: str = "", user: User = Depends(require_user), db: Session = DB
 ) -> Response:
     return render(
         request,
@@ -187,7 +185,7 @@ def audit_detail(
     severity: str = "",
     page_url: str = "",
     user: User = Depends(require_user),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     audit = _owned_audit(db, user, public_id)
     if not audit.is_finished or audit.status != "completed":
@@ -232,9 +230,7 @@ def audit_detail(
 
 
 @router.get("/audits/{public_id}/status")
-def audit_status(
-    public_id: str, user: User = Depends(require_user), db: Session = Depends(get_db)
-) -> JSONResponse:
+def audit_status(public_id: str, user: User = Depends(require_user), db: Session = DB) -> JSONResponse:
     audit = _owned_audit(db, user, public_id)
     return JSONResponse(
         {
@@ -248,18 +244,14 @@ def audit_status(
 
 
 @router.post("/audits/{public_id}/cancel")
-def audit_cancel(
-    public_id: str, user: User = Depends(require_user), db: Session = Depends(get_db)
-) -> Response:
+def audit_cancel(public_id: str, user: User = Depends(require_user), db: Session = DB) -> Response:
     audit = _owned_audit(db, user, public_id)
     request_cancel(db, audit)
     return redirect(f"/audits/{audit.public_id}")
 
 
 @router.post("/audits/{public_id}/delete")
-def audit_delete(
-    public_id: str, user: User = Depends(require_user), db: Session = Depends(get_db)
-) -> Response:
+def audit_delete(public_id: str, user: User = Depends(require_user), db: Session = DB) -> Response:
     audit = _owned_audit(db, user, public_id)
     if audit.status in ("queued", "running"):
         return redirect(f"/audits/{audit.public_id}", "audit_delete_running")
@@ -268,9 +260,7 @@ def audit_delete(
 
 
 @router.get("/audits/{public_id}/report.pdf")
-def audit_report(
-    public_id: str, user: User = Depends(require_user), db: Session = Depends(get_db)
-) -> Response:
+def audit_report(public_id: str, user: User = Depends(require_user), db: Session = DB) -> Response:
     audit = _owned_audit(db, user, public_id)
     if audit.status != "completed":
         raise HTTPException(status_code=404)
@@ -289,9 +279,7 @@ def audit_report(
 
 
 @router.get("/settings")
-def settings_page(
-    request: Request, user: User = Depends(require_user), db: Session = Depends(get_db)
-) -> Response:
+def settings_page(request: Request, user: User = Depends(require_user), db: Session = DB) -> Response:
     return render(
         request,
         "app/settings.html",
@@ -305,7 +293,7 @@ def settings_profile(
     name: str = Form(""),
     locale: str = Form("en"),
     user: User = Depends(require_user),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     user.name = name.strip()[:100]
     if locale in ("en", "pt"):
@@ -319,7 +307,7 @@ def settings_password(
     current_password: str = Form(""),
     new_password: str = Form(""),
     user: User = Depends(require_user),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     error = None
     if not A.verify_password(user.password_hash, current_password[: A.MAX_PASSWORD]):
@@ -356,7 +344,7 @@ def settings_delete(
     password: str = Form(""),
     confirm: str = Form(""),
     user: User = Depends(require_user),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     if confirm != "DELETE" or not A.verify_password(user.password_hash, password[: A.MAX_PASSWORD]):
         return render(

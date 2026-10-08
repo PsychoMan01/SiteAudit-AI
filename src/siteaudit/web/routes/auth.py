@@ -16,10 +16,10 @@ from ...mailer import send_email
 from ...models import User
 from ...security import auth as A
 from ..deps import (
+    DB,
     SESSION_COOKIE,
     client_ip,
     current_user,
-    get_db,
     redirect,
     render,
     request_locale,
@@ -75,7 +75,7 @@ def register(
     name: str = Form(""),
     url: str = Form(""),
     accept_terms: str = Form(""),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     ip = client_ip(request)
     values = {"email": email[:254], "name": name[:100]}
@@ -117,7 +117,7 @@ def login(
     email: str = Form(""),
     password: str = Form(""),
     next: str = Form("/dashboard"),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     settings = get_settings()
     ip = client_ip(request)
@@ -135,7 +135,7 @@ def login(
 
 
 @router.post("/logout")
-def logout(request: Request, db: Session = Depends(get_db)) -> Response:
+def logout(request: Request, db: Session = DB) -> Response:
     A.destroy_session(db, request.cookies.get(SESSION_COOKIE))
     response = redirect("/")
     response.delete_cookie(SESSION_COOKIE, path="/")
@@ -148,7 +148,7 @@ def forgot_form(request: Request) -> Response:
 
 
 @router.post("/forgot-password")
-def forgot(request: Request, email: str = Form(""), db: Session = Depends(get_db)) -> Response:
+def forgot(request: Request, email: str = Form(""), db: Session = DB) -> Response:
     settings = get_settings()
     ip = client_ip(request)
     if A.throttled(db, "reset_requested", ip, A.RESET_MAX_PER_IP, A.LOGIN_WINDOW):
@@ -167,15 +167,13 @@ def forgot(request: Request, email: str = Form(""), db: Session = Depends(get_db
 
 
 @router.get("/reset-password")
-def reset_form(request: Request, token: str = "", db: Session = Depends(get_db)) -> Response:
+def reset_form(request: Request, token: str = "", db: Session = DB) -> Response:
     valid = A.find_reset_token(db, token) is not None
     return render(request, "auth/reset.html", {"token": token if valid else "", "invalid": not valid})
 
 
 @router.post("/reset-password")
-def reset(
-    request: Request, token: str = Form(""), password: str = Form(""), db: Session = Depends(get_db)
-) -> Response:
+def reset(request: Request, token: str = Form(""), password: str = Form(""), db: Session = DB) -> Response:
     try:
         A.consume_reset_token(db, token, password)
     except A.AuthError as exc:

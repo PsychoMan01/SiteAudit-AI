@@ -8,9 +8,11 @@ protection (in the client), cancellation between requests, and SSRF protection o
 from __future__ import annotations
 
 import logging
+import threading
 import time
 from collections import deque
 from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from urllib import robotparser
 from urllib.parse import urlsplit, urlunsplit
@@ -28,6 +30,7 @@ BOT_TOKEN = "SiteAuditBot"  # noqa: S105 - robots.txt user-agent token, not a se
 MAX_SITEMAP_URLS = 5000
 MAX_SITEMAP_BYTES = 10 * 1024 * 1024
 MAX_HTML_TOTAL_BYTES = 200 * 1024 * 1024
+MAX_PARALLEL_HOSTS = 6
 
 
 class CrawlError(Exception):
@@ -135,7 +138,8 @@ class SiteSnapshot:
 class CrawlLimits:
     max_pages: int = 10
     max_depth: int = 3
-    max_link_checks: int = 60
+    max_internal_link_checks: int = 20  # same host: sequential and rate-limited, so kept small
+    max_external_link_checks: int = 40  # other hosts: checked in parallel, one request at a time per host
     max_resource_checks: int = 20
     delay: float = 0.5
     deadline_seconds: float = 300.0
@@ -161,7 +165,8 @@ class Crawler:
         self.cancelled = cancelled or (lambda: False)
         self.sleep = sleep
         self._deadline = 0.0
-        self._last_request = 0.0
+        self._next_slot: dict[str, float] = {}
+        self._slot_lock = threading.Lock()
         self._delay = limits.delay
         self._robots: robotparser.RobotFileParser | None = None
 
@@ -175,14 +180,35 @@ class Crawler:
         return time.monotonic() < self._deadline
 
     def _polite_fetch(self, url: str, **kwargs: object) -> FetchResult:
+        """Fetch with a per-host politeness delay. Each call reserves the next free slot for its host,
+        so concurrent workers never hit the same host faster than the delay allows."""
         self._check()
-        wait = self._last_request + self._delay - time.monotonic()
-        if wait > 0:
-            self.sleep(wait)
-        try:
-            return self.client.fetch(url, **kwargs)  # type: ignore[arg-type]
-        finally:
-            self._last_request = time.monotonic()
+        host = (urlsplit(url).hostname or "").lower()
+        with self._slot_lock:
+            now = time.monotonic()
+            slot = max(now, self._next_slot.get(host, 0.0))
+            self._next_slot[host] = slot + self._delay
+        if slot > now:
+            self.sleep(slot - now)
+        return self.client.fetch(url, **kwargs)  # type: ignore[arg-type]
+
+    def _per_host(self, urls: list[str], work: Callable[[str], None]) -> None:
+        """Process URLs grouped by host: hosts in parallel (bounded), each host sequentially."""
+        groups: dict[str, list[str]] = {}
+        for url in urls:
+            groups.setdefault((urlsplit(url).hostname or "").lower(), []).append(url)
+
+        def run_group(items: list[str]) -> None:
+            for url in items:
+                if not self._time_left():
+                    return
+                work(url)
+
+        if not groups:
+            return
+        with ThreadPoolExecutor(max_workers=min(MAX_PARALLEL_HOSTS, len(groups))) as pool:
+            for future in [pool.submit(run_group, items) for items in groups.values()]:
+                future.result()  # re-raises Cancelled
 
     # -- phases ------------------------------------------------------------------------------------------
 
@@ -190,6 +216,10 @@ class Crawler:
         self._deadline = time.monotonic() + self.limits.deadline_seconds
         self.progress("connecting")
         first = self._polite_fetch(input_url)
+        if first.error in ("timeout", "connection_error", "protocol_error"):
+            # One retry for transient failures before telling the user the site is unreachable.
+            self.sleep(2.0)
+            first = self._polite_fetch(input_url)
         if first.error:
             raise CrawlError(first.error)
         if first.status is None:
@@ -357,14 +387,22 @@ class Crawler:
         if self._robots is not None:
             robots = self._robots
             pending = [u for u in pending if not same_site(u, snap.host) or robots.can_fetch(BOT_TOKEN, u)]
-        for url in pending[: self.limits.max_link_checks]:
-            if not self._time_left():
-                snap.deadline_reached = True
-                return
+        internal = [u for u in pending if same_site(u, snap.host)]
+        external = [u for u in pending if not same_site(u, snap.host)]
+        selected = (
+            internal[: self.limits.max_internal_link_checks]
+            + external[: self.limits.max_external_link_checks]
+        )
+
+        def check(url: str) -> None:
             res = self._polite_fetch(url, method="HEAD")
             if res.error is None and res.status in (405, 501, 403, 400):
                 res = self._polite_fetch(url, max_bytes=64 * 1024)
             snap.link_checks[url] = LinkCheck(url, res.status, res.error, bool(res.redirects), res.final_url)
+
+        self._per_host(selected, check)
+        if len(snap.link_checks) < len(selected) and not self._time_left():
+            snap.deadline_reached = True
 
     def _check_resources(self, snap: SiteSnapshot) -> None:
         home = snap.home
@@ -374,20 +412,20 @@ class Crawler:
         candidates += [(s.href, "css") for s in home.doc.stylesheets]
         candidates += [(s.src, "js") for s in home.doc.scripts if s.src]
         candidates += [(i.src, "image") for i in home.doc.images if i.src]
-        seen: set[str] = set()
+        kinds: dict[str, str] = {}
         for url, kind in candidates:
-            if len(snap.resources) >= self.limits.max_resource_checks or not self._time_left():
-                return
-            if url in seen or url.startswith("data:"):
-                continue
-            seen.add(url)
+            room = len(kinds) < self.limits.max_resource_checks
+            if room and not url.startswith("data:") and url not in kinds:
+                kinds[url] = kind
+
+        def check(url: str) -> None:
             res = self._polite_fetch(url, max_bytes=8 * 1024 * 1024)
             size = len(res.body) if res.body and not res.truncated else None
             if size is None and res.headers.get("content-length", "").isdigit():
                 size = int(res.headers["content-length"])
             snap.resources[url] = ResourceCheck(
                 url=url,
-                kind=kind,
+                kind=kinds[url],
                 status=res.status,
                 size=size,
                 cache_control=res.headers.get("cache-control", ""),
@@ -395,6 +433,10 @@ class Crawler:
                 content_type=res.content_type,
                 error=res.error,
             )
+
+        self._per_host(list(kinds), check)
+        # Keep a stable order regardless of which thread finished first.
+        snap.resources = {u: snap.resources[u] for u in kinds if u in snap.resources}
 
     def _security_probes(self, snap: SiteSnapshot, input_url: str) -> None:
         if snap.start_url.startswith("https://"):

@@ -31,6 +31,9 @@ templates.env.globals.update(grade=grade)
 
 
 def get_db() -> Iterator[Session]:
+    """One session per request. Always declare it as `Depends(get_db, scope="function")` so the commit
+    happens *before* the response is sent; otherwise a client can follow a redirect faster than the
+    commit (e.g. a new login session not yet visible on the next request)."""
     db = session_factory()()
     try:
         yield db
@@ -40,6 +43,10 @@ def get_db() -> Iterator[Session]:
         raise
     finally:
         db.close()
+
+
+DB = Depends(get_db, scope="function")
+"""Default for every `db: Session` route parameter: committed before the response is sent (see `get_db`)."""
 
 
 def client_ip(request: Request, settings: Settings | None = None) -> str:
@@ -79,7 +86,7 @@ class UserView:
     is_admin: bool
 
 
-def current_user(request: Request, db: Session = Depends(get_db)) -> User | None:
+def current_user(request: Request, db: Session = DB) -> User | None:
     if hasattr(request.state, "user"):
         cached: User | None = request.state.user
         return cached

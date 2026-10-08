@@ -464,7 +464,7 @@
     "collect_text": "O SiteAudit pede as suas páginas a partir dos nossos servidores, tal como o crawler de um motor de pesquisa. Lê o HTML, os cabeçalhos HTTP, o robots.txt e o sitemap XML, e verifica os links e recursos que encontra. Não executa JavaScript nem apresenta as páginas num browser.",
     "collect_1": "A análise começa no endereço indicado e segue os links internos e as entradas do sitemap, até ao limite de páginas do plano e a uma profundidade máxima.",
     "collect_2": "As regras do robots.txt e o Crawl-delay são respeitados. Os pedidos são feitos um de cada vez, com uma pausa entre eles.",
-    "collect_3": "São verificados até 60 URLs ligados e 20 recursos (folhas de estilo, scripts e imagens) da página inicial.",
+    "collect_3": "Os URLs ligados que não foram percorridos também são verificados: até ao dobro do limite de páginas no seu site (mínimo 20, máximo 100) e até 40 noutros sites, além de até 20 recursos (folhas de estilo, scripts e imagens) da página inicial.",
     "collect_4": "Só são pedidas páginas públicas. Nenhum formulário é submetido e nenhuma autenticação é tentada.",
     "score_title": "Como são calculadas as pontuações",
     "score_text": "Cada categoria começa com 100. Cada verificação falhada desconta pontos uma vez, de acordo com a gravidade. As verificações feitas em cada página descontam mais quando afetam mais páginas auditadas. A pontuação global é uma média ponderada das categorias. A pontuação é determinística e não usa IA.",

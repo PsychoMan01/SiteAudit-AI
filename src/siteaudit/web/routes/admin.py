@@ -15,16 +15,14 @@ from ...models import AUDIT_STATUSES, PLANS, Audit, Report, Subscription, User, 
 from ...plans import PLANS as PLAN_LIMITS
 from ...security.auth import destroy_all_sessions
 from ...worker import worker_alive
-from ..deps import get_db, redirect, render, require_admin
+from ..deps import DB, redirect, render, require_admin
 
 router = APIRouter(prefix="/admin")
 log = logging.getLogger(__name__)
 
 
 @router.get("")
-def overview(
-    request: Request, admin: User = Depends(require_admin), db: Session = Depends(get_db)
-) -> Response:
+def overview(request: Request, admin: User = Depends(require_admin), db: Session = DB) -> Response:
     now = utcnow()
     day, week = now - timedelta(days=1), now - timedelta(days=7)
 
@@ -85,7 +83,7 @@ def users(
     q: str = "",
     page: int = 1,
     admin: User = Depends(require_admin),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     page = max(1, min(page, 1000))
     query = select(User)
@@ -122,7 +120,7 @@ def update_user(
     plan: str = Form(...),
     active: str = Form("no"),
     admin: User = Depends(require_admin),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     target = db.get(User, user_id)
     if target is None:
@@ -150,7 +148,7 @@ def audits(
     status: str = "",
     page: int = 1,
     admin: User = Depends(require_admin),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     page = max(1, min(page, 1000))
     query = select(Audit)

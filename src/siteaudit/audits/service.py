@@ -209,6 +209,7 @@ def run_audit(audit_id: int, settings: Settings) -> str:
     limits = CrawlLimits(
         max_pages=max_pages,
         max_depth=max_depth,
+        max_internal_link_checks=min(100, max(20, max_pages * 2)),
         delay=settings.crawl_delay,
         deadline_seconds=settings.crawl_audit_timeout,
     )

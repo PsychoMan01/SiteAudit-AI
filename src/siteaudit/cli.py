@@ -104,6 +104,7 @@ def cmd_audit(args: argparse.Namespace) -> int:
     limits = CrawlLimits(
         max_pages=args.pages,
         max_depth=args.depth,
+        max_internal_link_checks=min(100, max(20, args.pages * 2)),
         delay=settings.crawl_delay,
         deadline_seconds=settings.crawl_audit_timeout,
     )

@@ -464,7 +464,7 @@
     "collect_text": "SiteAudit requests your pages from our servers, like a search engine crawler. It reads the HTML, the HTTP response headers, robots.txt and the XML sitemap, and checks the links and assets it finds. It does not run JavaScript or render pages in a browser.",
     "collect_1": "The crawl starts at the address you enter and follows internal links and sitemap entries, up to your plan's page limit and a maximum depth.",
     "collect_2": "robots.txt rules and Crawl-delay are respected. Requests are sent one at a time with a pause between them.",
-    "collect_3": "Up to 60 linked URLs and 20 assets (stylesheets, scripts, images) from the home page are verified.",
+    "collect_3": "Linked URLs that were not crawled are verified too: up to twice the page limit on your own site (minimum 20, maximum 100) and up to 40 on other sites, plus up to 20 assets (stylesheets, scripts, images) from the home page.",
     "collect_4": "Only public pages are requested. No forms are submitted and no login is attempted.",
     "score_title": "How scores are calculated",
     "score_text": "Each category starts at 100. Every check that fails deducts points once, according to its severity. Checks that run on every page deduct more when they affect more of the audited pages. The overall score is a weighted average of the category scores. Scoring is deterministic and does not use AI.",

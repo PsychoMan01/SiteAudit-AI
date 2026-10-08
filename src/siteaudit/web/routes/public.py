@@ -12,7 +12,7 @@ from ...i18n import LOCALES
 from ...models import User
 from ...plans import PLANS
 from ...scoring import CATEGORY_WEIGHTS, SEVERITY_WEIGHTS
-from ..deps import LOCALE_COOKIE, current_user, get_db, redirect, render, safe_next
+from ..deps import DB, LOCALE_COOKIE, current_user, redirect, render, safe_next
 
 router = APIRouter()
 
@@ -56,7 +56,7 @@ def set_language(
     lang: str = Form(...),
     next: str = Form("/"),
     user: User | None = Depends(current_user),
-    db: Session = Depends(get_db),
+    db: Session = DB,
 ) -> Response:
     if lang not in LOCALES:
         lang = "en"
