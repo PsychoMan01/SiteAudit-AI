@@ -1,0 +1,10 @@
+# Caddy obtains and renews the TLS certificate automatically.
+siteaudit.example.com {
+	encode zstd gzip
+	@static path /static/*
+	header @static Cache-Control "public, max-age=86400"
+	# Coarse per-IP protection in front of the app's own limits (requires the caddy-ratelimit plugin;
+	# remove this block if you use stock Caddy and rely on the application limits).
+	# rate_limit { zone per_ip { key {remote_host} events 120 window 1m } }
+	reverse_proxy 127.0.0.1:8000
+}

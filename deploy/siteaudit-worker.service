@@ -1,0 +1,22 @@
+[Unit]
+Description=SiteAudit audit worker
+After=network-online.target postgresql.service siteaudit-web.service
+Wants=network-online.target
+
+[Service]
+User=siteaudit
+Group=siteaudit
+WorkingDirectory=/opt/siteaudit
+EnvironmentFile=/etc/siteaudit/siteaudit.env
+ExecStart=/opt/siteaudit/.venv/bin/siteaudit worker
+Restart=always
+KillSignal=SIGTERM
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/siteaudit
+
+[Install]
+WantedBy=multi-user.target

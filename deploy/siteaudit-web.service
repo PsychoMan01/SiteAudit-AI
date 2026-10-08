@@ -1,0 +1,22 @@
+[Unit]
+Description=SiteAudit web
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+User=siteaudit
+Group=siteaudit
+WorkingDirectory=/opt/siteaudit
+EnvironmentFile=/etc/siteaudit/siteaudit.env
+ExecStartPre=/opt/siteaudit/.venv/bin/siteaudit migrate
+# `siteaudit serve` keeps uvicorn's access log on the application's redacting log handler.
+ExecStart=/opt/siteaudit/.venv/bin/siteaudit serve --host 127.0.0.1 --port 8000 --workers 2
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/siteaudit
+
+[Install]
+WantedBy=multi-user.target
