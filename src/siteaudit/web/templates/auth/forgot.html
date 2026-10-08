@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ t('auth.forgot_title') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="auth">
+    <h1>{{ t('auth.forgot_title') }}</h1>
+    {% if sent %}
+      <div class="alert alert-ok" role="status">{{ t('auth.forgot_sent') }}</div>
+      <p class="alt"><a href="/login">{{ t('auth.back_to_login') }}</a></p>
+    {% else %}
+      <p class="muted">{{ t('auth.forgot_lead') }}</p>
+      {% if error %}<div class="alert alert-error" role="alert">{{ t('auth.error.' ~ error) }}</div>{% endif %}
+      <form method="post" action="/forgot-password" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div class="field">
+          <label for="email">{{ t('auth.email') }}</label>
+          <input id="email" name="email" type="email" autocomplete="email" required autofocus>
+        </div>
+        <button class="btn" type="submit">{{ t('auth.forgot_submit') }}</button>
+      </form>
+      <p class="alt"><a href="/login">{{ t('auth.back_to_login') }}</a></p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

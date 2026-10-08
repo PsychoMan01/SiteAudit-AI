@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% from "_macros.html" import date, status, score_value %}
+{% block title %}{{ t('admin.audits') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head"><div><h1>{{ t('admin.audits') }}</h1></div>{% include "admin/_nav.html" %}</div>
+  <section class="panel">
+    <div class="panel-head">
+      <form class="filters" method="get" action="/admin/audits" data-autosubmit>
+        <div class="field"><label for="status" class="small">{{ t('audits.status') }}</label>
+          <select id="status" name="status"><option value="">{{ t('result.all') }}</option>
+            {% for s in statuses %}<option value="{{ s }}" {% if status == s %}selected{% endif %}>{{ t('status.' ~ s) }}</option>{% endfor %}</select></div>
+        <button class="btn btn-secondary btn-sm" type="submit">{{ t('result.apply') }}</button>
+      </form>
+    </div>
+    <div class="table-wrap"><table class="responsive">
+      <thead><tr><th>{{ t('audits.site') }}</th><th>{{ t('admin.user') }}</th><th>{{ t('audits.status') }}</th><th class="num">{{ t('audits.score') }}</th><th class="num">{{ t('audits.pages') }}</th><th>{{ t('admin.error_code') }}</th><th>{{ t('audits.date') }}</th></tr></thead>
+      <tbody>
+      {% for a in rows %}
+        <tr>
+          <td data-label="{{ t('audits.site') }}" class="break">{{ a.host }}</td>
+          <td data-label="{{ t('admin.user') }}" class="break small">{{ emails.get(a.user_id, '—') }}</td>
+          <td data-label="{{ t('audits.status') }}">{{ status(a, t) }}</td>
+          <td data-label="{{ t('audits.score') }}" class="num">{{ score_value(a.overall_score) }}</td>
+          <td data-label="{{ t('audits.pages') }}" class="num">{{ a.pages_crawled }}</td>
+          <td data-label="{{ t('admin.error_code') }}" class="mono small">{{ a.error_code or '' }}</td>
+          <td data-label="{{ t('audits.date') }}">{{ date(a.created_at, locale) }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="7" class="empty">{{ t('admin.no_audits') }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    {% if pages > 1 %}<nav class="pager">{% if page > 1 %}<a href="?page={{ page - 1 }}&status={{ status }}">{{ t('audits.prev') }}</a>{% else %}<span></span>{% endif %}<span class="muted">{{ t('audits.page_of', page=page, pages=pages) }}</span>{% if page < pages %}<a href="?page={{ page + 1 }}&status={{ status }}">{{ t('audits.next') }}</a>{% else %}<span></span>{% endif %}</nav>{% endif %}
+  </section>
+</div>
+{% endblock %}

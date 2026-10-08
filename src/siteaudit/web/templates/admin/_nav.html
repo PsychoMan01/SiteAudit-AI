@@ -1,0 +1,5 @@
+<nav class="actions" aria-label="{{ t('admin.nav') }}">
+  <a href="/admin" {% if path == '/admin' %}aria-current="page"{% endif %}>{{ t('admin.overview') }}</a>
+  <a href="/admin/users" {% if path == '/admin/users' %}aria-current="page"{% endif %}>{{ t('admin.users') }}</a>
+  <a href="/admin/audits" {% if path == '/admin/audits' %}aria-current="page"{% endif %}>{{ t('admin.audits') }}</a>
+</nav>

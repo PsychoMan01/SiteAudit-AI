@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "_seo.html" import public_meta %}
+{% block title %}{{ t('auth.register_title') }} — SiteAudit{% endblock %}
+{% block seo %}{{ public_meta(settings, '/register', t('auth.register_title') ~ ' — SiteAudit', t('auth.register_lead'), locale) }}{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="auth">
+    <h1>{{ t('auth.register_title') }}</h1>
+    <p class="muted">{{ t('auth.register_lead') }}</p>
+    {% if url %}<div class="alert" role="status">{{ t('auth.register_with_url') }} <span class="mono break">{{ url }}</span></div>{% endif %}
+    {% if error %}<div class="alert alert-error" role="alert">{{ t('auth.error.' ~ error) }}</div>{% endif %}
+    <form method="post" action="/register" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <input type="hidden" name="url" value="{{ url }}">
+      <div class="field">
+        <label for="name">{{ t('auth.name') }} <span class="faint">({{ t('auth.optional') }})</span></label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="100" value="{{ values.name or '' }}">
+      </div>
+      <div class="field">
+        <label for="email">{{ t('auth.email') }}</label>
+        <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" value="{{ values.email or '' }}"
+               {% if error in ('invalid_email', 'email_taken') %}aria-invalid="true" aria-describedby="form-error"{% endif %}>
+      </div>
+      <div class="field">
+        <label for="password">{{ t('auth.password') }}</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" required minlength="10" aria-describedby="password-hint"
+               {% if error and error.startswith('password') %}aria-invalid="true"{% endif %}>
+        <span class="hint" id="password-hint">{{ t('auth.password_hint') }}</span>
+      </div>
+      <div class="field">
+        <label class="check"><input type="checkbox" name="accept_terms" value="yes" required> <span>{{ t('auth.accept_terms_before') }} <a href="/terms">{{ t('footer.terms') }}</a> {{ t('auth.and') }} <a href="/privacy">{{ t('footer.privacy') }}</a>.</span></label>
+      </div>
+      <button class="btn" type="submit">{{ t('auth.register_submit') }}</button>
+    </form>
+    <p class="alt">{{ t('auth.have_account') }} <a href="/login">{{ t('auth.login_link') }}</a></p>
+  </div>
+</div>
+{% endblock %}

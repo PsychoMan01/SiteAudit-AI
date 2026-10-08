@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from "_macros.html" import status, date %}
+{% block title %}{{ audit.host }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      {% if audit.status in ('queued', 'running') %}<p class="eyebrow">{{ t('progress.eyebrow') }}</p>{% endif %}
+      <h1 class="break">{{ audit.host }}</h1>
+      <p class="sub mono break">{{ audit.url }}</p>
+    </div>
+    <div>{{ status(audit, t) }}</div>
+  </div>
+
+  {% if audit.status in ('queued', 'running') %}
+  <section class="panel" aria-labelledby="progress-title">
+    <div class="panel-head">
+      <h2 id="progress-title">{{ t('progress.title') }}</h2>
+      <span class="muted small">{{ t('progress.pages_found') }} <span data-pages>{{ audit.pages_crawled }}</span></span>
+    </div>
+    <div class="panel-body">
+      <p class="visually-hidden" aria-live="polite" data-live></p>
+      {% set ns = namespace(reached=false) %}
+      <ol class="progress-list" data-audit-status="/audits/{{ audit.public_id }}/status">
+        {% for stage in stages %}
+          {% set is_current = (audit.stage == stage) %}
+          {% if is_current %}{% set ns.reached = true %}{% endif %}
+          <li data-stage="{{ stage }}" class="{{ 'current' if is_current else ('' if ns.reached else 'done') }}" {% if is_current %}aria-current="step"{% endif %}>{{ t('stage.' ~ stage) }}</li>
+        {% endfor %}
+      </ol>
+      <p class="muted small">{{ t('progress.note', pages=audit.max_pages) }}</p>
+      <noscript><p><a href="/audits/{{ audit.public_id }}">{{ t('progress.refresh') }}</a></p></noscript>
+      <form method="post" action="/audits/{{ audit.public_id }}/cancel" class="no-print">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button class="btn btn-secondary btn-sm" type="submit" {% if audit.cancel_requested %}disabled{% endif %}>
+          {{ t('progress.cancelling') if audit.cancel_requested else t('progress.cancel') }}</button>
+      </form>
+    </div>
+  </section>
+  {% else %}
+  <section class="panel">
+    <div class="panel-body">
+      {% if audit.status == 'failed' %}
+        <h2>{{ t('failed.title') }}</h2>
+        <p>{{ t('crawl_error.' ~ (audit.error_code or 'internal_error')) if t_has('crawl_error.' ~ (audit.error_code or 'internal_error')) else t('crawl_error.http_other', code=(audit.error_code or '')[5:]) }}</p>
+      {% else %}
+        <h2>{{ t('cancelled.title') }}</h2>
+        <p>{{ t('cancelled.text') }}</p>
+      {% endif %}
+      <p class="muted small">{{ t('failed.not_counted') if audit.status == 'failed' else '' }}</p>
+      <div class="actions">
+        <a class="btn" href="/audits/new?url={{ audit.url | urlencode }}">{{ t('failed.retry') }}</a>
+        <form method="post" action="/audits/{{ audit.public_id }}/delete" class="inline-form" data-confirm="{{ t('result.delete_confirm') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button class="btn btn-danger" type="submit">{{ t('result.delete') }}</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

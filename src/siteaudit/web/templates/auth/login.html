@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ t('auth.login_title') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="auth">
+    <h1>{{ t('auth.login_title') }}</h1>
+    {% if error %}<div class="alert alert-error" role="alert">{{ t('auth.error.' ~ error) }}</div>{% endif %}
+    <form method="post" action="/login" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <input type="hidden" name="next" value="{{ next }}">
+      <div class="field">
+        <label for="email">{{ t('auth.email') }}</label>
+        <input id="email" name="email" type="email" autocomplete="email" required value="{{ values.email or '' }}" {% if error %}aria-invalid="true"{% endif %} autofocus>
+      </div>
+      <div class="field">
+        <label for="password">{{ t('auth.password') }}</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required {% if error %}aria-invalid="true"{% endif %}>
+      </div>
+      <button class="btn" type="submit">{{ t('auth.login_submit') }}</button>
+    </form>
+    <p class="alt"><a href="/forgot-password">{{ t('auth.forgot_link') }}</a></p>
+    <p class="alt">{{ t('auth.no_account') }} <a href="/register">{{ t('auth.register_link') }}</a></p>
+  </div>
+</div>
+{% endblock %}

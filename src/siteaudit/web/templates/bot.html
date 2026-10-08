@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% from "_seo.html" import public_meta %}
+{% block title %}SiteAuditBot — SiteAudit{% endblock %}
+{% block seo %}{{ public_meta(settings, '/bot', 'SiteAuditBot — SiteAudit', t('bot.lead'), locale) }}{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head"><div><h1>SiteAuditBot</h1><p class="sub">{{ t('bot.lead') }}</p></div></div>
+  <div class="prose">
+    <h2>{{ t('bot.ua_title') }}</h2>
+    <p><code class="break">{{ settings.crawl_user_agent }}</code></p>
+    <h2>{{ t('bot.behaviour_title') }}</h2>
+    <ul>
+      <li>{{ t('bot.b1') }}</li>
+      <li>{{ t('bot.b2', delay=settings.crawl_delay) }}</li>
+      <li>{{ t('bot.b3') }}</li>
+      <li>{{ t('bot.b4') }}</li>
+    </ul>
+    <h2>{{ t('bot.block_title') }}</h2>
+    <p>{{ t('bot.block_text') }}</p>
+    <div class="formula">User-agent: SiteAuditBot
+Disallow: /</div>
+  </div>
+</div>
+{% endblock %}

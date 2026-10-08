@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% from "_seo.html" import public_meta %}
+{% block title %}{{ t('privacy.title') }} — SiteAudit{% endblock %}
+{% block seo %}{{ public_meta(settings, '/privacy', t('privacy.title') ~ ' — SiteAudit', t('privacy.lead'), locale) }}{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head"><div><h1>{{ t('privacy.title') }}</h1><p class="sub">{{ t('privacy.lead') }}</p></div></div>
+  <div class="prose">
+    {% for i in range(1, 9) %}{% if t_has('privacy.h' ~ i) %}
+      <h2>{{ t('privacy.h' ~ i) }}</h2>
+      <p>{{ t('privacy.p' ~ i) }}</p>
+    {% endif %}{% endfor %}
+    {% if settings.contact_email %}<p>{{ t('privacy.contact') }} <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>.</p>{% endif %}
+  </div>
+</div>
+{% endblock %}

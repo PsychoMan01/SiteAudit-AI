@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% from "_macros.html" import url_form, bar %}
+{% from "_seo.html" import public_meta %}
+{% block title %}SiteAudit — {{ t('landing.title') }}{% endblock %}
+{% block description %}{{ t('landing.meta_description') }}{% endblock %}
+{% block seo %}{{ public_meta(settings, '/', 'SiteAudit — ' ~ t('landing.title'), t('landing.meta_description'), locale) }}{% endblock %}
+{% block head %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SiteAudit","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"{{ settings.app_url }}/","description":{{ t('landing.meta_description') | tojson }},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","description":{{ t('plans.free.name') | tojson }}}}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="wrap">
+    <h1>{{ t('landing.hero_title') }}</h1>
+    <p class="lead">{{ t('landing.hero_lead') }}</p>
+    {{ url_form(user, csrf_token, t) }}
+    <p class="fineprint">{{ t('landing.hero_fineprint') }}</p>
+  </div>
+</section>
+
+<section class="section" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">{{ t('landing.how_eyebrow') }}</p>
+      <h2 id="how-title">{{ t('landing.how_title') }}</h2>
+    </div>
+    <ol class="steps">
+      <li><h3>{{ t('landing.step1_title') }}</h3><p>{{ t('landing.step1_text') }}</p></li>
+      <li><h3>{{ t('landing.step2_title') }}</h3><p>{{ t('landing.step2_text') }}</p></li>
+      <li><h3>{{ t('landing.step3_title') }}</h3><p>{{ t('landing.step3_text') }}</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="checks-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">{{ t('landing.checks_eyebrow') }}</p>
+      <h2 id="checks-title">{{ t('landing.checks_title') }}</h2>
+      <p>{{ t('landing.checks_lead') }}</p>
+    </div>
+    <div class="checks-grid">
+      {% for cat in categories %}
+      <div>
+        <h3>{{ t('category.' ~ cat) }}</h3>
+        <ul>
+          {% for i in range(1, 5) %}{% if t_has('landing.checks.' ~ cat ~ '.' ~ i) %}<li>{{ t('landing.checks.' ~ cat ~ '.' ~ i) }}</li>{% endif %}{% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="sample-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">{{ t('landing.sample_eyebrow') }}</p>
+      <h2 id="sample-title">{{ t('landing.sample_title') }}</h2>
+      <p>{{ t('landing.sample_lead') }}</p>
+    </div>
+    <figure class="sample" aria-label="{{ t('landing.sample_caption') }}">
+      <div class="sample-bar"><span class="mono">www.example.com</span><span>{{ t('landing.sample_caption') }}</span></div>
+      <div class="sample-body">
+        <div class="overall">
+          <div class="muted small">{{ t('result.overall') }}</div>
+          <div class="big grade-fair">74 <small>/ 100</small></div>
+          <div class="verdict">{{ t('grade.fair') }}</div>
+          <p class="muted small">{{ t('landing.sample_pages') }}</p>
+        </div>
+        <div>
+          {% set sample = [('seo', 82), ('performance', 61), ('accessibility', 70), ('mobile', 94), ('security', 64), ('best_practices', 90)] %}
+          <div class="cat-scores">
+          {% for cat, val in sample %}
+            <div class="cat-row"><span>{{ t('category.' ~ cat) }}</span>{{ bar(val) }}<span class="score grade-{{ grade(val) }}">{{ val }}</span></div>
+          {% endfor %}
+          </div>
+          <ul class="occurrences">
+            <li><span class="sev sev-high">{{ t('severity.high') }}</span> {{ t('rules.accessibility.image_alt_missing.title') }}</li>
+            <li><span class="sev sev-medium">{{ t('severity.medium') }}</span> {{ t('rules.security.csp_missing.title') }}</li>
+            <li><span class="sev sev-medium">{{ t('severity.medium') }}</span> {{ t('rules.performance.static_not_cached.title') }}</li>
+          </ul>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="section" id="pricing" aria-labelledby="pricing-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">{{ t('landing.pricing_eyebrow') }}</p>
+      <h2 id="pricing-title">{{ t('landing.pricing_title') }}</h2>
+      <p>{{ t('landing.pricing_lead') }}</p>
+    </div>
+    <div class="plans">
+      {% for plan_id in ('free', 'pro', 'agency') %}
+      {% set p = plans[plan_id] %}
+      <div class="plan">
+        <h3>{{ t('plans.' ~ plan_id ~ '.name') }}</h3>
+        <p class="plan-for">{{ t('plans.' ~ plan_id ~ '.for') }}</p>
+        <ul>
+          <li>{{ t('plans.audits_per_month', n=p.audits_per_month) }}</li>
+          <li>{{ t('plans.pages_per_audit', n=p.max_pages) }}</li>
+          <li>{{ t('plans.concurrent', n=p.concurrent_audits) }}</li>
+          <li>{{ t('plans.report_full') if p.full_report else t('plans.report_summary') }}</li>
+          <li>{{ t('plans.history_unlimited') if p.history_days is none else t('plans.history_days', n=p.history_days) }}</li>
+        </ul>
+        {% if plan_id == 'free' %}
+          <a class="btn" href="/register">{{ t('plans.free.cta') }}</a>
+        {% elif settings.contact_email %}
+          <a class="btn btn-secondary" href="mailto:{{ settings.contact_email }}?subject={{ ('SiteAudit ' ~ t('plans.' ~ plan_id ~ '.name')) | urlencode }}">{{ t('plans.contact_cta') }}</a>
+        {% else %}
+          <p class="plan-note">{{ t('plans.paid_note') }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">{{ t('landing.faq_eyebrow') }}</p>
+      <h2 id="faq-title">{{ t('landing.faq_title') }}</h2>
+    </div>
+    <div class="faq">
+      {% for i in range(1, 9) %}{% if t_has('faq.q' ~ i) %}
+      <details>
+        <summary>{{ t('faq.q' ~ i) }}</summary>
+        <p>{{ t('faq.a' ~ i) }}</p>
+      </details>
+      {% endif %}{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="wrap">
+    <h2>{{ t('landing.cta_title') }}</h2>
+    <p class="muted">{{ t('landing.cta_text') }}</p>
+    {{ url_form(user, csrf_token, t, input_id='url-input-2') }}
+  </div>
+</section>
+{% endblock %}

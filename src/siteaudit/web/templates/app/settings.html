@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}{{ t('settings.title') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head"><div><h1>{{ t('settings.title') }}</h1><p class="sub">{{ user.email }}</p></div></div>
+  <div class="stack">
+    <section class="panel" aria-labelledby="plan-title">
+      <div class="panel-head"><h2 id="plan-title">{{ t('settings.plan') }}</h2></div>
+      <div class="panel-body">
+        <p><strong>{{ t('plans.' ~ plan.id ~ '.name') }}</strong> — {{ t('dash.usage', used=used, limit=plan.audits_per_month, plan=t('plans.' ~ plan.id ~ '.name')) }}</p>
+        <ul class="muted">
+          <li>{{ t('plans.pages_per_audit', n=plan.max_pages) }}</li>
+          <li>{{ t('plans.concurrent', n=plan.concurrent_audits) }}</li>
+          <li>{{ t('plans.report_full') if plan.full_report else t('plans.report_summary') }}</li>
+          <li>{{ t('plans.history_unlimited') if plan.history_days is none else t('plans.history_days', n=plan.history_days) }}</li>
+        </ul>
+        {% if plan.id == 'free' %}<p class="muted small">{% if settings.contact_email %}{{ t('settings.upgrade_contact') }} <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>.{% else %}{{ t('plans.paid_note') }}{% endif %}</p>{% endif %}
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="profile-title">
+      <div class="panel-head"><h2 id="profile-title">{{ t('settings.profile') }}</h2></div>
+      <div class="panel-body">
+        <form method="post" action="/settings/profile">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <div class="field"><label for="name">{{ t('auth.name') }}</label>
+            <input id="name" name="name" type="text" maxlength="100" autocomplete="name" value="{{ user.name }}"></div>
+          <div class="field"><label for="locale">{{ t('settings.language') }}</label>
+            <select id="locale" name="locale">
+              <option value="en" {% if user.locale == 'en' %}selected{% endif %}>English</option>
+              <option value="pt" {% if user.locale == 'pt' %}selected{% endif %}>Português</option>
+            </select>
+            <span class="hint">{{ t('settings.language_hint') }}</span></div>
+          <button class="btn" type="submit">{{ t('settings.save') }}</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="password-title">
+      <div class="panel-head"><h2 id="password-title">{{ t('settings.password') }}</h2></div>
+      <div class="panel-body">
+        {% if password_error %}<div class="alert alert-error" role="alert">{{ t('auth.error.' ~ password_error) }}</div>{% endif %}
+        <form method="post" action="/settings/password">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <div class="field"><label for="current_password">{{ t('settings.current_password') }}</label>
+            <input id="current_password" name="current_password" type="password" autocomplete="current-password" required></div>
+          <div class="field"><label for="new_password">{{ t('auth.new_password') }}</label>
+            <input id="new_password" name="new_password" type="password" autocomplete="new-password" required minlength="10" aria-describedby="np-hint">
+            <span class="hint" id="np-hint">{{ t('auth.password_hint') }} {{ t('settings.password_sessions') }}</span></div>
+          <button class="btn" type="submit">{{ t('settings.change_password') }}</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="delete-title">
+      <div class="panel-head"><h2 id="delete-title">{{ t('settings.delete') }}</h2></div>
+      <div class="panel-body">
+        <p class="muted">{{ t('settings.delete_text') }}</p>
+        {% if delete_error %}<div class="alert alert-error" role="alert">{{ t('settings.delete_error') }}</div>{% endif %}
+        <form method="post" action="/settings/delete">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <div class="field"><label for="del-password">{{ t('auth.password') }}</label>
+            <input id="del-password" name="password" type="password" autocomplete="current-password" required></div>
+          <div class="field"><label for="confirm">{{ t('settings.delete_confirm_label') }}</label>
+            <input id="confirm" name="confirm" type="text" autocomplete="off" required pattern="DELETE"></div>
+          <button class="btn btn-danger" type="submit">{{ t('settings.delete_submit') }}</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}

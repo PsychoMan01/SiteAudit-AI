@@ -1,0 +1,13 @@
+{% macro public_meta(settings, path, title, description, locale) -%}
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ settings.app_url }}{{ path }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SiteAudit">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ settings.app_url }}{{ path }}">
+<meta property="og:locale" content="{{ 'pt_PT' if locale == 'pt' else 'en_US' }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ description }}">
+{%- endmacro %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ t('auth.reset_title') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="auth">
+    <h1>{{ t('auth.reset_title') }}</h1>
+    {% if invalid %}
+      <div class="alert alert-error" role="alert">{{ t('auth.error.reset_invalid') }}</div>
+      <p class="alt"><a href="/forgot-password">{{ t('auth.request_new_link') }}</a></p>
+    {% else %}
+      {% if error %}<div class="alert alert-error" role="alert">{{ t('auth.error.' ~ error) }}</div>{% endif %}
+      <form method="post" action="/reset-password" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <input type="hidden" name="token" value="{{ token }}">
+        <div class="field">
+          <label for="password">{{ t('auth.new_password') }}</label>
+          <input id="password" name="password" type="password" autocomplete="new-password" required minlength="10" aria-describedby="password-hint" autofocus>
+          <span class="hint" id="password-hint">{{ t('auth.password_hint') }}</span>
+        </div>
+        <button class="btn" type="submit">{{ t('auth.reset_submit') }}</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

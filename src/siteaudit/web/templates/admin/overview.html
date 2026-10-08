@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ t('admin.title') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head"><div><h1>{{ t('admin.title') }}</h1></div>{% include "admin/_nav.html" %}</div>
+  <div class="stack">
+    {% if not worker_ok %}<div class="alert alert-error" role="alert">{{ t('admin.worker_down') }}</div>{% endif %}
+    <dl class="stats">
+      <div class="stat"><dt>{{ t('admin.users') }}</dt><dd>{{ stats.users }}</dd></div>
+      <div class="stat"><dt>{{ t('admin.new_users_week') }}</dt><dd>{{ stats.users_week }}</dd></div>
+      <div class="stat"><dt>{{ t('admin.audits_day') }}</dt><dd>{{ stats.audits_day }}</dd></div>
+      <div class="stat"><dt>{{ t('admin.audits_week') }}</dt><dd>{{ stats.audits_week }}</dd></div>
+      <div class="stat"><dt>{{ t('admin.failed_week') }}</dt><dd>{{ stats.failed_week }}</dd></div>
+    </dl>
+    <dl class="stats">
+      <div class="stat"><dt>{{ t('admin.queued') }}</dt><dd>{{ stats.queued }}</dd></div>
+      <div class="stat"><dt>{{ t('admin.running') }}</dt><dd>{{ stats.running }}</dd></div>
+      <div class="stat"><dt>{{ t('admin.avg_duration') }}</dt><dd>{{ stats.avg_duration if stats.avg_duration is not none else '—' }}{% if stats.avg_duration is not none %} s{% endif %}</dd></div>
+      <div class="stat"><dt>{{ t('admin.reports_week') }}</dt><dd>{{ stats.reports_week }}</dd></div>
+      <div class="stat"><dt>{{ t('admin.worker') }}</dt><dd class="text">{{ t('admin.worker_ok') if worker_ok else t('admin.worker_missing') }}</dd></div>
+    </dl>
+    <section class="panel"><div class="panel-head"><h2>{{ t('admin.plans') }}</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>{{ t('admin.plan') }}</th><th class="num">{{ t('admin.subscribers') }}</th><th class="num">{{ t('admin.limit_audits') }}</th><th class="num">{{ t('admin.limit_pages') }}</th></tr></thead>
+        <tbody>{% for pid, p in limits.items() %}<tr><td>{{ t('plans.' ~ pid ~ '.name') }}</td><td class="num">{{ plans.get(pid, 0) }}</td><td class="num">{{ p.audits_per_month }}</td><td class="num">{{ p.max_pages }}</td></tr>{% endfor %}</tbody>
+      </table></div>
+    </section>
+    <section class="panel"><div class="panel-head"><h2>{{ t('admin.errors') }}</h2></div>
+      {% if errors %}
+      <div class="table-wrap"><table>
+        <thead><tr><th>{{ t('admin.error_code') }}</th><th class="num">{{ t('admin.count') }}</th></tr></thead>
+        <tbody>{% for code, n in errors %}<tr><td class="mono">{{ code or '—' }}</td><td class="num">{{ n }}</td></tr>{% endfor %}</tbody>
+      </table></div>
+      {% else %}<div class="empty">{{ t('admin.no_errors') }}</div>{% endif %}
+    </section>
+  </div>
+</div>
+{% endblock %}

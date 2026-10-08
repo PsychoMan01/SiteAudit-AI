@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% from "_macros.html" import url_form %}
+{% block title %}{{ t('dash.new_audit') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head"><div><h1>{{ t('dash.new_audit') }}</h1>
+    <p class="sub">{{ t('dash.usage', used=used, limit=plan.audits_per_month, plan=t('plans.' ~ plan.id ~ '.name')) }}</p></div></div>
+  {% if error %}
+    <div class="alert alert-error" role="alert"><p>{{ t('audit_error.' ~ error, **(error_params or {})) }}</p></div>
+  {% endif %}
+  {{ url_form(user, csrf_token, t, value=url, autofocus=true) }}
+  <p class="muted small">{{ t('dash.new_hint', pages=plan.max_pages) }}</p>
+</div>
+{% endblock %}

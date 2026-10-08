@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% from "_macros.html" import score_value, bar, severity, date %}
+{% block title %}{{ audit.host }} — {{ t('result.title') }} — SiteAudit{% endblock %}
+{% block content %}
+{% set overall = audit.overall_score %}
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow">{{ t('result.eyebrow') }}</p>
+      <h1 class="break">{{ audit.host }}</h1>
+      <p class="sub"><span class="mono break">{{ audit.final_url or audit.url }}</span><br>
+        {{ date(audit.finished_at, locale) }} · {{ t('result.pages_audited', n=facts.get('html_pages', audit.pages_crawled)) }}</p>
+    </div>
+    <div class="actions no-print">
+      <a class="btn" href="/audits/{{ audit.public_id }}/report.pdf">{{ t('result.download_pdf') if plan.full_report else t('result.download_summary_pdf') }}</a>
+      <a class="btn btn-secondary" href="/audits/new?url={{ audit.url | urlencode }}">{{ t('result.rerun') }}</a>
+    </div>
+  </div>
+
+  <div class="stack">
+    <section class="result-top" aria-label="{{ t('result.scores_label') }}">
+      <div class="overall">
+        <div class="muted small">{{ t('result.overall') }}</div>
+        <div class="big grade-{{ grade(overall) }}">{{ overall if overall is not none else '—' }} <small>/ 100</small></div>
+        <div class="verdict grade-{{ grade(overall) }}">{{ t('grade.' ~ grade(overall)) }}</div>
+        <p class="muted small">{{ t('result.how_scored') }} <a href="/methodology">{{ t('nav.methodology') }}</a>.</p>
+      </div>
+      <div class="cat-scores">
+        {% for cat in categories %}
+          {% set s = scores.get(cat) %}
+          <div class="cat-row">
+            <a href="?category={{ cat }}#issues">{{ t('category.' ~ cat) }}</a>
+            {{ bar(s.score if s else none) }}
+            {{ score_value(s.score if s else none) }}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section aria-labelledby="summary-title">
+      <h2 id="summary-title">{{ t('result.summary') }}</h2>
+      <div class="summary-text">
+        {% set c = summary.severity_counts %}
+        {% if summary.groups|length == 0 %}
+          <p>{{ t('result.summary_clean') }}</p>
+        {% else %}
+          <p>{{ t('result.summary_counts', total=(c.critical + c.high + c.medium + c.low), critical=c.critical, high=c.high) }}
+          {% if summary.weakest and summary.weakest != summary.strongest %}{{ t('result.summary_weakest', weakest=t('category.' ~ summary.weakest), strongest=t('category.' ~ summary.strongest)) }}{% endif %}</p>
+          {% if summary.priorities %}
+            <p>{{ t('result.priorities_intro') }}</p>
+            <ol class="priorities">
+              {% for g in summary.priorities %}
+                <li>{{ t('rules.' ~ g.rule_id ~ '.title') }} — <span class="sev sev-{{ g.severity }}">{{ t('severity.' ~ g.severity) }}</span>{% if g.pages|length > 1 %} <span class="muted">({{ t('result.on_pages', n=g.pages|length) }})</span>{% endif %}</li>
+              {% endfor %}
+            </ol>
+          {% endif %}
+        {% endif %}
+        {% if show_ai %}
+          <h3>{{ t('result.ai_title') }}</h3>
+          {% for para in audit.ai_summary.split('\n\n') %}<p>{{ para }}</p>{% endfor %}
+          <p class="faint small">{{ t('result.ai_note') }}</p>
+        {% endif %}
+        {% if facts.get('limit_reached') %}<p class="muted small">{{ t('result.limit_reached', n=audit.max_pages) }}</p>{% endif %}
+        {% if facts.get('deadline_reached') %}<p class="muted small">{{ t('result.deadline_reached') }}</p>{% endif %}
+      </div>
+    </section>
+
+    <section aria-labelledby="counts-title">
+      <h2 id="counts-title">{{ t('result.issues_found') }}</h2>
+      <nav class="sev-counts" aria-label="{{ t('result.by_severity') }}">
+        {% for sev in ('critical', 'high', 'medium', 'low', 'info') %}
+          <a href="?severity={{ sev }}#issues" {% if filters.severity == sev %}aria-current="true"{% endif %}><strong>{{ summary.severity_counts[sev] }}</strong><span class="sev sev-{{ sev }}">{{ t('severity.' ~ sev) }}</span></a>
+        {% endfor %}
+      </nav>
+      <p class="muted small">{{ t('result.counts_note') }}</p>
+    </section>
+
+    <section class="panel" id="issues" aria-labelledby="issues-title">
+      <div class="panel-head">
+        <h2 id="issues-title">{{ t('result.details') }}</h2>
+        <form class="filters" method="get" action="#issues" data-autosubmit>
+          <div class="field">
+            <label for="f-category" class="small">{{ t('result.category') }}</label>
+            <select id="f-category" name="category">
+              <option value="">{{ t('result.all') }}</option>
+              {% for cat in categories %}<option value="{{ cat }}" {% if filters.category == cat %}selected{% endif %}>{{ t('category.' ~ cat) }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-severity" class="small">{{ t('result.severity') }}</label>
+            <select id="f-severity" name="severity">
+              <option value="">{{ t('result.all') }}</option>
+              {% for sev in ('critical', 'high', 'medium', 'low', 'info') %}<option value="{{ sev }}" {% if filters.severity == sev %}selected{% endif %}>{{ t('severity.' ~ sev) }}</option>{% endfor %}
+            </select>
+          </div>
+          {% if page_options %}
+          <div class="field wide">
+            <label for="f-page" class="small">{{ t('result.page') }}</label>
+            <select id="f-page" name="page_url">
+              <option value="">{{ t('result.all_pages') }}</option>
+              {% for u in page_options %}<option value="{{ u }}" {% if filters.page_url == u %}selected{% endif %}>{{ u }}</option>{% endfor %}
+            </select>
+          </div>
+          {% endif %}
+          <button class="btn btn-secondary btn-sm" type="submit">{{ t('result.apply') }}</button>
+          {% if filters.category or filters.severity or filters.page_url %}<a class="small" href="?#issues">{{ t('result.clear') }}</a>{% endif %}
+        </form>
+      </div>
+      {% if groups %}
+        {% for g in groups %}
+        {% set key = 'rules.' ~ g.rule_id %}
+        <details class="issue">
+          <summary>
+            <span>{{ severity(g.severity, t) }}</span>
+            <span class="issue-title">{{ t(key ~ '.title') }}</span>
+            <span class="issue-meta">{{ t('category.' ~ g.category) }}{% if g.pages %} · {{ t('result.on_pages', n=g.pages|length) }}{% endif %}</span>
+          </summary>
+          <div class="issue-body">
+            <dl>
+              <dt>{{ t('result.what') }}</dt><dd>{{ t(key ~ '.description') }}</dd>
+              <dt>{{ t('result.impact') }}</dt><dd>{{ t(key ~ '.impact') }}</dd>
+              <dt>{{ t('result.fix') }}</dt><dd>{{ t(key ~ '.recommendation') }}</dd>
+            </dl>
+            <ul class="occurrences">
+              {% for issue in g.occurrences[:25] %}
+                {% set ev = evidence.get(issue.id, {}) %}
+                <li>
+                  {% if issue.page_url %}<div class="url">{{ issue.page_url }}</div>{% else %}<div class="url">{{ t('result.sitewide') }}</div>{% endif %}
+                  {% if t_has(key ~ '.evidence') and ev %}<div class="evidence">{{ t(key ~ '.evidence', **ev) }}</div>{% endif %}
+                </li>
+              {% endfor %}
+              {% if g.occurrences|length > 25 %}<li class="muted">{{ t('result.more', n=g.occurrences|length - 25) }}</li>{% endif %}
+            </ul>
+          </div>
+        </details>
+        {% endfor %}
+      {% else %}
+        <div class="empty">{{ t('result.no_issues_filtered') if (filters.category or filters.severity or filters.page_url) else t('result.summary_clean') }}</div>
+      {% endif %}
+    </section>
+
+    {% if facts.get('undetermined') %}
+    <section class="panel" aria-labelledby="undetermined-title">
+      <div class="panel-head"><h2 id="undetermined-title">{{ t('result.undetermined') }}</h2></div>
+      <div class="panel-body">
+        <p class="muted">{{ t('result.undetermined_lead') }}</p>
+        <ul>
+          {% for rule_id, reason in facts['undetermined'].items() %}
+            <li>{{ t('rules.' ~ rule_id ~ '.title') }} — <span class="muted">{{ t('undetermined.' ~ reason) }}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+    {% endif %}
+
+    <section class="panel" aria-labelledby="facts-title">
+      <div class="panel-head"><h2 id="facts-title">{{ t('result.facts') }}</h2></div>
+      <div class="panel-body">
+        <dl class="facts">
+          <div><dt>{{ t('facts.response') }}</dt><dd>{{ facts.get('home_response_ms') }} ms</dd></div>
+          <div><dt>{{ t('facts.html_size') }}</dt><dd>{{ facts.get('home_html_kb') }} KB</dd></div>
+          <div><dt>robots.txt</dt><dd>{{ t('facts.found') if facts.get('robots', {}).get('found') else t('facts.not_found') }}</dd></div>
+          <div><dt>{{ t('facts.sitemap') }}</dt><dd>{% if facts.get('sitemap', {}).get('found') %}{{ t('facts.urls', n=facts['sitemap']['url_count']) }}{% else %}{{ t('facts.not_found') }}{% endif %}</dd></div>
+          {% if facts.get('tls') %}
+            <div><dt>{{ t('facts.certificate') }}</dt><dd>{% if facts['tls']['valid'] %}{{ t('facts.valid_until', date=facts['tls']['expires']) }}{% elif facts['tls']['checked'] %}{{ t('facts.invalid') }}{% else %}{{ t('facts.not_checked') }}{% endif %}</dd></div>
+            <div><dt>{{ t('facts.issuer') }}</dt><dd>{{ facts['tls']['issuer'] or '—' }}</dd></div>
+          {% endif %}
+          <div><dt>{{ t('facts.links_checked') }}</dt><dd>{{ facts.get('links_checked') }}</dd></div>
+          <div><dt>{{ t('facts.resources_checked') }}</dt><dd>{{ facts.get('resources_checked') }}</dd></div>
+        </dl>
+        {% if audit.technologies %}
+          <h3>{{ t('result.technologies') }}</h3>
+          <div class="table-wrap"><table class="responsive">
+            <thead><tr><th>{{ t('tech.name') }}</th><th>{{ t('tech.type') }}</th><th>{{ t('tech.confidence') }}</th><th>{{ t('tech.evidence') }}</th></tr></thead>
+            <tbody>
+            {% for tech in audit.technologies %}
+              <tr><td data-label="{{ t('tech.name') }}">{{ tech.name }}</td><td data-label="{{ t('tech.type') }}">{{ t('tech.group.' ~ tech.group) }}</td>
+                  <td data-label="{{ t('tech.confidence') }}">{{ t('tech.level.' ~ tech.confidence) }}</td><td data-label="{{ t('tech.evidence') }}" class="small mono break">{{ tech.evidence }}</td></tr>
+            {% endfor %}
+            </tbody>
+          </table></div>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="pages-title">
+      <div class="panel-head"><h2 id="pages-title">{{ t('result.pages') }}</h2><span class="muted small">{{ t('result.pages_count', n=audit.pages|length) }}</span></div>
+      <div class="table-wrap"><table class="responsive">
+        <thead><tr><th>URL</th><th class="num">{{ t('pages.status') }}</th><th class="num">{{ t('pages.time') }}</th><th class="num">{{ t('pages.size') }}</th><th class="num">{{ t('pages.issues') }}</th></tr></thead>
+        <tbody>
+        {% for p in audit.pages[:200] %}
+          <tr>
+            <td data-label="URL" class="break"><a class="mono small" href="?page_url={{ p.url | urlencode }}#issues">{{ p.url }}</a>{% if p.title %}<br><span class="muted small">{{ p.title }}</span>{% endif %}</td>
+            <td data-label="{{ t('pages.status') }}" class="num">{{ p.status_code or t('crawl_error_short.' ~ (p.error or 'connection_error')) }}</td>
+            <td data-label="{{ t('pages.time') }}" class="num">{{ p.response_ms if p.response_ms is not none else '—' }} ms</td>
+            <td data-label="{{ t('pages.size') }}" class="num">{{ ((p.html_bytes or 0) / 1024) | round(1) }} KB</td>
+            <td data-label="{{ t('pages.issues') }}" class="num">{{ page_counts.get(p.url, 0) }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table></div>
+    </section>
+
+    <div class="actions no-print">
+      <form method="post" action="/audits/{{ audit.public_id }}/delete" class="inline-form" data-confirm="{{ t('result.delete_confirm') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button class="btn btn-danger btn-sm" type="submit">{{ t('result.delete') }}</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

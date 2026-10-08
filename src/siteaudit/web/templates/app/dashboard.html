@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "_macros.html" import score_value, status, date, url_form %}
+{% block title %}{{ t('dash.title') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <h1>{{ t('dash.title') }}</h1>
+      <p class="sub">{{ t('dash.usage', used=used, limit=plan.audits_per_month, plan=t('plans.' ~ plan.id ~ '.name')) }}</p>
+    </div>
+  </div>
+
+  <section class="panel" aria-labelledby="new-title">
+    <div class="panel-head"><h2 id="new-title">{{ t('dash.new_audit') }}</h2>
+      <span class="muted small">{{ t('dash.new_hint', pages=plan.max_pages) }}</span></div>
+    <div class="panel-body">{{ url_form(user, csrf_token, t) }}</div>
+  </section>
+
+  <br>
+  <dl class="stats" aria-label="{{ t('dash.stats_label') }}">
+    <div class="stat"><dt>{{ t('dash.total') }}</dt><dd>{{ stats.total }}</dd></div>
+    <div class="stat"><dt>{{ t('dash.avg') }}</dt><dd>{{ score_value(stats.avg) }}</dd></div>
+    <div class="stat"><dt>{{ t('dash.sites') }}</dt><dd>{{ stats.sites }}</dd></div>
+    <div class="stat"><dt>{{ t('dash.critical') }}</dt><dd>{% if latest %}{{ stats.critical }}{% else %}—{% endif %}</dd></div>
+    <div class="stat"><dt>{{ t('dash.latest') }}</dt>
+      <dd class="text">{% if latest %}<a class="break" href="/audits/{{ latest.public_id }}">{{ latest.host }}</a>{% else %}—{% endif %}</dd></div>
+  </dl>
+  {% if plan.history_days %}<p class="muted small">{{ t('dash.history_note', days=plan.history_days) }}</p>{% endif %}
+
+  <section class="panel" aria-labelledby="recent-title">
+    <div class="panel-head"><h2 id="recent-title">{{ t('dash.recent') }}</h2>{% if recent %}<a href="/audits">{{ t('dash.view_all') }}</a>{% endif %}</div>
+    {% if recent %}
+    <div class="table-wrap"><table class="responsive">
+      <thead><tr><th>{{ t('audits.site') }}</th><th>{{ t('audits.status') }}</th><th class="num">{{ t('audits.score') }}</th><th>{{ t('audits.date') }}</th></tr></thead>
+      <tbody>
+      {% for a in recent %}
+        <tr>
+          <td data-label="{{ t('audits.site') }}"><a class="break" href="/audits/{{ a.public_id }}">{{ a.host }}</a></td>
+          <td data-label="{{ t('audits.status') }}">{{ status(a, t) }}</td>
+          <td data-label="{{ t('audits.score') }}" class="num">{{ score_value(a.overall_score) }}</td>
+          <td data-label="{{ t('audits.date') }}">{{ date(a.created_at, locale) }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    {% else %}
+      <div class="empty">{{ t('dash.empty') }}</div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

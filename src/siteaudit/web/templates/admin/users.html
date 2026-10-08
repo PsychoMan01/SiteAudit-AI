@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% from "_macros.html" import date %}
+{% block title %}{{ t('admin.users') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head"><div><h1>{{ t('admin.users') }}</h1></div>{% include "admin/_nav.html" %}</div>
+  <section class="panel">
+    <div class="panel-head">
+      <form class="filters" method="get" action="/admin/users" role="search">
+        <div class="field wide"><label for="q" class="visually-hidden">{{ t('admin.search_email') }}</label>
+          <input id="q" type="search" name="q" value="{{ q }}" placeholder="{{ t('admin.search_email') }}"></div>
+        <button class="btn btn-secondary btn-sm" type="submit">{{ t('audits.search_submit') }}</button>
+      </form>
+    </div>
+    <div class="table-wrap"><table class="responsive">
+      <thead><tr><th>{{ t('auth.email') }}</th><th>{{ t('admin.created') }}</th><th class="num">{{ t('admin.audits') }}</th><th>{{ t('admin.plan_status') }}</th></tr></thead>
+      <tbody>
+      {% for u in rows %}
+        <tr>
+          <td data-label="{{ t('auth.email') }}" class="break">{{ u.email }}{% if u.is_admin %} <span class="pill">{{ t('admin.role_admin') }}</span>{% endif %}</td>
+          <td data-label="{{ t('admin.created') }}">{{ date(u.created_at, locale) }}</td>
+          <td data-label="{{ t('admin.audits') }}" class="num">{{ audit_counts.get(u.id, 0) }}</td>
+          <td data-label="{{ t('admin.plan_status') }}">
+            <form method="post" action="/admin/users/{{ u.id }}" class="actions">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <label class="visually-hidden" for="plan-{{ u.id }}">{{ t('admin.plan') }}</label>
+              <select id="plan-{{ u.id }}" name="plan">{% for pid in plan_ids %}<option value="{{ pid }}" {% if u.plan == pid %}selected{% endif %}>{{ t('plans.' ~ pid ~ '.name') }}</option>{% endfor %}</select>
+              <label class="check"><input type="checkbox" name="active" value="yes" {% if u.is_active %}checked{% endif %}> {{ t('admin.active') }}</label>
+              <button class="btn btn-secondary btn-sm" type="submit">{{ t('settings.save') }}</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    {% if pages > 1 %}<nav class="pager">{% if page > 1 %}<a href="?page={{ page - 1 }}&q={{ q|urlencode }}">{{ t('audits.prev') }}</a>{% else %}<span></span>{% endif %}<span class="muted">{{ t('audits.page_of', page=page, pages=pages) }}</span>{% if page < pages %}<a href="?page={{ page + 1 }}&q={{ q|urlencode }}">{{ t('audits.next') }}</a>{% else %}<span></span>{% endif %}</nav>{% endif %}
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% macro score_value(value) -%}
+<span class="score grade-{{ grade(value) }}">{{ value if value is not none else '—' }}</span>
+{%- endmacro %}
+
+{% macro bar(value) -%}
+{% set g = grade(value) %}
+<svg class="bar" viewBox="0 0 100 6" preserveAspectRatio="none" aria-hidden="true" focusable="false"><rect class="track" x="0" y="0" width="100" height="6"/>{% if value is not none %}<rect class="fill-{{ g }}" x="0" y="0" width="{{ value }}" height="6"/>{% endif %}</svg>
+{%- endmacro %}
+
+{% macro severity(sev, t) -%}
+<span class="sev sev-{{ sev }}">{{ t('severity.' ~ sev) }}</span>
+{%- endmacro %}
+
+{% macro status(audit, t) -%}
+<span class="pill status-{{ audit.status }}">{{ t('status.' ~ audit.status) }}</span>
+{%- endmacro %}
+
+{% macro date(value, locale) -%}
+{%- if value -%}<time datetime="{{ value.isoformat() }}">{{ value.strftime('%Y-%m-%d %H:%M') }} UTC</time>{%- else -%}—{%- endif -%}
+{%- endmacro %}
+
+{% macro url_form(user, csrf_token, t, value='', autofocus=false, input_id='url-input') -%}
+<form class="url-form" method="{{ 'post' if user else 'get' }}" action="{{ '/audits' if user else '/register' }}" novalidate>
+  {% if user %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
+  <label class="visually-hidden" for="{{ input_id }}">{{ t('form.url_label') }}</label>
+  <input id="{{ input_id }}" type="text" name="url" inputmode="url" autocomplete="url" spellcheck="false"
+         autocapitalize="off" placeholder="https://example.com" value="{{ value }}" required maxlength="2048"
+         {% if autofocus %}autofocus{% endif %}>
+  <button class="btn" type="submit">{{ t('form.analyze') }}</button>
+</form>
+{%- endmacro %}

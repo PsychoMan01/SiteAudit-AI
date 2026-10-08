@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from "_seo.html" import public_meta %}
+{% block title %}{{ t('terms.title') }} — SiteAudit{% endblock %}
+{% block seo %}{{ public_meta(settings, '/terms', t('terms.title') ~ ' — SiteAudit', t('terms.lead'), locale) }}{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head"><div><h1>{{ t('terms.title') }}</h1><p class="sub">{{ t('terms.lead') }}</p></div></div>
+  <div class="prose">
+    {% for i in range(1, 9) %}{% if t_has('terms.h' ~ i) %}
+      <h2>{{ t('terms.h' ~ i) }}</h2>
+      <p>{{ t('terms.p' ~ i) }}</p>
+    {% endif %}{% endfor %}
+  </div>
+</div>
+{% endblock %}

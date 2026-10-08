@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% from "_macros.html" import score_value, status, date %}
+{% block title %}{{ t('audits.title') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <div><h1>{{ t('audits.title') }}</h1><p class="sub">{{ t('audits.count', n=total) }}</p></div>
+    <a class="btn" href="/audits/new">{{ t('dash.new_audit') }}</a>
+  </div>
+  <section class="panel">
+    <div class="panel-head">
+      <form class="filters" method="get" action="/audits" role="search">
+        <div class="field wide">
+          <label for="q" class="visually-hidden">{{ t('audits.search') }}</label>
+          <input id="q" type="search" name="q" value="{{ q }}" placeholder="{{ t('audits.search') }}">
+        </div>
+        <button class="btn btn-secondary btn-sm" type="submit">{{ t('audits.search_submit') }}</button>
+      </form>
+    </div>
+    {% if audits %}
+    <div class="table-wrap"><table class="responsive">
+      <thead><tr><th>{{ t('audits.site') }}</th><th>{{ t('audits.status') }}</th><th class="num">{{ t('audits.score') }}</th><th class="num">{{ t('audits.pages') }}</th><th>{{ t('audits.date') }}</th></tr></thead>
+      <tbody>
+      {% for a in audits %}
+        <tr>
+          <td data-label="{{ t('audits.site') }}"><a class="break" href="/audits/{{ a.public_id }}">{{ a.host }}</a><br><span class="faint small mono break">{{ a.url }}</span></td>
+          <td data-label="{{ t('audits.status') }}">{{ status(a, t) }}</td>
+          <td data-label="{{ t('audits.score') }}" class="num">{{ score_value(a.overall_score) }}</td>
+          <td data-label="{{ t('audits.pages') }}" class="num">{{ a.pages_crawled if a.status == 'completed' else '—' }}</td>
+          <td data-label="{{ t('audits.date') }}">{{ date(a.created_at, locale) }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    {% if pages > 1 %}
+    <nav class="pager" aria-label="{{ t('audits.pagination') }}">
+      {% if page > 1 %}<a href="?page={{ page - 1 }}&q={{ q | urlencode }}">{{ t('audits.prev') }}</a>{% else %}<span></span>{% endif %}
+      <span class="muted">{{ t('audits.page_of', page=page, pages=pages) }}</span>
+      {% if page < pages %}<a href="?page={{ page + 1 }}&q={{ q | urlencode }}">{{ t('audits.next') }}</a>{% else %}<span></span>{% endif %}
+    </nav>
+    {% endif %}
+    {% else %}
+      <div class="empty">{{ t('audits.empty_search') if q else t('dash.empty') }}</div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ t('error.' ~ error_key ~ '.title') }} — SiteAudit{% endblock %}
+{% block content %}
+<div class="wrap">
+  <div class="page-head"><div>
+    <p class="eyebrow">{{ t('error.code', code=code) }}</p>
+    <h1>{{ t('error.' ~ error_key ~ '.title') }}</h1>
+    <p class="sub">{{ t('error.' ~ error_key ~ '.text') }}</p>
+  </div></div>
+  <p><a class="btn btn-secondary" href="{{ '/dashboard' if user else '/' }}">{{ t('error.back') }}</a></p>
+</div>
+{% endblock %}

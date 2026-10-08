@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="{{ locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SiteAudit — {{ t('meta.tagline') }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ t('meta.description') }}{% endblock %}">
+  {% block seo %}<meta name="robots" content="noindex">{% endblock %}
+  <link rel="icon" href="/static/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <script src="/static/js/app.js" defer></script>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#main">{{ t('nav.skip') }}</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="{{ '/dashboard' if user else '/' }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="3" fill="#111418"/><path d="M6 12.5h3l2-5 2.6 9 2-4H18" stroke="#fff" stroke-width="1.8" fill="none"/></svg>
+        <span>SiteAudit</span>
+      </a>
+      <nav class="nav" aria-label="{{ t('nav.label') }}">
+        {% if user %}
+          <a href="/dashboard" {% if path == '/dashboard' %}aria-current="page"{% endif %}>{{ t('nav.dashboard') }}</a>
+          <a href="/audits" {% if path.startswith('/audits') %}aria-current="page"{% endif %}>{{ t('nav.audits') }}</a>
+          <a href="/settings" {% if path == '/settings' %}aria-current="page"{% endif %}>{{ t('nav.settings') }}</a>
+          {% if user.is_admin %}<a href="/admin" {% if path.startswith('/admin') %}aria-current="page"{% endif %}>{{ t('nav.admin') }}</a>{% endif %}
+          <form method="post" action="/logout">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button class="btn-link" type="submit">{{ t('nav.logout') }}</button>
+          </form>
+        {% else %}
+          <a href="/#how">{{ t('nav.how') }}</a>
+          <a href="/#pricing">{{ t('nav.pricing') }}</a>
+          <a href="/methodology" {% if path == '/methodology' %}aria-current="page"{% endif %}>{{ t('nav.methodology') }}</a>
+          <a href="/login">{{ t('nav.login') }}</a>
+          <a class="btn btn-sm" href="/register">{{ t('nav.register') }}</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    {% if flash %}
+      <div class="wrap"><div class="alert alert-ok" role="status">{{ t(flash) }}</div></div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>
+        <strong>SiteAudit</strong><br>
+        <span>{{ t('footer.tagline') }}</span>
+      </div>
+      <nav aria-label="{{ t('footer.label') }}">
+        <a href="/methodology">{{ t('nav.methodology') }}</a>
+        <a href="/bot">{{ t('footer.bot') }}</a>
+        <a href="/privacy">{{ t('footer.privacy') }}</a>
+        <a href="/terms">{{ t('footer.terms') }}</a>
+        {% if settings.contact_email %}<a href="mailto:{{ settings.contact_email }}">{{ t('footer.contact') }}</a>{% endif %}
+      </nav>
+      <form class="lang-switch" method="post" action="/lang">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <input type="hidden" name="next" value="{{ path }}">
+        <span class="visually-hidden">{{ t('footer.language') }}</span>
+        <button type="submit" name="lang" value="en" lang="en" aria-pressed="{{ 'true' if locale == 'en' else 'false' }}">English</button>
+        <span aria-hidden="true">·</span>
+        <button type="submit" name="lang" value="pt" lang="pt" aria-pressed="{{ 'true' if locale == 'pt' else 'false' }}">Português</button>
+      </form>
+    </div>
+  </footer>
+</body>
+</html>
