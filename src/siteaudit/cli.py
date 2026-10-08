@@ -25,6 +25,7 @@ def cmd_serve(args: argparse.Namespace) -> int:
         "siteaudit.web.asgi:app",
         host=args.host,
         port=args.port,
+        workers=args.workers,
         proxy_headers=False,
         server_header=False,
         log_config=None,
@@ -178,6 +179,29 @@ def cmd_purge(_args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_backup(args: argparse.Namespace) -> int:
+    """Online, consistent copy of a SQLite database. For PostgreSQL use pg_dump (see DEPLOYMENT.md)."""
+    import sqlite3
+    from datetime import UTC, datetime
+    from pathlib import Path
+
+    settings = get_settings()
+    if not settings.database_url.startswith("sqlite:///"):
+        print(
+            "Backups of non-SQLite databases are done with the database's own tools (pg_dump).",
+            file=sys.stderr,
+        )
+        return 2
+    source = Path(settings.database_url.removeprefix("sqlite:///"))
+    target_dir = Path(args.dir) if args.dir else settings.data_dir / "backups"
+    target_dir.mkdir(parents=True, exist_ok=True)
+    target = target_dir / f"siteaudit-{datetime.now(UTC):%Y%m%d-%H%M%S}.db"
+    with sqlite3.connect(source) as src, sqlite3.connect(target) as dst:
+        src.backup(dst)
+    print(f"Backup written to {target}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="siteaudit", description="SiteAudit AI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -187,6 +211,7 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("serve", help="run the web server")
     p.add_argument("--host", default="127.0.0.1")
     p.add_argument("--port", type=int, default=8000)
+    p.add_argument("--workers", type=int, default=1, help="web processes (each has its own burst limiter)")
     p.set_defaults(fn=cmd_serve)
 
     sub.add_parser("worker", help="run the audit worker").set_defaults(fn=cmd_worker)
@@ -203,6 +228,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--depth", type=int, default=3)
     p.add_argument("--json", action="store_true")
     p.set_defaults(fn=cmd_audit)
+
+    p = sub.add_parser("backup", help="copy the SQLite database to a timestamped file")
+    p.add_argument("--dir", default="")
+    p.set_defaults(fn=cmd_backup)
 
     sub.add_parser("purge", help="delete audits past their plan's retention period").set_defaults(
         fn=cmd_purge

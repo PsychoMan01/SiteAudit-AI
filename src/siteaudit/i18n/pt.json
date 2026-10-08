@@ -48,12 +48,42 @@
     "checks_title": "Seis áreas, uma pontuação consistente",
     "checks_lead": "Cada verificação é uma regra fixa e documentada. O mesmo site, nas mesmas condições, obtém o mesmo resultado.",
     "checks": {
-      "seo": {"1": "Títulos, descrições e cabeçalhos", "2": "Canonical, robots.txt e sitemap", "3": "Links internos quebrados e redirecionamentos", "4": "Conteúdo duplicado e escasso"},
-      "performance": {"1": "Tempo de resposta do servidor", "2": "Compressão e cache dos recursos", "3": "Scripts que bloqueiam a apresentação", "4": "Imagens e JavaScript demasiado pesados"},
-      "accessibility": {"1": "Imagens sem texto alternativo", "2": "Campos e botões sem rótulo", "3": "Estrutura de cabeçalhos e regiões", "4": "Zoom bloqueado e uso indevido de ARIA"},
-      "mobile": {"1": "Configuração do viewport", "2": "Layouts de largura fixa", "3": "Imagens responsivas", "4": "Plugins que não funcionam em telemóveis"},
-      "security": {"1": "HTTPS, redirecionamentos e validade do certificado", "2": "Cabeçalhos de segurança (HSTS, CSP, frames)", "3": "Atributos dos cookies", "4": "Conteúdo misto e divulgação de versões"},
-      "best_practices": {"1": "Erros de servidor e páginas inacessíveis", "2": "Links externos quebrados", "3": "Doctype e codificação de caracteres", "4": "HTML obsoleto"}
+      "seo": {
+        "1": "Títulos, descrições e cabeçalhos",
+        "2": "Canonical, robots.txt e sitemap",
+        "3": "Links internos quebrados e redirecionamentos",
+        "4": "Conteúdo duplicado e escasso"
+      },
+      "performance": {
+        "1": "Tempo de resposta do servidor",
+        "2": "Compressão e cache dos recursos",
+        "3": "Scripts que bloqueiam a apresentação",
+        "4": "Imagens e JavaScript demasiado pesados"
+      },
+      "accessibility": {
+        "1": "Imagens sem texto alternativo",
+        "2": "Campos e botões sem rótulo",
+        "3": "Estrutura de cabeçalhos e regiões",
+        "4": "Zoom bloqueado e uso indevido de ARIA"
+      },
+      "mobile": {
+        "1": "Configuração do viewport",
+        "2": "Layouts de largura fixa",
+        "3": "Imagens responsivas",
+        "4": "Plugins que não funcionam em telemóveis"
+      },
+      "security": {
+        "1": "HTTPS, redirecionamentos e validade do certificado",
+        "2": "Cabeçalhos de segurança (HSTS, CSP, frames)",
+        "3": "Atributos dos cookies",
+        "4": "Conteúdo misto e divulgação de versões"
+      },
+      "best_practices": {
+        "1": "Erros de servidor e páginas inacessíveis",
+        "2": "Links externos quebrados",
+        "3": "Doctype e codificação de caracteres",
+        "4": "HTML obsoleto"
+      }
     },
     "sample_eyebrow": "O relatório",
     "sample_title": "Uma pontuação que se explica e uma lista que se pode executar",
@@ -87,18 +117,29 @@
     "a8": "Não. Os pedidos são feitos um de cada vez, com uma pausa entre eles, e respeitamos o Crawl-delay definido no robots.txt."
   },
   "plans": {
-    "free": {"name": "Gratuito", "for": "Para verificar o seu próprio site de vez em quando.", "cta": "Criar conta gratuita"},
-    "pro": {"name": "Pro", "for": "Para freelancers e donos de sites que auditam com regularidade."},
-    "agency": {"name": "Agency", "for": "Para equipas que auditam muitos websites de clientes."},
+    "free": {
+      "name": "Gratuito",
+      "for": "Para verificar o seu próprio site de vez em quando.",
+      "cta": "Criar conta gratuita"
+    },
+    "pro": {
+      "name": "Pro",
+      "for": "Para freelancers e donos de sites que auditam com regularidade."
+    },
+    "agency": {
+      "name": "Agency",
+      "for": "Para equipas que auditam muitos websites de clientes."
+    },
     "audits_per_month": "{n} auditorias por mês",
     "pages_per_audit": "Até {n} páginas por auditoria",
-    "concurrent": "{n} auditoria(s) em simultâneo",
+    "concurrent": "{n} auditorias em simultâneo",
     "report_full": "Relatório PDF completo",
     "report_summary": "Relatório PDF resumido",
     "history_unlimited": "Histórico de auditorias ilimitado",
     "history_days": "Histórico de {n} dias",
     "contact_cta": "Contacte-nos",
-    "paid_note": "Os planos pagos ainda não estão disponíveis para subscrição direta."
+    "paid_note": "Os planos pagos ainda não estão disponíveis para subscrição direta.",
+    "concurrent_one": "1 auditoria de cada vez"
   },
   "category": {
     "seo": "SEO",
@@ -228,7 +269,7 @@
   },
   "audits": {
     "title": "Auditorias",
-    "count": "{n} auditoria(s)",
+    "count": "{n} auditorias",
     "search": "Filtrar por domínio",
     "search_submit": "Pesquisar",
     "site": "Website",
@@ -240,7 +281,8 @@
     "pagination": "Paginação",
     "prev": "Anterior",
     "next": "Seguinte",
-    "page_of": "Página {page} de {pages}"
+    "page_of": "Página {page} de {pages}",
+    "count_one": "1 auditoria"
   },
   "audit_error": {
     "url_empty": "Indique o endereço de um website.",
@@ -253,8 +295,9 @@
     "url_port": "Só é possível auditar websites nas portas padrão (80 e 443).",
     "url_private_address": "Este endereço aponta para uma rede privada, local ou reservada e não pode ser auditado.",
     "url_dns": "Não encontrámos este domínio. Verifique a ortografia e tente novamente.",
-    "too_many_running": "O seu plano permite {limit} auditoria(s) em simultâneo. Aguarde que a atual termine.",
-    "monthly_limit": "Já usou as {limit} auditorias incluídas no seu plano este mês."
+    "too_many_running": "O seu plano permite {n} auditorias em simultâneo. Aguarde que uma termine.",
+    "monthly_limit": "Já usou as {limit} auditorias incluídas no seu plano este mês.",
+    "too_many_running_one": "O seu plano permite uma auditoria de cada vez. Aguarde que a atual termine."
   },
   "progress": {
     "eyebrow": "Auditoria em curso",
@@ -306,7 +349,7 @@
   "result": {
     "title": "Resultados da auditoria",
     "eyebrow": "Resultados da auditoria",
-    "pages_audited": "{n} página(s) auditada(s)",
+    "pages_audited": "{n} páginas auditadas",
     "download_pdf": "Descarregar relatório PDF",
     "download_summary_pdf": "Descarregar resumo em PDF",
     "rerun": "Executar novamente",
@@ -315,7 +358,7 @@
     "how_scored": "Como são calculadas as pontuações:",
     "summary": "Resumo",
     "summary_clean": "As verificações que foi possível executar neste website não encontraram problemas.",
-    "summary_counts": "Encontrámos {total} problema(s) que afetam a pontuação, dos quais {critical} críticos e {high} de gravidade alta.",
+    "summary_counts": "Encontrámos {total} problemas que afetam a pontuação: {critical} críticos e {high} de gravidade alta.",
     "summary_weakest": "{weakest} é a área mais fraca; {strongest} é a mais forte.",
     "priorities_intro": "Comece por estes:",
     "on_pages": "{n} páginas",
@@ -345,9 +388,13 @@
     "facts": "Medições",
     "technologies": "Tecnologias detetadas",
     "pages": "Páginas auditadas",
-    "pages_count": "{n} URL(s)",
+    "pages_count": "{n} URLs",
     "delete": "Apagar auditoria",
-    "delete_confirm": "Apagar esta auditoria de forma permanente?"
+    "delete_confirm": "Apagar esta auditoria de forma permanente?",
+    "pages_audited_one": "1 página auditada",
+    "pages_count_one": "1 URL",
+    "on_pages_one": "1 página",
+    "summary_counts_one": "Encontrámos 1 problema que afeta a pontuação."
   },
   "facts": {
     "response": "Tempo de resposta da página inicial",
@@ -385,7 +432,11 @@
       "hosting": "Alojamento",
       "ecommerce": "Comércio eletrónico"
     },
-    "level": {"high": "Alta", "medium": "Média", "low": "Baixa"}
+    "level": {
+      "high": "Alta",
+      "medium": "Média",
+      "low": "Baixa"
+    }
   },
   "undetermined": {
     "needs_rendering": "requer apresentar a página num browser, o que esta auditoria não faz",
@@ -452,9 +503,18 @@
   "error": {
     "code": "Erro {code}",
     "back": "Voltar",
-    "not_found": {"title": "Página não encontrada", "text": "A página que procura não existe ou não tem acesso a ela."},
-    "forbidden": {"title": "Pedido recusado", "text": "O formulário expirou ou o pedido não veio deste site. Volte atrás, recarregue a página e tente novamente."},
-    "generic": {"title": "Algo correu mal", "text": "Ocorreu um erro inesperado, que foi registado. Tente novamente dentro de momentos."}
+    "not_found": {
+      "title": "Página não encontrada",
+      "text": "A página que procura não existe ou não tem acesso a ela."
+    },
+    "forbidden": {
+      "title": "Pedido recusado",
+      "text": "O formulário expirou ou o pedido não veio deste site. Volte atrás, recarregue a página e tente novamente."
+    },
+    "generic": {
+      "title": "Algo correu mal",
+      "text": "Ocorreu um erro inesperado, que foi registado. Tente novamente dentro de momentos."
+    }
   },
   "method": {
     "title": "Metodologia",
@@ -557,106 +617,623 @@
   },
   "rules": {
     "seo": {
-      "title_missing": {"title": "Página sem título", "description": "A página não tem elemento <title>, ou está vazio.", "impact": "Os motores de pesquisa mostram o título como cabeçalho do resultado. Sem ele, inventam um e o resultado tem menos probabilidade de ser clicado.", "recommendation": "Adicione um <title> único e descritivo, com 15 a 60 caracteres, que indique o tema da página e a marca."},
-      "title_length": {"title": "Título demasiado curto ou longo", "description": "O título da página está fora do comprimento recomendado.", "impact": "Títulos longos são cortados nos resultados de pesquisa; títulos muito curtos desperdiçam a parte mais visível do resultado.", "recommendation": "Mantenha os títulos entre 15 e 60 caracteres, com as palavras mais importantes primeiro.", "evidence": "“{title}” — {length} caracteres (recomendado {min}–{max})"},
-      "title_multiple": {"title": "Página com vários elementos de título", "description": "Foi encontrado mais do que um elemento <title>.", "impact": "Os motores de pesquisa usam apenas um, e não há garantia de qual.", "recommendation": "Mantenha um único <title> no <head> e remova os restantes.", "evidence": "{count} elementos de título"},
-      "description_missing": {"title": "Meta description em falta", "description": "A página não tem meta description.", "impact": "Os motores de pesquisa escolhem um excerto do texto da página, normalmente menos persuasivo.", "recommendation": "Escreva uma meta description única, com 70 a 160 caracteres, que resuma a página e dê um motivo para clicar."},
-      "description_length": {"title": "Meta description demasiado curta ou longa", "description": "A meta description está fora do comprimento recomendado.", "impact": "Descrições longas são cortadas; descrições curtas desperdiçam a oportunidade de convencer.", "recommendation": "Procure 70 a 160 caracteres.", "evidence": "{length} caracteres (recomendado {min}–{max}): “{description}”"},
-      "h1_missing": {"title": "Página sem cabeçalho H1", "description": "Não foi encontrado nenhum cabeçalho <h1> com texto.", "impact": "O cabeçalho principal diz aos leitores e aos motores de pesquisa de que trata a página.", "recommendation": "Adicione um <h1> que indique o tema principal da página."},
-      "h1_multiple": {"title": "Página com vários cabeçalhos H1", "description": "Foi encontrado mais do que um cabeçalho <h1>.", "impact": "Vários cabeçalhos principais diluem o tema da página e tornam a estrutura mais difícil de seguir.", "recommendation": "Use um <h1> para o tema principal e <h2>–<h6> para as secções.", "evidence": "{count} cabeçalhos H1: {headings}"},
-      "canonical_missing": {"title": "Sem URL canónico", "description": "A página não declara um URL canónico.", "impact": "Quando o mesmo conteúdo está acessível em vários endereços, os motores de pesquisa podem dividir os sinais de posicionamento entre eles.", "recommendation": "Adicione <link rel=\"canonical\" href=\"…\"> a apontar para o endereço preferido da página."},
-      "canonical_conflict": {"title": "URLs canónicos em conflito", "description": "A página declara mais do que um URL canónico diferente.", "impact": "Os motores de pesquisa ignoram canonicals contraditórios, por isso as páginas duplicadas não são consolidadas.", "recommendation": "Mantenha exatamente um link canónico por página.", "evidence": "Canonicals: {canonicals}"},
-      "canonical_other_site": {"title": "Canonical aponta para outro website", "description": "O URL canónico está num domínio diferente.", "impact": "Os motores de pesquisa podem retirar esta página dos resultados em favor do outro site.", "recommendation": "Salvo se o conteúdo pertencer intencionalmente ao outro site, aponte o canonical para esta página.", "evidence": "Canonical: {canonical}"},
-      "noindex": {"title": "Página excluída dos resultados de pesquisa", "description": "A página pede aos motores de pesquisa que não a indexem (noindex).", "impact": "A página não aparece nos resultados de pesquisa. É normal em páginas privadas ou utilitárias, mas não em conteúdo que quer que seja encontrado.", "recommendation": "Remova o noindex das páginas que devem aparecer na pesquisa.", "evidence": "Definido via {source}"},
-      "noindex_home": {"title": "Página inicial excluída dos resultados de pesquisa", "description": "A página inicial pede aos motores de pesquisa que não a indexem.", "impact": "A página inicial desaparece dos resultados de pesquisa e, com ela, normalmente a maior parte do tráfego de pesquisa.", "recommendation": "Remova a diretiva noindex da meta tag robots ou do cabeçalho X-Robots-Tag.", "evidence": "Definido via {source}"},
-      "thin_content": {"title": "Pouco conteúdo de texto", "description": "A página tem muito pouco texto legível.", "impact": "Páginas com pouco conteúdo raramente se posicionam bem e dão poucos motivos ao visitante para ficar.", "recommendation": "Garanta que as páginas importantes explicam o tema com detalhe suficiente. Ignore em páginas intencionalmente curtas.", "evidence": "{words} palavras (limiar {min})"},
-      "generic_anchor": {"title": "Links com texto vago", "description": "Alguns links usam textos como “clique aqui” ou “ler mais”.", "impact": "O texto do link indica aos motores de pesquisa e aos utilizadores de leitores de ecrã para onde o link vai. Texto vago não diz nada.", "recommendation": "Descreva o destino no texto do link, por exemplo “Descarregar a tabela de preços de 2024”.", "evidence": "{anchors}"},
-      "duplicate_title": {"title": "Mesmo título em várias páginas", "description": "Várias páginas partilham o mesmo título.", "impact": "Os motores de pesquisa têm dificuldade em distinguir as páginas e podem mostrar a errada.", "recommendation": "Dê a cada página um título único.", "evidence": "“{title}” usado em {count} páginas"},
-      "duplicate_description": {"title": "Mesma meta description em várias páginas", "description": "Várias páginas partilham a mesma meta description.", "impact": "Descrições duplicadas tornam os resultados iguais e são muitas vezes ignoradas pelos motores de pesquisa.", "recommendation": "Escreva uma descrição específica para cada página importante.", "evidence": "Partilhada por {count} páginas"},
-      "duplicate_content": {"title": "Conteúdo de página duplicado", "description": "Foram encontradas páginas com texto idêntico em endereços diferentes.", "impact": "Os motores de pesquisa podem indexar a versão errada ou dividir os sinais de posicionamento entre cópias.", "recommendation": "Redirecione os duplicados para um único endereço ou defina um URL canónico.", "evidence": "Mesmo texto que: {duplicates}"},
-      "robots_missing": {"title": "Sem ficheiro robots.txt", "description": "O site não tem ficheiro robots.txt.", "impact": "Não é prejudicial por si só, mas é no robots.txt que se indica o sitemap aos crawlers e se excluem áreas que não devem ser percorridas.", "recommendation": "Adicione um robots.txt na raiz do site com, pelo menos, uma linha Sitemap.", "evidence": "{url} devolveu {status}"},
-      "robots_blocks_all": {"title": "robots.txt bloqueia os motores de pesquisa", "description": "O robots.txt proíbe todo o site aos crawlers dos motores de pesquisa.", "impact": "Os motores de pesquisa deixam de percorrer as páginas e estas desaparecem dos resultados.", "recommendation": "Remova o “Disallow: /” para os motores de pesquisa, salvo se o site for intencionalmente privado.", "evidence": "{url}"},
-      "sitemap_missing": {"title": "Sitemap XML não encontrado", "description": "Não foi encontrado sitemap no robots.txt nem em /sitemap.xml.", "impact": "Os sitemaps ajudam os motores de pesquisa a descobrir todas as páginas, sobretudo as novas ou mais profundas.", "recommendation": "Publique um sitemap XML e refira-o no robots.txt.", "evidence": "{url} devolveu {status}"},
-      "sitemap_invalid": {"title": "Sitemap não é XML válido", "description": "Não foi possível ler o sitemap como um sitemap XML válido.", "impact": "Os motores de pesquisa não podem usar um sitemap que não conseguem interpretar.", "recommendation": "Corrija o XML para seguir o formato de sitemaps.org.", "evidence": "{url}"},
-      "broken_internal_links": {"title": "Links internos quebrados", "description": "Há links para páginas do seu site que devolvem erro ou estão inacessíveis.", "impact": "Os visitantes chegam a becos sem saída e os motores de pesquisa gastam recursos em páginas inexistentes.", "recommendation": "Atualize ou remova os links, ou redirecione as páginas em falta para as que as substituem.", "evidence": "{link} — {result}"},
-      "internal_redirects": {"title": "Links internos que redirecionam", "description": "Alguns links internos apontam para um endereço que redireciona para outro.", "impact": "Cada redirecionamento acrescenta um pedido extra a visitantes e crawlers.", "recommendation": "Aponte os links diretamente para o endereço final.", "evidence": "{link} → {target}"},
-      "open_graph_missing": {"title": "Tags Open Graph em falta", "description": "A página inicial não tem as tags Open Graph usadas nas pré-visualizações de links.", "impact": "Os links partilhados em redes sociais e aplicações de mensagens aparecem sem título, descrição ou imagem adequados.", "recommendation": "Adicione og:title, og:description e og:image à página inicial e às páginas principais.", "evidence": "Em falta: {missing}"},
-      "structured_data_missing": {"title": "Sem dados estruturados", "description": "Não foram encontrados dados estruturados JSON-LD nas páginas auditadas.", "impact": "Os dados estruturados podem tornar os resultados elegíveis para apresentações mais ricas na pesquisa.", "recommendation": "Considere adicionar marcação schema.org adequada ao seu conteúdo, por exemplo Organization ou Product."},
-      "https_canonical_mismatch": {"title": "Canonical usa http:// num site HTTPS", "description": "O site é servido por HTTPS mas o URL canónico usa http://.", "impact": "Os motores de pesquisa recebem sinais contraditórios sobre que versão indexar.", "recommendation": "Use https:// nos URLs canónicos.", "evidence": "Canonical: {canonical}"}
+      "title_missing": {
+        "title": "Página sem título",
+        "description": "A página não tem elemento <title>, ou está vazio.",
+        "impact": "Os motores de pesquisa mostram o título como cabeçalho do resultado. Sem ele, inventam um e o resultado tem menos probabilidade de ser clicado.",
+        "recommendation": "Adicione um <title> único e descritivo, com 15 a 60 caracteres, que indique o tema da página e a marca."
+      },
+      "title_length": {
+        "title": "Título demasiado curto ou longo",
+        "description": "O título da página está fora do comprimento recomendado.",
+        "impact": "Títulos longos são cortados nos resultados de pesquisa; títulos muito curtos desperdiçam a parte mais visível do resultado.",
+        "recommendation": "Mantenha os títulos entre 15 e 60 caracteres, com as palavras mais importantes primeiro.",
+        "evidence": "“{title}” — {length} caracteres (recomendado {min}–{max})"
+      },
+      "title_multiple": {
+        "title": "Página com vários elementos de título",
+        "description": "Foi encontrado mais do que um elemento <title>.",
+        "impact": "Os motores de pesquisa usam apenas um, e não há garantia de qual.",
+        "recommendation": "Mantenha um único <title> no <head> e remova os restantes.",
+        "evidence": "{count} elementos de título"
+      },
+      "description_missing": {
+        "title": "Meta description em falta",
+        "description": "A página não tem meta description.",
+        "impact": "Os motores de pesquisa escolhem um excerto do texto da página, normalmente menos persuasivo.",
+        "recommendation": "Escreva uma meta description única, com 70 a 160 caracteres, que resuma a página e dê um motivo para clicar."
+      },
+      "description_length": {
+        "title": "Meta description demasiado curta ou longa",
+        "description": "A meta description está fora do comprimento recomendado.",
+        "impact": "Descrições longas são cortadas; descrições curtas desperdiçam a oportunidade de convencer.",
+        "recommendation": "Procure 70 a 160 caracteres.",
+        "evidence": "{length} caracteres (recomendado {min}–{max}): “{description}”"
+      },
+      "h1_missing": {
+        "title": "Página sem cabeçalho H1",
+        "description": "Não foi encontrado nenhum cabeçalho <h1> com texto.",
+        "impact": "O cabeçalho principal diz aos leitores e aos motores de pesquisa de que trata a página.",
+        "recommendation": "Adicione um <h1> que indique o tema principal da página."
+      },
+      "h1_multiple": {
+        "title": "Página com vários cabeçalhos H1",
+        "description": "Foi encontrado mais do que um cabeçalho <h1>.",
+        "impact": "Vários cabeçalhos principais diluem o tema da página e tornam a estrutura mais difícil de seguir.",
+        "recommendation": "Use um <h1> para o tema principal e <h2>–<h6> para as secções.",
+        "evidence": "{count} cabeçalhos H1: {headings}"
+      },
+      "canonical_missing": {
+        "title": "Sem URL canónico",
+        "description": "A página não declara um URL canónico.",
+        "impact": "Quando o mesmo conteúdo está acessível em vários endereços, os motores de pesquisa podem dividir os sinais de posicionamento entre eles.",
+        "recommendation": "Adicione <link rel=\"canonical\" href=\"…\"> a apontar para o endereço preferido da página."
+      },
+      "canonical_conflict": {
+        "title": "URLs canónicos em conflito",
+        "description": "A página declara mais do que um URL canónico diferente.",
+        "impact": "Os motores de pesquisa ignoram canonicals contraditórios, por isso as páginas duplicadas não são consolidadas.",
+        "recommendation": "Mantenha exatamente um link canónico por página.",
+        "evidence": "Canonicals: {canonicals}"
+      },
+      "canonical_other_site": {
+        "title": "Canonical aponta para outro website",
+        "description": "O URL canónico está num domínio diferente.",
+        "impact": "Os motores de pesquisa podem retirar esta página dos resultados em favor do outro site.",
+        "recommendation": "Salvo se o conteúdo pertencer intencionalmente ao outro site, aponte o canonical para esta página.",
+        "evidence": "Canonical: {canonical}"
+      },
+      "noindex": {
+        "title": "Página excluída dos resultados de pesquisa",
+        "description": "A página pede aos motores de pesquisa que não a indexem (noindex).",
+        "impact": "A página não aparece nos resultados de pesquisa. É normal em páginas privadas ou utilitárias, mas não em conteúdo que quer que seja encontrado.",
+        "recommendation": "Remova o noindex das páginas que devem aparecer na pesquisa.",
+        "evidence": "Definido via {source}"
+      },
+      "noindex_home": {
+        "title": "Página inicial excluída dos resultados de pesquisa",
+        "description": "A página inicial pede aos motores de pesquisa que não a indexem.",
+        "impact": "A página inicial desaparece dos resultados de pesquisa e, com ela, normalmente a maior parte do tráfego de pesquisa.",
+        "recommendation": "Remova a diretiva noindex da meta tag robots ou do cabeçalho X-Robots-Tag.",
+        "evidence": "Definido via {source}"
+      },
+      "thin_content": {
+        "title": "Pouco conteúdo de texto",
+        "description": "A página tem muito pouco texto legível.",
+        "impact": "Páginas com pouco conteúdo raramente se posicionam bem e dão poucos motivos ao visitante para ficar.",
+        "recommendation": "Garanta que as páginas importantes explicam o tema com detalhe suficiente. Ignore em páginas intencionalmente curtas.",
+        "evidence": "{words} palavras (limiar {min})"
+      },
+      "generic_anchor": {
+        "title": "Links com texto vago",
+        "description": "Alguns links usam textos como “clique aqui” ou “ler mais”.",
+        "impact": "O texto do link indica aos motores de pesquisa e aos utilizadores de leitores de ecrã para onde o link vai. Texto vago não diz nada.",
+        "recommendation": "Descreva o destino no texto do link, por exemplo “Descarregar a tabela de preços de 2024”.",
+        "evidence": "{anchors}"
+      },
+      "duplicate_title": {
+        "title": "Mesmo título em várias páginas",
+        "description": "Várias páginas partilham o mesmo título.",
+        "impact": "Os motores de pesquisa têm dificuldade em distinguir as páginas e podem mostrar a errada.",
+        "recommendation": "Dê a cada página um título único.",
+        "evidence": "“{title}” usado em {count} páginas"
+      },
+      "duplicate_description": {
+        "title": "Mesma meta description em várias páginas",
+        "description": "Várias páginas partilham a mesma meta description.",
+        "impact": "Descrições duplicadas tornam os resultados iguais e são muitas vezes ignoradas pelos motores de pesquisa.",
+        "recommendation": "Escreva uma descrição específica para cada página importante.",
+        "evidence": "Partilhada por {count} páginas"
+      },
+      "duplicate_content": {
+        "title": "Conteúdo de página duplicado",
+        "description": "Foram encontradas páginas com texto idêntico em endereços diferentes.",
+        "impact": "Os motores de pesquisa podem indexar a versão errada ou dividir os sinais de posicionamento entre cópias.",
+        "recommendation": "Redirecione os duplicados para um único endereço ou defina um URL canónico.",
+        "evidence": "Mesmo texto que: {duplicates}"
+      },
+      "robots_missing": {
+        "title": "Sem ficheiro robots.txt",
+        "description": "O site não tem ficheiro robots.txt.",
+        "impact": "Não é prejudicial por si só, mas é no robots.txt que se indica o sitemap aos crawlers e se excluem áreas que não devem ser percorridas.",
+        "recommendation": "Adicione um robots.txt na raiz do site com, pelo menos, uma linha Sitemap.",
+        "evidence": "{url} devolveu {status}"
+      },
+      "robots_blocks_all": {
+        "title": "robots.txt bloqueia os motores de pesquisa",
+        "description": "O robots.txt proíbe todo o site aos crawlers dos motores de pesquisa.",
+        "impact": "Os motores de pesquisa deixam de percorrer as páginas e estas desaparecem dos resultados.",
+        "recommendation": "Remova o “Disallow: /” para os motores de pesquisa, salvo se o site for intencionalmente privado.",
+        "evidence": "{url}"
+      },
+      "sitemap_missing": {
+        "title": "Sitemap XML não encontrado",
+        "description": "Não foi encontrado sitemap no robots.txt nem em /sitemap.xml.",
+        "impact": "Os sitemaps ajudam os motores de pesquisa a descobrir todas as páginas, sobretudo as novas ou mais profundas.",
+        "recommendation": "Publique um sitemap XML e refira-o no robots.txt.",
+        "evidence": "{url} devolveu {status}"
+      },
+      "sitemap_invalid": {
+        "title": "Sitemap não é XML válido",
+        "description": "Não foi possível ler o sitemap como um sitemap XML válido.",
+        "impact": "Os motores de pesquisa não podem usar um sitemap que não conseguem interpretar.",
+        "recommendation": "Corrija o XML para seguir o formato de sitemaps.org.",
+        "evidence": "{url}"
+      },
+      "broken_internal_links": {
+        "title": "Links internos quebrados",
+        "description": "Há links para páginas do seu site que devolvem erro ou estão inacessíveis.",
+        "impact": "Os visitantes chegam a becos sem saída e os motores de pesquisa gastam recursos em páginas inexistentes.",
+        "recommendation": "Atualize ou remova os links, ou redirecione as páginas em falta para as que as substituem.",
+        "evidence": "{link} — {result}"
+      },
+      "internal_redirects": {
+        "title": "Links internos que redirecionam",
+        "description": "Alguns links internos apontam para um endereço que redireciona para outro.",
+        "impact": "Cada redirecionamento acrescenta um pedido extra a visitantes e crawlers.",
+        "recommendation": "Aponte os links diretamente para o endereço final.",
+        "evidence": "{link} → {target}"
+      },
+      "open_graph_missing": {
+        "title": "Tags Open Graph em falta",
+        "description": "A página inicial não tem as tags Open Graph usadas nas pré-visualizações de links.",
+        "impact": "Os links partilhados em redes sociais e aplicações de mensagens aparecem sem título, descrição ou imagem adequados.",
+        "recommendation": "Adicione og:title, og:description e og:image à página inicial e às páginas principais.",
+        "evidence": "Em falta: {missing}"
+      },
+      "structured_data_missing": {
+        "title": "Sem dados estruturados",
+        "description": "Não foram encontrados dados estruturados JSON-LD nas páginas auditadas.",
+        "impact": "Os dados estruturados podem tornar os resultados elegíveis para apresentações mais ricas na pesquisa.",
+        "recommendation": "Considere adicionar marcação schema.org adequada ao seu conteúdo, por exemplo Organization ou Product."
+      },
+      "https_canonical_mismatch": {
+        "title": "Canonical usa http:// num site HTTPS",
+        "description": "O site é servido por HTTPS mas o URL canónico usa http://.",
+        "impact": "Os motores de pesquisa recebem sinais contraditórios sobre que versão indexar.",
+        "recommendation": "Use https:// nos URLs canónicos.",
+        "evidence": "Canonical: {canonical}"
+      }
     },
     "performance": {
-      "response_very_slow": {"title": "Resposta do servidor muito lenta", "description": "O servidor demorou muito a enviar a página.", "impact": "Os visitantes esperam antes de verem alguma coisa e muitos desistem. Respostas lentas também reduzem a parte do site que os motores de pesquisa percorrem.", "recommendation": "Reveja a cache no servidor, as consultas à base de dados e a capacidade do alojamento, ou coloque uma CDN à frente do site.", "evidence": "{ms} ms (limiar {threshold} ms)"},
-      "response_slow": {"title": "Resposta do servidor lenta", "description": "O servidor foi mais lento do que o recomendado a enviar a página.", "impact": "Todas as visitas começam com este atraso.", "recommendation": "Ative a cache de páginas e verifique o desempenho do servidor.", "evidence": "{ms} ms (limiar {threshold} ms)"},
-      "html_large": {"title": "Documento HTML muito grande", "description": "O HTML da página é invulgarmente grande.", "impact": "Documentos grandes demoram mais a descarregar e a processar, sobretudo em redes móveis.", "recommendation": "Remova dados embutidos e marcação desnecessária; pagine listas longas.", "evidence": "{kb} KB (limiar {threshold_kb} KB)"},
-      "html_uncompressed": {"title": "HTML sem compressão", "description": "O servidor envia o HTML sem compressão gzip ou Brotli.", "impact": "A compressão reduz normalmente o HTML em 70% ou mais.", "recommendation": "Ative a compressão gzip ou Brotli no servidor web ou na CDN.", "evidence": "{kb} KB enviados sem compressão"},
-      "render_blocking_scripts": {"title": "Scripts que bloqueiam a apresentação", "description": "Scripts no <head> carregam sem async nem defer.", "impact": "O browser para de desenhar a página até cada script ser descarregado e executado.", "recommendation": "Adicione defer (ou async em scripts independentes), ou mova os scripts para o fim do <body>.", "evidence": "{count} script(s): {scripts}"},
-      "many_stylesheets": {"title": "Muitas folhas de estilo bloqueantes", "description": "A página carrega mais de cinco folhas de estilo no <head>.", "impact": "Cada folha de estilo tem de ser descarregada antes de a página ser apresentada.", "recommendation": "Junte as folhas de estilo e inclua inline o CSS crítico.", "evidence": "{count} folhas de estilo"},
-      "images_without_dimensions": {"title": "Imagens sem largura e altura", "description": "As imagens não declaram as suas dimensões.", "impact": "O layout salta à medida que as imagens carregam, o que distrai e pode causar cliques errados.", "recommendation": "Defina os atributos width e height nas imagens, ou reserve o espaço com aspect-ratio em CSS.", "evidence": "{count} de {total} imagens, por exemplo {images}"},
-      "no_lazy_loading": {"title": "Imagens sem carregamento diferido", "description": "A página tem muitas imagens e nenhuma usa carregamento diferido.", "impact": "As imagens abaixo da dobra são descarregadas logo de início, competindo com o que o visitante vê primeiro.", "recommendation": "Adicione loading=\"lazy\" às imagens que não aparecem no primeiro ecrã.", "evidence": "{images} imagens"},
-      "large_inline_code": {"title": "Scripts ou estilos inline extensos", "description": "O HTML contém muito JavaScript ou CSS inline.", "impact": "O código inline não pode ser guardado em cache separadamente e é descarregado de novo em cada página.", "recommendation": "Mova o código inline extenso para ficheiros externos que possam ficar em cache.", "evidence": "{kb} KB inline"},
-      "many_requests": {"title": "Muitos recursos na página inicial", "description": "A página inicial refere um grande número de scripts, folhas de estilo e imagens.", "impact": "Cada recurso é um pedido; muitos pedidos tornam a página mais lenta, sobretudo em mobile.", "recommendation": "Remova recursos não usados, junte ficheiros e use carregamento diferido nas imagens.", "evidence": "{count} recursos (limiar {threshold})"},
-      "entry_redirects": {"title": "Cadeia de redirecionamentos no endereço de entrada", "description": "Chegar à página inicial exige vários redirecionamentos.", "impact": "Cada salto acrescenta um pedido completo antes de a página começar a carregar.", "recommendation": "Redirecione diretamente para o endereço final num único passo.", "evidence": "{hops} redirecionamentos: {chain}"},
-      "static_not_cached": {"title": "Recursos sem cache de longa duração", "description": "Folhas de estilo, scripts ou imagens são servidos sem um tempo de cache longo.", "impact": "Os visitantes que regressam voltam a descarregar os mesmos ficheiros.", "recommendation": "Sirva ficheiros estáticos com versão e Cache-Control: max-age de pelo menos uma semana (idealmente um ano, com immutable).", "evidence": "{resource} — Cache-Control: {cache_control}"},
-      "text_resources_uncompressed": {"title": "CSS ou JavaScript sem compressão", "description": "Recursos de texto são servidos sem compressão.", "impact": "O CSS e o JavaScript reduzem normalmente 60–80% com compressão.", "recommendation": "Ative gzip ou Brotli para CSS, JavaScript, SVG e JSON.", "evidence": "{resource} — {kb} KB"},
-      "large_images": {"title": "Imagens pesadas", "description": "Algumas imagens são maiores do que o recomendado.", "impact": "Imagens pesadas são a causa mais comum de páginas lentas em mobile.", "recommendation": "Redimensione as imagens para o tamanho em que são apresentadas e use formatos modernos como WebP ou AVIF.", "evidence": "{resource} — {kb} KB (limiar {threshold_kb} KB)"},
-      "heavy_javascript": {"title": "JavaScript pesado", "description": "A página inicial carrega uma grande quantidade de JavaScript.", "impact": "O JavaScript tem de ser descarregado, interpretado e executado, o que atrasa a interatividade em dispositivos mais lentos.", "recommendation": "Remova bibliotecas não usadas, divida o código por página e adie scripts não essenciais.", "evidence": "{kb} KB em {files} ficheiro(s) verificados (limiar {threshold_kb} KB)"},
-      "fonts_without_preconnect": {"title": "Fontes web sem preconnect", "description": "São usadas Google Fonts sem a indicação preconnect.", "impact": "O texto pode aparecer tarde enquanto o browser se liga aos servidores de fontes.", "recommendation": "Adicione <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>, ou aloje as fontes no seu servidor."}
+      "response_very_slow": {
+        "title": "Resposta do servidor muito lenta",
+        "description": "O servidor demorou muito a enviar a página.",
+        "impact": "Os visitantes esperam antes de verem alguma coisa e muitos desistem. Respostas lentas também reduzem a parte do site que os motores de pesquisa percorrem.",
+        "recommendation": "Reveja a cache no servidor, as consultas à base de dados e a capacidade do alojamento, ou coloque uma CDN à frente do site.",
+        "evidence": "{ms} ms (limiar {threshold} ms)"
+      },
+      "response_slow": {
+        "title": "Resposta do servidor lenta",
+        "description": "O servidor foi mais lento do que o recomendado a enviar a página.",
+        "impact": "Todas as visitas começam com este atraso.",
+        "recommendation": "Ative a cache de páginas e verifique o desempenho do servidor.",
+        "evidence": "{ms} ms (limiar {threshold} ms)"
+      },
+      "html_large": {
+        "title": "Documento HTML muito grande",
+        "description": "O HTML da página é invulgarmente grande.",
+        "impact": "Documentos grandes demoram mais a descarregar e a processar, sobretudo em redes móveis.",
+        "recommendation": "Remova dados embutidos e marcação desnecessária; pagine listas longas.",
+        "evidence": "{kb} KB (limiar {threshold_kb} KB)"
+      },
+      "html_uncompressed": {
+        "title": "HTML sem compressão",
+        "description": "O servidor envia o HTML sem compressão gzip ou Brotli.",
+        "impact": "A compressão reduz normalmente o HTML em 70% ou mais.",
+        "recommendation": "Ative a compressão gzip ou Brotli no servidor web ou na CDN.",
+        "evidence": "{kb} KB enviados sem compressão"
+      },
+      "render_blocking_scripts": {
+        "title": "Scripts que bloqueiam a apresentação",
+        "description": "Scripts no <head> carregam sem async nem defer.",
+        "impact": "O browser para de desenhar a página até cada script ser descarregado e executado.",
+        "recommendation": "Adicione defer (ou async em scripts independentes), ou mova os scripts para o fim do <body>.",
+        "evidence": "{count} script(s): {scripts}"
+      },
+      "many_stylesheets": {
+        "title": "Muitas folhas de estilo bloqueantes",
+        "description": "A página carrega mais de cinco folhas de estilo no <head>.",
+        "impact": "Cada folha de estilo tem de ser descarregada antes de a página ser apresentada.",
+        "recommendation": "Junte as folhas de estilo e inclua inline o CSS crítico.",
+        "evidence": "{count} folhas de estilo"
+      },
+      "images_without_dimensions": {
+        "title": "Imagens sem largura e altura",
+        "description": "As imagens não declaram as suas dimensões.",
+        "impact": "O layout salta à medida que as imagens carregam, o que distrai e pode causar cliques errados.",
+        "recommendation": "Defina os atributos width e height nas imagens, ou reserve o espaço com aspect-ratio em CSS.",
+        "evidence": "{count} de {total} imagens, por exemplo {images}"
+      },
+      "no_lazy_loading": {
+        "title": "Imagens sem carregamento diferido",
+        "description": "A página tem muitas imagens e nenhuma usa carregamento diferido.",
+        "impact": "As imagens abaixo da dobra são descarregadas logo de início, competindo com o que o visitante vê primeiro.",
+        "recommendation": "Adicione loading=\"lazy\" às imagens que não aparecem no primeiro ecrã.",
+        "evidence": "{images} imagens"
+      },
+      "large_inline_code": {
+        "title": "Scripts ou estilos inline extensos",
+        "description": "O HTML contém muito JavaScript ou CSS inline.",
+        "impact": "O código inline não pode ser guardado em cache separadamente e é descarregado de novo em cada página.",
+        "recommendation": "Mova o código inline extenso para ficheiros externos que possam ficar em cache.",
+        "evidence": "{kb} KB inline"
+      },
+      "many_requests": {
+        "title": "Muitos recursos na página inicial",
+        "description": "A página inicial refere um grande número de scripts, folhas de estilo e imagens.",
+        "impact": "Cada recurso é um pedido; muitos pedidos tornam a página mais lenta, sobretudo em mobile.",
+        "recommendation": "Remova recursos não usados, junte ficheiros e use carregamento diferido nas imagens.",
+        "evidence": "{count} recursos (limiar {threshold})"
+      },
+      "entry_redirects": {
+        "title": "Cadeia de redirecionamentos no endereço de entrada",
+        "description": "Chegar à página inicial exige vários redirecionamentos.",
+        "impact": "Cada salto acrescenta um pedido completo antes de a página começar a carregar.",
+        "recommendation": "Redirecione diretamente para o endereço final num único passo.",
+        "evidence": "{hops} redirecionamentos: {chain}"
+      },
+      "static_not_cached": {
+        "title": "Recursos sem cache de longa duração",
+        "description": "Folhas de estilo, scripts ou imagens são servidos sem um tempo de cache longo.",
+        "impact": "Os visitantes que regressam voltam a descarregar os mesmos ficheiros.",
+        "recommendation": "Sirva ficheiros estáticos com versão e Cache-Control: max-age de pelo menos uma semana (idealmente um ano, com immutable).",
+        "evidence": "{resource} — Cache-Control: {cache_control}"
+      },
+      "text_resources_uncompressed": {
+        "title": "CSS ou JavaScript sem compressão",
+        "description": "Recursos de texto são servidos sem compressão.",
+        "impact": "O CSS e o JavaScript reduzem normalmente 60–80% com compressão.",
+        "recommendation": "Ative gzip ou Brotli para CSS, JavaScript, SVG e JSON.",
+        "evidence": "{resource} — {kb} KB"
+      },
+      "large_images": {
+        "title": "Imagens pesadas",
+        "description": "Algumas imagens são maiores do que o recomendado.",
+        "impact": "Imagens pesadas são a causa mais comum de páginas lentas em mobile.",
+        "recommendation": "Redimensione as imagens para o tamanho em que são apresentadas e use formatos modernos como WebP ou AVIF.",
+        "evidence": "{resource} — {kb} KB (limiar {threshold_kb} KB)"
+      },
+      "heavy_javascript": {
+        "title": "JavaScript pesado",
+        "description": "A página inicial carrega uma grande quantidade de JavaScript.",
+        "impact": "O JavaScript tem de ser descarregado, interpretado e executado, o que atrasa a interatividade em dispositivos mais lentos.",
+        "recommendation": "Remova bibliotecas não usadas, divida o código por página e adie scripts não essenciais.",
+        "evidence": "{kb} KB em {files} ficheiro(s) verificados (limiar {threshold_kb} KB)"
+      },
+      "fonts_without_preconnect": {
+        "title": "Fontes web sem preconnect",
+        "description": "São usadas Google Fonts sem a indicação preconnect.",
+        "impact": "O texto pode aparecer tarde enquanto o browser se liga aos servidores de fontes.",
+        "recommendation": "Adicione <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>, ou aloje as fontes no seu servidor."
+      }
     },
     "accessibility": {
-      "lang_missing": {"title": "Idioma da página não declarado", "description": "O elemento <html> não tem atributo lang.", "impact": "Os leitores de ecrã podem pronunciar o conteúdo no idioma errado. (WCAG 3.1.1)", "recommendation": "Indique o idioma, por exemplo <html lang=\"pt\">."},
-      "image_alt_missing": {"title": "Imagens sem texto alternativo", "description": "As imagens não têm atributo alt.", "impact": "Os utilizadores de leitores de ecrã não recebem descrição da imagem, ou ouvem o nome do ficheiro. (WCAG 1.1.1)", "recommendation": "Adicione texto alternativo a cada imagem informativa; use alt=\"\" nas imagens puramente decorativas.", "evidence": "{count} de {total} imagens, por exemplo {images}"},
-      "control_unlabeled": {"title": "Campos de formulário sem rótulo", "description": "Há campos de formulário sem rótulo associado.", "impact": "Os utilizadores de leitores de ecrã não sabem o que preencher. Os placeholders desaparecem ao escrever e não substituem um rótulo. (WCAG 1.3.1, 4.1.2)", "recommendation": "Associe um <label for=\"…\"> a cada campo, ou use aria-label quando não for possível um rótulo visível.", "evidence": "{count} campo(s), {placeholder_only} só com placeholder, por exemplo {elements}"},
-      "button_unnamed": {"title": "Botões sem nome acessível", "description": "Há botões sem texto, rótulo ou título.", "impact": "As tecnologias de apoio anunciam-nos apenas como “botão” e o utilizador não sabe o que fazem. (WCAG 4.1.2)", "recommendation": "Dê a cada botão texto visível, ou um aria-label nos botões só com ícone.", "evidence": "{count} botão(ões), por exemplo {elements}"},
-      "link_unnamed": {"title": "Links sem nome acessível", "description": "Há links sem texto, rótulo ou alternativa de imagem.", "impact": "Os utilizadores de leitores de ecrã ouvem apenas o endereço, ou nada. (WCAG 2.4.4)", "recommendation": "Adicione texto ao link, ou texto alternativo à imagem dentro do link.", "evidence": "{count} link(s), por exemplo {elements}"},
-      "iframe_untitled": {"title": "Frames sem título", "description": "Os elementos <iframe> não têm atributo title.", "impact": "Os utilizadores de tecnologias de apoio não sabem o que é o conteúdo incorporado. (WCAG 4.1.2)", "recommendation": "Adicione um título curto, por exemplo title=\"Mapa de localização\".", "evidence": "{count} frame(s)"},
-      "invalid_role": {"title": "Roles ARIA inválidos", "description": "Há elementos com valores de role que não existem em ARIA.", "impact": "As tecnologias de apoio ignoram ou interpretam mal o elemento.", "recommendation": "Use roles ARIA válidos ou, de preferência, o elemento HTML nativo.", "evidence": "Roles: {roles}"},
-      "duplicate_ids": {"title": "IDs de elementos duplicados", "description": "Vários elementos partilham o mesmo id.", "impact": "Rótulos, referências ARIA e links internos podem apontar para o elemento errado.", "recommendation": "Torne cada id único na página.", "evidence": "{count} duplicados: {ids}"},
-      "positive_tabindex": {"title": "Valores de tabindex positivos", "description": "Há elementos com tabindex maior que 0.", "impact": "O foco do teclado salta numa ordem inesperada. (WCAG 2.4.3)", "recommendation": "Use apenas tabindex=\"0\" ou -1 e ordene os elementos corretamente no HTML.", "evidence": "{count} elemento(s)"},
-      "heading_order": {"title": "Níveis de cabeçalho saltados", "description": "Os cabeçalhos saltam mais do que um nível (por exemplo de H2 para H4).", "impact": "Os utilizadores de leitores de ecrã navegam pelos cabeçalhos; níveis saltados sugerem secções em falta.", "recommendation": "Use os níveis de cabeçalho por ordem, sem saltos.", "evidence": "{skips}"},
-      "empty_heading": {"title": "Cabeçalhos vazios", "description": "Há elementos de cabeçalho sem texto.", "impact": "Os leitores de ecrã anunciam um cabeçalho sem conteúdo.", "recommendation": "Adicione texto ao cabeçalho ou remova o elemento.", "evidence": "{count} cabeçalho(s) vazio(s)"},
-      "main_landmark_missing": {"title": "Sem região principal", "description": "A página não tem elemento <main> nem role=\"main\".", "impact": "Os utilizadores de teclado e de leitores de ecrã não conseguem saltar diretamente para o conteúdo principal.", "recommendation": "Envolva o conteúdo principal num elemento <main>."},
-      "table_headers_missing": {"title": "Tabelas de dados sem cabeçalhos", "description": "Há tabelas com várias linhas mas sem células de cabeçalho.", "impact": "Os leitores de ecrã não conseguem indicar a que coluna ou linha pertence cada valor. (WCAG 1.3.1)", "recommendation": "Use <th> nas células de cabeçalho, ou role=\"presentation\" em tabelas de layout.", "evidence": "{count} tabela(s)"},
-      "zoom_disabled": {"title": "Zoom bloqueado", "description": "O viewport impede o utilizador de ampliar a página.", "impact": "Pessoas com baixa visão não conseguem aumentar o texto. (WCAG 1.4.4)", "recommendation": "Remova user-scalable=no e qualquer maximum-scale inferior a 2 da tag viewport.", "evidence": "viewport: {viewport}"},
-      "low_contrast": {"title": "Contraste de cores insuficiente", "description": "Cores de texto definidas inline têm contraste insuficiente com o fundo.", "impact": "O texto é difícil de ler para pessoas com baixa visão ou com muita luz. (A WCAG 1.4.3 exige 4,5:1)", "recommendation": "Escureça o texto ou clareie o fundo até atingir pelo menos 4,5:1.", "evidence": "{count} elemento(s): {elements}"},
-      "contrast_stylesheets": {"title": "Contraste do texto com estilos", "description": "Contraste das cores definidas nas folhas de estilo.", "impact": "—", "recommendation": "Verifique o contraste com uma ferramenta baseada em browser."}
+      "lang_missing": {
+        "title": "Idioma da página não declarado",
+        "description": "O elemento <html> não tem atributo lang.",
+        "impact": "Os leitores de ecrã podem pronunciar o conteúdo no idioma errado. (WCAG 3.1.1)",
+        "recommendation": "Indique o idioma, por exemplo <html lang=\"pt\">."
+      },
+      "image_alt_missing": {
+        "title": "Imagens sem texto alternativo",
+        "description": "As imagens não têm atributo alt.",
+        "impact": "Os utilizadores de leitores de ecrã não recebem descrição da imagem, ou ouvem o nome do ficheiro. (WCAG 1.1.1)",
+        "recommendation": "Adicione texto alternativo a cada imagem informativa; use alt=\"\" nas imagens puramente decorativas.",
+        "evidence": "{count} de {total} imagens, por exemplo {images}"
+      },
+      "control_unlabeled": {
+        "title": "Campos de formulário sem rótulo",
+        "description": "Há campos de formulário sem rótulo associado.",
+        "impact": "Os utilizadores de leitores de ecrã não sabem o que preencher. Os placeholders desaparecem ao escrever e não substituem um rótulo. (WCAG 1.3.1, 4.1.2)",
+        "recommendation": "Associe um <label for=\"…\"> a cada campo, ou use aria-label quando não for possível um rótulo visível.",
+        "evidence": "{count} campo(s), {placeholder_only} só com placeholder, por exemplo {elements}"
+      },
+      "button_unnamed": {
+        "title": "Botões sem nome acessível",
+        "description": "Há botões sem texto, rótulo ou título.",
+        "impact": "As tecnologias de apoio anunciam-nos apenas como “botão” e o utilizador não sabe o que fazem. (WCAG 4.1.2)",
+        "recommendation": "Dê a cada botão texto visível, ou um aria-label nos botões só com ícone.",
+        "evidence": "{count} botão(ões), por exemplo {elements}"
+      },
+      "link_unnamed": {
+        "title": "Links sem nome acessível",
+        "description": "Há links sem texto, rótulo ou alternativa de imagem.",
+        "impact": "Os utilizadores de leitores de ecrã ouvem apenas o endereço, ou nada. (WCAG 2.4.4)",
+        "recommendation": "Adicione texto ao link, ou texto alternativo à imagem dentro do link.",
+        "evidence": "{count} link(s), por exemplo {elements}"
+      },
+      "iframe_untitled": {
+        "title": "Frames sem título",
+        "description": "Os elementos <iframe> não têm atributo title.",
+        "impact": "Os utilizadores de tecnologias de apoio não sabem o que é o conteúdo incorporado. (WCAG 4.1.2)",
+        "recommendation": "Adicione um título curto, por exemplo title=\"Mapa de localização\".",
+        "evidence": "{count} frame(s)"
+      },
+      "invalid_role": {
+        "title": "Roles ARIA inválidos",
+        "description": "Há elementos com valores de role que não existem em ARIA.",
+        "impact": "As tecnologias de apoio ignoram ou interpretam mal o elemento.",
+        "recommendation": "Use roles ARIA válidos ou, de preferência, o elemento HTML nativo.",
+        "evidence": "Roles: {roles}"
+      },
+      "duplicate_ids": {
+        "title": "IDs de elementos duplicados",
+        "description": "Vários elementos partilham o mesmo id.",
+        "impact": "Rótulos, referências ARIA e links internos podem apontar para o elemento errado.",
+        "recommendation": "Torne cada id único na página.",
+        "evidence": "{count} duplicados: {ids}"
+      },
+      "positive_tabindex": {
+        "title": "Valores de tabindex positivos",
+        "description": "Há elementos com tabindex maior que 0.",
+        "impact": "O foco do teclado salta numa ordem inesperada. (WCAG 2.4.3)",
+        "recommendation": "Use apenas tabindex=\"0\" ou -1 e ordene os elementos corretamente no HTML.",
+        "evidence": "{count} elemento(s)"
+      },
+      "heading_order": {
+        "title": "Níveis de cabeçalho saltados",
+        "description": "Os cabeçalhos saltam mais do que um nível (por exemplo de H2 para H4).",
+        "impact": "Os utilizadores de leitores de ecrã navegam pelos cabeçalhos; níveis saltados sugerem secções em falta.",
+        "recommendation": "Use os níveis de cabeçalho por ordem, sem saltos.",
+        "evidence": "{skips}"
+      },
+      "empty_heading": {
+        "title": "Cabeçalhos vazios",
+        "description": "Há elementos de cabeçalho sem texto.",
+        "impact": "Os leitores de ecrã anunciam um cabeçalho sem conteúdo.",
+        "recommendation": "Adicione texto ao cabeçalho ou remova o elemento.",
+        "evidence": "{count} cabeçalho(s) vazio(s)"
+      },
+      "main_landmark_missing": {
+        "title": "Sem região principal",
+        "description": "A página não tem elemento <main> nem role=\"main\".",
+        "impact": "Os utilizadores de teclado e de leitores de ecrã não conseguem saltar diretamente para o conteúdo principal.",
+        "recommendation": "Envolva o conteúdo principal num elemento <main>."
+      },
+      "table_headers_missing": {
+        "title": "Tabelas de dados sem cabeçalhos",
+        "description": "Há tabelas com várias linhas mas sem células de cabeçalho.",
+        "impact": "Os leitores de ecrã não conseguem indicar a que coluna ou linha pertence cada valor. (WCAG 1.3.1)",
+        "recommendation": "Use <th> nas células de cabeçalho, ou role=\"presentation\" em tabelas de layout.",
+        "evidence": "{count} tabela(s)"
+      },
+      "zoom_disabled": {
+        "title": "Zoom bloqueado",
+        "description": "O viewport impede o utilizador de ampliar a página.",
+        "impact": "Pessoas com baixa visão não conseguem aumentar o texto. (WCAG 1.4.4)",
+        "recommendation": "Remova user-scalable=no e qualquer maximum-scale inferior a 2 da tag viewport.",
+        "evidence": "viewport: {viewport}"
+      },
+      "low_contrast": {
+        "title": "Contraste de cores insuficiente",
+        "description": "Cores de texto definidas inline têm contraste insuficiente com o fundo.",
+        "impact": "O texto é difícil de ler para pessoas com baixa visão ou com muita luz. (A WCAG 1.4.3 exige 4,5:1)",
+        "recommendation": "Escureça o texto ou clareie o fundo até atingir pelo menos 4,5:1.",
+        "evidence": "{count} elemento(s): {elements}"
+      },
+      "contrast_stylesheets": {
+        "title": "Contraste do texto com estilos",
+        "description": "Contraste das cores definidas nas folhas de estilo.",
+        "impact": "—",
+        "recommendation": "Verifique o contraste com uma ferramenta baseada em browser."
+      }
     },
     "mobile": {
-      "viewport_missing": {"title": "Sem viewport para mobile", "description": "A página não tem a meta tag viewport.", "impact": "Os telemóveis apresentam a página com largura de computador e reduzem-na, por isso o texto fica minúsculo e é preciso fazer zoom.", "recommendation": "Adicione <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">."},
-      "viewport_fixed_width": {"title": "Viewport com largura fixa", "description": "O viewport tem uma largura fixa em píxeis em vez da largura do dispositivo.", "impact": "O layout não se adapta ao tamanho do ecrã do telemóvel.", "recommendation": "Use width=device-width.", "evidence": "viewport: {viewport}"},
-      "plugins": {"title": "Plugins incorporados", "description": "A página usa elementos <object>, <embed> ou <applet>.", "impact": "O conteúdo de plugins não funciona na maioria dos dispositivos móveis.", "recommendation": "Substitua o conteúdo de plugins por vídeo, áudio ou imagens HTML5.", "evidence": "{count} elemento(s)"},
-      "wide_fixed_elements": {"title": "Elementos largos de largura fixa", "description": "Há elementos com larguras inline maiores do que um ecrã de telemóvel.", "impact": "Podem obrigar a deslocamento horizontal em ecrãs pequenos.", "recommendation": "Use larguras relativas (%, max-width: 100%) em vez de píxeis fixos.", "evidence": "{count} elemento(s) com mais de 640 px"},
-      "small_inline_fonts": {"title": "Texto muito pequeno", "description": "Há texto com tamanho de letra inline inferior a 12 px.", "impact": "Texto pequeno é difícil de ler em telemóveis.", "recommendation": "Use pelo menos 16 px no texto principal e 12 px em notas.", "evidence": "{count} elemento(s)"},
-      "images_not_responsive": {"title": "Imagens não responsivas", "description": "Nenhuma imagem da página fornece tamanhos alternativos (srcset ou <picture>).", "impact": "Os telemóveis descarregam imagens com tamanho de computador.", "recommendation": "Forneça srcset e sizes para que o browser escolha o tamanho adequado.", "evidence": "{images} imagens sem srcset"},
-      "layout_overflow": {"title": "Overflow horizontal em ecrãs pequenos", "description": "Se o conteúdo ultrapassa a largura de ecrãs estreitos.", "impact": "—", "recommendation": "Verifique a página num telemóvel ou com as ferramentas de programador do browser."},
-      "tap_targets": {"title": "Tamanho das áreas de toque", "description": "Se os botões e links são suficientemente grandes para tocar.", "impact": "—", "recommendation": "Verifique se os elementos interativos têm pelo menos 24×24 px (WCAG 2.5.8)."}
+      "viewport_missing": {
+        "title": "Sem viewport para mobile",
+        "description": "A página não tem a meta tag viewport.",
+        "impact": "Os telemóveis apresentam a página com largura de computador e reduzem-na, por isso o texto fica minúsculo e é preciso fazer zoom.",
+        "recommendation": "Adicione <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">."
+      },
+      "viewport_fixed_width": {
+        "title": "Viewport com largura fixa",
+        "description": "O viewport tem uma largura fixa em píxeis em vez da largura do dispositivo.",
+        "impact": "O layout não se adapta ao tamanho do ecrã do telemóvel.",
+        "recommendation": "Use width=device-width.",
+        "evidence": "viewport: {viewport}"
+      },
+      "plugins": {
+        "title": "Plugins incorporados",
+        "description": "A página usa elementos <object>, <embed> ou <applet>.",
+        "impact": "O conteúdo de plugins não funciona na maioria dos dispositivos móveis.",
+        "recommendation": "Substitua o conteúdo de plugins por vídeo, áudio ou imagens HTML5.",
+        "evidence": "{count} elemento(s)"
+      },
+      "wide_fixed_elements": {
+        "title": "Elementos largos de largura fixa",
+        "description": "Há elementos com larguras inline maiores do que um ecrã de telemóvel.",
+        "impact": "Podem obrigar a deslocamento horizontal em ecrãs pequenos.",
+        "recommendation": "Use larguras relativas (%, max-width: 100%) em vez de píxeis fixos.",
+        "evidence": "{count} elemento(s) com mais de 640 px"
+      },
+      "small_inline_fonts": {
+        "title": "Texto muito pequeno",
+        "description": "Há texto com tamanho de letra inline inferior a 12 px.",
+        "impact": "Texto pequeno é difícil de ler em telemóveis.",
+        "recommendation": "Use pelo menos 16 px no texto principal e 12 px em notas.",
+        "evidence": "{count} elemento(s)"
+      },
+      "images_not_responsive": {
+        "title": "Imagens não responsivas",
+        "description": "Nenhuma imagem da página fornece tamanhos alternativos (srcset ou <picture>).",
+        "impact": "Os telemóveis descarregam imagens com tamanho de computador.",
+        "recommendation": "Forneça srcset e sizes para que o browser escolha o tamanho adequado.",
+        "evidence": "{images} imagens sem srcset"
+      },
+      "layout_overflow": {
+        "title": "Overflow horizontal em ecrãs pequenos",
+        "description": "Se o conteúdo ultrapassa a largura de ecrãs estreitos.",
+        "impact": "—",
+        "recommendation": "Verifique a página num telemóvel ou com as ferramentas de programador do browser."
+      },
+      "tap_targets": {
+        "title": "Tamanho das áreas de toque",
+        "description": "Se os botões e links são suficientemente grandes para tocar.",
+        "impact": "—",
+        "recommendation": "Verifique se os elementos interativos têm pelo menos 24×24 px (WCAG 2.5.8)."
+      }
     },
     "security": {
-      "no_https": {"title": "Site não é servido por HTTPS", "description": "O site é entregue por HTTP sem cifra.", "impact": "Qualquer pessoa na rede pode ler ou alterar o que os visitantes veem e enviam. Os browsers marcam o site como “Não seguro”.", "recommendation": "Instale um certificado TLS (gratuito com Let's Encrypt) e redirecione todo o tráfego HTTP para HTTPS."},
-      "http_not_redirected": {"title": "HTTP não redireciona para HTTPS", "description": "A versão http:// do site não redireciona para https://.", "impact": "Quem escreve o endereço ou segue links antigos fica numa ligação sem cifra.", "recommendation": "Adicione um redirecionamento permanente (301) de HTTP para HTTPS.", "evidence": "http:// respondeu com HTTP {status}"},
-      "certificate_invalid": {"title": "Certificado TLS inválido", "description": "Não foi possível validar o certificado.", "impact": "Os browsers mostram um aviso de segurança em ecrã inteiro e a maioria dos visitantes desiste.", "recommendation": "Instale um certificado válido para este nome de domínio, incluindo a cadeia intermédia completa.", "evidence": "{error}"},
-      "certificate_expiring": {"title": "Certificado TLS expira em breve", "description": "O certificado vai expirar em pouco tempo.", "impact": "Quando expirar, os browsers bloqueiam o acesso ao site com um aviso de segurança.", "recommendation": "Renove o certificado e garanta que a renovação é automática.", "evidence": "Expira a {expires} ({days} dias)"},
-      "hsts_missing": {"title": "Cabeçalho HSTS em falta", "description": "O cabeçalho Strict-Transport-Security não está definido.", "impact": "Os browsers podem tentar primeiro HTTP sem cifra, que pode ser intercetado.", "recommendation": "Envie Strict-Transport-Security: max-age=31536000; includeSubDomains quando o HTTPS funcionar em todo o lado."},
-      "csp_missing": {"title": "Sem Content Security Policy", "description": "O cabeçalho Content-Security-Policy não está definido.", "impact": "Uma CSP limita os danos de cross-site scripting ao restringir de onde podem ser carregados scripts.", "recommendation": "Defina uma Content-Security-Policy, começando em modo report-only para descobrir o que tem de ser permitido."},
-      "clickjacking": {"title": "Página pode ser incorporada por outros sites", "description": "Não está definido X-Frame-Options nem CSP frame-ancestors.", "impact": "Um atacante pode carregar a sua página num frame invisível e levar o utilizador a clicar sem saber (clickjacking).", "recommendation": "Envie X-Frame-Options: DENY (ou SAMEORIGIN), ou CSP frame-ancestors 'self'."},
-      "nosniff_missing": {"title": "X-Content-Type-Options em falta", "description": "O cabeçalho X-Content-Type-Options: nosniff não está definido.", "impact": "Os browsers podem adivinhar tipos de conteúdo, o que pode transformar ficheiros carregados em scripts executáveis.", "recommendation": "Envie X-Content-Type-Options: nosniff."},
-      "referrer_policy_missing": {"title": "Referrer-Policy em falta", "description": "Não está definido o cabeçalho Referrer-Policy.", "impact": "Endereços completos de páginas, que podem conter dados privados, podem ser enviados a outros sites.", "recommendation": "Envie Referrer-Policy: strict-origin-when-cross-origin."},
-      "permissions_policy_missing": {"title": "Permissions-Policy em falta", "description": "Não está definido o cabeçalho Permissions-Policy.", "impact": "Conteúdo de terceiros incorporado pode pedir funcionalidades como câmara ou localização.", "recommendation": "Envie uma Permissions-Policy que desative o que não usa, por exemplo camera=(), microphone=(), geolocation=()."},
-      "cookie_not_secure": {"title": "Cookies sem o atributo Secure", "description": "Há cookies definidos sem o atributo Secure.", "impact": "Podem ser enviados por ligações sem cifra e intercetados.", "recommendation": "Defina o atributo Secure em todos os cookies.", "evidence": "Cookie: {cookie}"},
-      "cookie_not_httponly": {"title": "Cookies legíveis por JavaScript", "description": "Há cookies definidos sem o atributo HttpOnly.", "impact": "Se um cookie de sessão for legível por JavaScript, uma falha de cross-site scripting pode roubá-lo. Cookies de analytics não precisam de HttpOnly.", "recommendation": "Defina HttpOnly nos cookies de sessão e de autenticação.", "evidence": "Cookie: {cookie}"},
-      "cookie_no_samesite": {"title": "Cookies sem SameSite", "description": "Há cookies definidos sem o atributo SameSite.", "impact": "Sem SameSite, os cookies ficam mais expostos a pedidos forjados entre sites (CSRF).", "recommendation": "Defina SameSite=Lax (ou Strict) nos cookies.", "evidence": "Cookie: {cookie}"},
-      "mixed_content": {"title": "Conteúdo misto", "description": "Uma página HTTPS carrega recursos por HTTP sem cifra.", "impact": "Os browsers bloqueiam ou avisam sobre recursos inseguros, o que pode partir a página e expor os visitantes.", "recommendation": "Carregue todos os recursos por https://.", "evidence": "{count} recurso(s), por exemplo {resources}"},
-      "version_disclosure": {"title": "Versão do software do servidor divulgada", "description": "Os cabeçalhos de resposta revelam nomes e versões de software.", "impact": "Os números de versão facilitam a um atacante encontrar vulnerabilidades conhecidas.", "recommendation": "Remova os números de versão do cabeçalho Server e remova o X-Powered-By.", "evidence": "{headers}"}
+      "no_https": {
+        "title": "Site não é servido por HTTPS",
+        "description": "O site é entregue por HTTP sem cifra.",
+        "impact": "Qualquer pessoa na rede pode ler ou alterar o que os visitantes veem e enviam. Os browsers marcam o site como “Não seguro”.",
+        "recommendation": "Instale um certificado TLS (gratuito com Let's Encrypt) e redirecione todo o tráfego HTTP para HTTPS."
+      },
+      "http_not_redirected": {
+        "title": "HTTP não redireciona para HTTPS",
+        "description": "A versão http:// do site não redireciona para https://.",
+        "impact": "Quem escreve o endereço ou segue links antigos fica numa ligação sem cifra.",
+        "recommendation": "Adicione um redirecionamento permanente (301) de HTTP para HTTPS.",
+        "evidence": "http:// respondeu com HTTP {status}"
+      },
+      "certificate_invalid": {
+        "title": "Certificado TLS inválido",
+        "description": "Não foi possível validar o certificado.",
+        "impact": "Os browsers mostram um aviso de segurança em ecrã inteiro e a maioria dos visitantes desiste.",
+        "recommendation": "Instale um certificado válido para este nome de domínio, incluindo a cadeia intermédia completa.",
+        "evidence": "{error}"
+      },
+      "certificate_expiring": {
+        "title": "Certificado TLS expira em breve",
+        "description": "O certificado vai expirar em pouco tempo.",
+        "impact": "Quando expirar, os browsers bloqueiam o acesso ao site com um aviso de segurança.",
+        "recommendation": "Renove o certificado e garanta que a renovação é automática.",
+        "evidence": "Expira a {expires} ({days} dias)"
+      },
+      "hsts_missing": {
+        "title": "Cabeçalho HSTS em falta",
+        "description": "O cabeçalho Strict-Transport-Security não está definido.",
+        "impact": "Os browsers podem tentar primeiro HTTP sem cifra, que pode ser intercetado.",
+        "recommendation": "Envie Strict-Transport-Security: max-age=31536000; includeSubDomains quando o HTTPS funcionar em todo o lado."
+      },
+      "csp_missing": {
+        "title": "Sem Content Security Policy",
+        "description": "O cabeçalho Content-Security-Policy não está definido.",
+        "impact": "Uma CSP limita os danos de cross-site scripting ao restringir de onde podem ser carregados scripts.",
+        "recommendation": "Defina uma Content-Security-Policy, começando em modo report-only para descobrir o que tem de ser permitido."
+      },
+      "clickjacking": {
+        "title": "Página pode ser incorporada por outros sites",
+        "description": "Não está definido X-Frame-Options nem CSP frame-ancestors.",
+        "impact": "Um atacante pode carregar a sua página num frame invisível e levar o utilizador a clicar sem saber (clickjacking).",
+        "recommendation": "Envie X-Frame-Options: DENY (ou SAMEORIGIN), ou CSP frame-ancestors 'self'."
+      },
+      "nosniff_missing": {
+        "title": "X-Content-Type-Options em falta",
+        "description": "O cabeçalho X-Content-Type-Options: nosniff não está definido.",
+        "impact": "Os browsers podem adivinhar tipos de conteúdo, o que pode transformar ficheiros carregados em scripts executáveis.",
+        "recommendation": "Envie X-Content-Type-Options: nosniff."
+      },
+      "referrer_policy_missing": {
+        "title": "Referrer-Policy em falta",
+        "description": "Não está definido o cabeçalho Referrer-Policy.",
+        "impact": "Endereços completos de páginas, que podem conter dados privados, podem ser enviados a outros sites.",
+        "recommendation": "Envie Referrer-Policy: strict-origin-when-cross-origin."
+      },
+      "permissions_policy_missing": {
+        "title": "Permissions-Policy em falta",
+        "description": "Não está definido o cabeçalho Permissions-Policy.",
+        "impact": "Conteúdo de terceiros incorporado pode pedir funcionalidades como câmara ou localização.",
+        "recommendation": "Envie uma Permissions-Policy que desative o que não usa, por exemplo camera=(), microphone=(), geolocation=()."
+      },
+      "cookie_not_secure": {
+        "title": "Cookies sem o atributo Secure",
+        "description": "Há cookies definidos sem o atributo Secure.",
+        "impact": "Podem ser enviados por ligações sem cifra e intercetados.",
+        "recommendation": "Defina o atributo Secure em todos os cookies.",
+        "evidence": "Cookie: {cookie}"
+      },
+      "cookie_not_httponly": {
+        "title": "Cookies legíveis por JavaScript",
+        "description": "Há cookies definidos sem o atributo HttpOnly.",
+        "impact": "Se um cookie de sessão for legível por JavaScript, uma falha de cross-site scripting pode roubá-lo. Cookies de analytics não precisam de HttpOnly.",
+        "recommendation": "Defina HttpOnly nos cookies de sessão e de autenticação.",
+        "evidence": "Cookie: {cookie}"
+      },
+      "cookie_no_samesite": {
+        "title": "Cookies sem SameSite",
+        "description": "Há cookies definidos sem o atributo SameSite.",
+        "impact": "Sem SameSite, os cookies ficam mais expostos a pedidos forjados entre sites (CSRF).",
+        "recommendation": "Defina SameSite=Lax (ou Strict) nos cookies.",
+        "evidence": "Cookie: {cookie}"
+      },
+      "mixed_content": {
+        "title": "Conteúdo misto",
+        "description": "Uma página HTTPS carrega recursos por HTTP sem cifra.",
+        "impact": "Os browsers bloqueiam ou avisam sobre recursos inseguros, o que pode partir a página e expor os visitantes.",
+        "recommendation": "Carregue todos os recursos por https://.",
+        "evidence": "{count} recurso(s), por exemplo {resources}"
+      },
+      "version_disclosure": {
+        "title": "Versão do software do servidor divulgada",
+        "description": "Os cabeçalhos de resposta revelam nomes e versões de software.",
+        "impact": "Os números de versão facilitam a um atacante encontrar vulnerabilidades conhecidas.",
+        "recommendation": "Remova os números de versão do cabeçalho Server e remova o X-Powered-By.",
+        "evidence": "{headers}"
+      }
     },
     "best_practices": {
-      "doctype_missing": {"title": "Sem doctype HTML", "description": "A página não começa com <!doctype html>.", "impact": "Os browsers apresentam a página em modo de compatibilidade (quirks mode), com layout inconsistente.", "recommendation": "Comece todas as páginas com <!doctype html>."},
-      "charset_missing": {"title": "Codificação de caracteres não declarada", "description": "Nem o HTML nem o cabeçalho Content-Type declaram o conjunto de caracteres.", "impact": "Os caracteres acentuados podem aparecer mal.", "recommendation": "Adicione <meta charset=\"utf-8\"> como primeiro elemento do <head>."},
-      "deprecated_html": {"title": "Elementos HTML obsoletos", "description": "A página usa elementos removidos do HTML.", "impact": "Podem ser apresentados de forma inconsistente e denotam marcação desatualizada.", "recommendation": "Substitua-os por CSS e elementos HTML atuais.", "evidence": "Elementos: {tags}"},
-      "meta_refresh": {"title": "Meta refresh usado", "description": "A página usa meta refresh para recarregar ou redirecionar.", "impact": "Atualizações automáticas desorientam o utilizador e são um sinal fraco de redirecionamento para os motores de pesquisa.", "recommendation": "Use um redirecionamento 301 no servidor."},
-      "target_blank": {"title": "Links externos em novo separador sem rel=noopener", "description": "Links com target=\"_blank\" não definem rel=\"noopener\".", "impact": "Os browsers atuais aplicam noopener automaticamente; browsers antigos permitem que a página aberta controle a sua.", "recommendation": "Adicione rel=\"noopener\" aos links que abrem num novo separador.", "evidence": "{count} link(s), por exemplo {links}"},
-      "favicon_missing": {"title": "Favicon não declarado", "description": "A página inicial não declara um favicon.", "impact": "Os separadores, marcadores e alguns resultados de pesquisa mostram um ícone genérico.", "recommendation": "Adicione <link rel=\"icon\" href=\"/favicon.svg\">."},
-      "server_errors": {"title": "Páginas devolvem erros de servidor", "description": "Algumas páginas respondem com erro de servidor 5xx.", "impact": "Os visitantes veem uma página de erro e os motores de pesquisa podem retirar a página.", "recommendation": "Consulte os registos do servidor para estes endereços e corrija a causa.", "evidence": "HTTP {status}"},
-      "unreachable_pages": {"title": "Páginas inacessíveis", "description": "Não foi possível obter algumas páginas ligadas.", "impact": "Os visitantes e os motores de pesquisa também não conseguem chegar a estas páginas.", "recommendation": "Verifique se estas páginas estão online e respondem em poucos segundos.", "evidence": "Erro: {error}"},
-      "broken_external_links": {"title": "Links externos quebrados", "description": "Links para outros websites apontam para páginas que já não existem ou não respondem.", "impact": "Links mortos frustram os visitantes e dão ao conteúdo um ar abandonado.", "recommendation": "Atualize ou remova estes links.", "evidence": "{link} — {result}"}
+      "doctype_missing": {
+        "title": "Sem doctype HTML",
+        "description": "A página não começa com <!doctype html>.",
+        "impact": "Os browsers apresentam a página em modo de compatibilidade (quirks mode), com layout inconsistente.",
+        "recommendation": "Comece todas as páginas com <!doctype html>."
+      },
+      "charset_missing": {
+        "title": "Codificação de caracteres não declarada",
+        "description": "Nem o HTML nem o cabeçalho Content-Type declaram o conjunto de caracteres.",
+        "impact": "Os caracteres acentuados podem aparecer mal.",
+        "recommendation": "Adicione <meta charset=\"utf-8\"> como primeiro elemento do <head>."
+      },
+      "deprecated_html": {
+        "title": "Elementos HTML obsoletos",
+        "description": "A página usa elementos removidos do HTML.",
+        "impact": "Podem ser apresentados de forma inconsistente e denotam marcação desatualizada.",
+        "recommendation": "Substitua-os por CSS e elementos HTML atuais.",
+        "evidence": "Elementos: {tags}"
+      },
+      "meta_refresh": {
+        "title": "Meta refresh usado",
+        "description": "A página usa meta refresh para recarregar ou redirecionar.",
+        "impact": "Atualizações automáticas desorientam o utilizador e são um sinal fraco de redirecionamento para os motores de pesquisa.",
+        "recommendation": "Use um redirecionamento 301 no servidor."
+      },
+      "target_blank": {
+        "title": "Links externos em novo separador sem rel=noopener",
+        "description": "Links com target=\"_blank\" não definem rel=\"noopener\".",
+        "impact": "Os browsers atuais aplicam noopener automaticamente; browsers antigos permitem que a página aberta controle a sua.",
+        "recommendation": "Adicione rel=\"noopener\" aos links que abrem num novo separador.",
+        "evidence": "{count} link(s), por exemplo {links}"
+      },
+      "favicon_missing": {
+        "title": "Favicon não declarado",
+        "description": "A página inicial não declara um favicon.",
+        "impact": "Os separadores, marcadores e alguns resultados de pesquisa mostram um ícone genérico.",
+        "recommendation": "Adicione <link rel=\"icon\" href=\"/favicon.svg\">."
+      },
+      "server_errors": {
+        "title": "Páginas devolvem erros de servidor",
+        "description": "Algumas páginas respondem com erro de servidor 5xx.",
+        "impact": "Os visitantes veem uma página de erro e os motores de pesquisa podem retirar a página.",
+        "recommendation": "Consulte os registos do servidor para estes endereços e corrija a causa.",
+        "evidence": "HTTP {status}"
+      },
+      "unreachable_pages": {
+        "title": "Páginas inacessíveis",
+        "description": "Não foi possível obter algumas páginas ligadas.",
+        "impact": "Os visitantes e os motores de pesquisa também não conseguem chegar a estas páginas.",
+        "recommendation": "Verifique se estas páginas estão online e respondem em poucos segundos.",
+        "evidence": "Erro: {error}"
+      },
+      "broken_external_links": {
+        "title": "Links externos quebrados",
+        "description": "Links para outros websites apontam para páginas que já não existem ou não respondem.",
+        "impact": "Links mortos frustram os visitantes e dão ao conteúdo um ar abandonado.",
+        "recommendation": "Atualize ou remova estes links.",
+        "evidence": "{link} — {result}"
+      }
     }
   }
 }

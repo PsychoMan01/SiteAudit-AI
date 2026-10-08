@@ -4,7 +4,7 @@
 {% block content %}
 <div class="wrap">
   <div class="page-head">
-    <div><h1>{{ t('audits.title') }}</h1><p class="sub">{{ t('audits.count', n=total) }}</p></div>
+    <div><h1>{{ t('audits.title') }}</h1><p class="sub">{{ tn('audits.count', total) }}</p></div>
     <a class="btn" href="/audits/new">{{ t('dash.new_audit') }}</a>
   </div>
   <section class="panel">

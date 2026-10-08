@@ -30,7 +30,9 @@ router = APIRouter()
 log = logging.getLogger(__name__)
 
 
-def _login_response(db: Session, user: User, target: str) -> Response:
+def _login_response(request: Request, db: Session, user: User, target: str) -> Response:
+    # Never reuse a session token that existed before authentication (session fixation).
+    A.destroy_session(db, request.cookies.get(SESSION_COOKIE))
     token = A.create_session(db, user)
     response = redirect(target)
     response.set_cookie(
@@ -101,7 +103,7 @@ def register(
         )
     A.record_event(db, "register", ip=ip)
     log.info("user registered", extra={"event": "user_registered", "user_id": user.id})
-    return _login_response(db, user, _start_pending_audit(db, user, url))
+    return _login_response(request, db, user, _start_pending_audit(db, user, url))
 
 
 @router.get("/login")
@@ -131,7 +133,7 @@ def login(
         log.info("login failed", extra={"event": "login_failed"})
         return render(request, "auth/login.html", {**ctx, "error": "invalid_credentials"}, status_code=400)
     A.record_event(db, "login_ok", email_hash=email_hash, ip=ip)
-    return _login_response(db, user, safe_next(next))
+    return _login_response(request, db, user, safe_next(next))
 
 
 @router.post("/logout")

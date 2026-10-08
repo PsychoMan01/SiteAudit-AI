@@ -61,6 +61,13 @@ def t(locale: str, key: str, **params: Any) -> str:
     return text
 
 
+def tn(locale: str, key: str, n: int, **params: Any) -> str:
+    """Plural-aware lookup: uses `<key>_one` when n == 1 and that key exists."""
+    if n == 1 and has(locale, key + "_one"):
+        return t(locale, key + "_one", n=n, **params)
+    return t(locale, key, n=n, **params)
+
+
 def has(locale: str, key: str) -> bool:
     return key in _catalog(locale if locale in LOCALES else DEFAULT_LOCALE)
 

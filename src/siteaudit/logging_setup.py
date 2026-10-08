@@ -16,8 +16,12 @@ _SECRET_PATTERNS = [
 
 
 def redact(text: str) -> str:
-    text = _SECRET_PATTERNS[0].sub(lambda m: f"{m.group(1)}{m.group(2)}[REDACTED]", text)
-    return _SECRET_PATTERNS[1].sub(lambda m: f"{m.group(1)}[REDACTED]", text)
+    # Bearer tokens first, so "Authorization: Bearer x" does not leave the token behind.
+    text = _SECRET_PATTERNS[1].sub(lambda m: f"{m.group(1)}[REDACTED]", text)
+    return _SECRET_PATTERNS[0].sub(
+        lambda m: m.group(0) if m.group(3).startswith("Bearer") else f"{m.group(1)}{m.group(2)}[REDACTED]",
+        text,
+    )
 
 
 class RedactingFilter(logging.Filter):

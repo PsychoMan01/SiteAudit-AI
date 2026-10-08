@@ -9,7 +9,7 @@
       <p class="eyebrow">{{ t('result.eyebrow') }}</p>
       <h1 class="break">{{ audit.host }}</h1>
       <p class="sub"><span class="mono break">{{ audit.final_url or audit.url }}</span><br>
-        {{ date(audit.finished_at, locale) }} · {{ t('result.pages_audited', n=facts.get('html_pages', audit.pages_crawled)) }}</p>
+        {{ date(audit.finished_at, locale) }} · {{ tn('result.pages_audited', facts.get('html_pages', audit.pages_crawled)) }}</p>
     </div>
     <div class="actions no-print">
       <a class="btn" href="/audits/{{ audit.public_id }}/report.pdf">{{ t('result.download_pdf') if plan.full_report else t('result.download_summary_pdf') }}</a>
@@ -44,13 +44,13 @@
         {% if summary.groups|length == 0 %}
           <p>{{ t('result.summary_clean') }}</p>
         {% else %}
-          <p>{{ t('result.summary_counts', total=(c.critical + c.high + c.medium + c.low), critical=c.critical, high=c.high) }}
+          <p>{{ tn('result.summary_counts', c.critical + c.high + c.medium + c.low, total=(c.critical + c.high + c.medium + c.low), critical=c.critical, high=c.high) }}
           {% if summary.weakest and summary.weakest != summary.strongest %}{{ t('result.summary_weakest', weakest=t('category.' ~ summary.weakest), strongest=t('category.' ~ summary.strongest)) }}{% endif %}</p>
           {% if summary.priorities %}
             <p>{{ t('result.priorities_intro') }}</p>
             <ol class="priorities">
               {% for g in summary.priorities %}
-                <li>{{ t('rules.' ~ g.rule_id ~ '.title') }} — <span class="sev sev-{{ g.severity }}">{{ t('severity.' ~ g.severity) }}</span>{% if g.pages|length > 1 %} <span class="muted">({{ t('result.on_pages', n=g.pages|length) }})</span>{% endif %}</li>
+                <li>{{ t('rules.' ~ g.rule_id ~ '.title') }} — <span class="sev sev-{{ g.severity }}">{{ t('severity.' ~ g.severity) }}</span>{% if g.pages|length > 1 %} <span class="muted">({{ tn('result.on_pages', g.pages|length) }})</span>{% endif %}</li>
               {% endfor %}
             </ol>
           {% endif %}
@@ -113,7 +113,7 @@
           <summary>
             <span>{{ severity(g.severity, t) }}</span>
             <span class="issue-title">{{ t(key ~ '.title') }}</span>
-            <span class="issue-meta">{{ t('category.' ~ g.category) }}{% if g.pages %} · {{ t('result.on_pages', n=g.pages|length) }}{% endif %}</span>
+            <span class="issue-meta">{{ t('category.' ~ g.category) }}{% if g.pages %} · {{ tn('result.on_pages', g.pages|length) }}{% endif %}</span>
           </summary>
           <div class="issue-body">
             <dl>
@@ -184,7 +184,7 @@
     </section>
 
     <section class="panel" aria-labelledby="pages-title">
-      <div class="panel-head"><h2 id="pages-title">{{ t('result.pages') }}</h2><span class="muted small">{{ t('result.pages_count', n=audit.pages|length) }}</span></div>
+      <div class="panel-head"><h2 id="pages-title">{{ t('result.pages') }}</h2><span class="muted small">{{ tn('result.pages_count', audit.pages|length) }}</span></div>
       <div class="table-wrap"><table class="responsive">
         <thead><tr><th>URL</th><th class="num">{{ t('pages.status') }}</th><th class="num">{{ t('pages.time') }}</th><th class="num">{{ t('pages.size') }}</th><th class="num">{{ t('pages.issues') }}</th></tr></thead>
         <tbody>

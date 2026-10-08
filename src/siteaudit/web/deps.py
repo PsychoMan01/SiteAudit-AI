@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 
 from ..config import Settings, get_settings
 from ..db import session_factory
-from ..i18n import LOCALES, has, pick_locale, t
+from ..i18n import LOCALES, has, pick_locale, t, tn
 from ..models import User
 from ..scoring import grade
 from ..security import csrf
@@ -172,6 +172,9 @@ def render(
     def tr(key: str, **params: Any) -> str:
         return t(locale, key, **params)
 
+    def tr_n(key: str, n: int, **params: Any) -> str:
+        return tn(locale, key, n, **params)
+
     def tr_has(key: str) -> bool:
         return has(locale, key)
 
@@ -182,6 +185,7 @@ def render(
         "locale": locale,
         "t": tr,
         "t_has": tr_has,
+        "tn": tr_n,
         "csrf_token": csrf.token_for(seed, settings.session_secret),
         "settings": settings,
         "flash": f"flash.{msg}" if msg and has(locale, f"flash.{msg}") else None,

@@ -17,7 +17,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from ..analysis.base import RULES
 from ..analysis.registry import CATEGORY_ORDER
 from ..audits.summary import build_summary, pages_by_issue_count
-from ..i18n import t
+from ..i18n import t, tn
 from ..models import Audit
 from ..scoring import CATEGORY_WEIGHTS, SEVERITY_WEIGHTS, grade
 
@@ -63,12 +63,16 @@ def render_html(audit: Audit, locale: str, *, full: bool) -> str:
     def tr(key: str, **params: Any) -> str:
         return t(locale, key, **params)
 
+    def tr_n(key: str, n: int, **params: Any) -> str:
+        return tn(locale, key, n, **params)
+
     summary = build_summary(audit)
     groups = summary.groups if full else summary.priorities
     template = _env.get_template("report.html")
     return template.render(
         audit=audit,
         t=tr,
+        tn=tr_n,
         full=full,
         summary=summary,
         groups=groups,

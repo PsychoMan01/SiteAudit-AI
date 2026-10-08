@@ -291,3 +291,25 @@ def test_politeness_delay_is_respected_per_host(site) -> None:  # type: ignore[n
     gaps = [b - a for a, b in zip(site.hit_times, site.hit_times[1:], strict=False)]
     assert len(site.hit_times) >= 8
     assert min(gaps) >= 0.18, gaps
+
+
+def test_head_failure_is_confirmed_with_get(site) -> None:  # type: ignore[no-untyped-def]
+    site.page(
+        "/", html_page("HEAD handling test home page", '<a href="/headless">Page that rejects HEAD</a>')
+    )
+    site.page("/headless", html_page("Works with GET only"))
+    original = site.httpd.RequestHandlerClass.do_HEAD
+
+    def head_404(handler) -> None:  # type: ignore[no-untyped-def]
+        if handler.path == "/headless":
+            handler.send_response(404)
+            handler.send_header("Content-Length", "0")
+            handler.end_headers()
+        else:
+            original(handler)
+
+    site.httpd.RequestHandlerClass.do_HEAD = head_404
+    snap = crawl(site, max_pages=1)
+    result = analyse(snap)
+    assert "seo.broken_internal_links" not in rule_ids(result)
+    assert ("GET", "/headless") in [(m, p) for m, p, _ in site.hits]

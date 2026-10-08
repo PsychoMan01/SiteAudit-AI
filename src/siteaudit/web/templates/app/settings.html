@@ -10,7 +10,7 @@
         <p><strong>{{ t('plans.' ~ plan.id ~ '.name') }}</strong> — {{ t('dash.usage', used=used, limit=plan.audits_per_month, plan=t('plans.' ~ plan.id ~ '.name')) }}</p>
         <ul class="muted">
           <li>{{ t('plans.pages_per_audit', n=plan.max_pages) }}</li>
-          <li>{{ t('plans.concurrent', n=plan.concurrent_audits) }}</li>
+          <li>{{ tn('plans.concurrent', plan.concurrent_audits) }}</li>
           <li>{{ t('plans.report_full') if plan.full_report else t('plans.report_summary') }}</li>
           <li>{{ t('plans.history_unlimited') if plan.history_days is none else t('plans.history_days', n=plan.history_days) }}</li>
         </ul>

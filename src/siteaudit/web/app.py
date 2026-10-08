@@ -67,7 +67,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         dependencies=[Depends(csrf_protect)],
     )
     app.state.settings = settings
-    burst_limiter = RateLimiter(limit=120, window_seconds=60)
+    burst_limiter = RateLimiter(limit=240, window_seconds=60)
     post_limiter = RateLimiter(limit=30, window_seconds=60)
     app.state.limiters = (burst_limiter, post_limiter)
 

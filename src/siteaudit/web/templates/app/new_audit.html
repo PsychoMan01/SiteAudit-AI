@@ -6,7 +6,7 @@
   <div class="page-head"><div><h1>{{ t('dash.new_audit') }}</h1>
     <p class="sub">{{ t('dash.usage', used=used, limit=plan.audits_per_month, plan=t('plans.' ~ plan.id ~ '.name')) }}</p></div></div>
   {% if error %}
-    <div class="alert alert-error" role="alert"><p>{{ t('audit_error.' ~ error, **(error_params or {})) }}</p></div>
+    <div class="alert alert-error" role="alert"><p>{{ t('audit_error.' ~ error, **(error_params or {})) if error != 'too_many_running' else tn('audit_error.too_many_running', error_params.limit) }}</p></div>
   {% endif %}
   {{ url_form(user, csrf_token, t, value=url, autofocus=true) }}
   <p class="muted small">{{ t('dash.new_hint', pages=plan.max_pages) }}</p>

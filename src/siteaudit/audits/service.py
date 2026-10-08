@@ -157,13 +157,18 @@ def claim_next(db: Session) -> int | None:
 
 
 def fail_stale(db: Session) -> int:
+    """Mark audits whose worker stopped sending heartbeats as failed; they do not count toward the quota."""
     cutoff = utcnow() - STALE_AFTER
-    res = db.execute(
+    stale = db.scalars(select(Audit.id).where(Audit.status == "running", Audit.heartbeat_at < cutoff)).all()
+    if not stale:
+        return 0
+    db.execute(
         update(Audit)
-        .where(Audit.status == "running", Audit.heartbeat_at < cutoff)
+        .where(Audit.id.in_(stale))
         .values(status="failed", error_code="interrupted", finished_at=utcnow(), stage=None)
     )
-    return int(res.rowcount or 0)  # type: ignore[attr-defined]
+    db.execute(delete(UsageEvent).where(UsageEvent.audit_id.in_(stale), UsageEvent.kind == "audit_created"))
+    return len(stale)
 
 
 # --- execution -------------------------------------------------------------------------------------------
@@ -176,12 +181,21 @@ class _Progress:
         self.audit_id = audit_id
         self._last_cancel_check = 0.0
         self._cancelled = False
+        self._last_pages_write = 0.0
 
     def stage(self, name: str) -> None:
         with session_scope() as db:
             db.execute(
                 update(Audit).where(Audit.id == self.audit_id).values(stage=name, heartbeat_at=utcnow())
             )
+
+    def pages(self, count: int) -> None:
+        """Live page counter for the progress page (written at most every 2 s)."""
+        now = time.monotonic()
+        if now - self._last_pages_write >= 2.0:
+            self._last_pages_write = now
+            with session_scope() as db:
+                db.execute(update(Audit).where(Audit.id == self.audit_id).values(pages_crawled=count))
 
     def cancelled(self) -> bool:
         now = time.monotonic()
@@ -221,7 +235,9 @@ def run_audit(audit_id: int, settings: Settings) -> str:
             max_bytes=settings.crawl_max_response_bytes,
             policy=policy_for(settings),
         ) as client:
-            crawler = Crawler(client, limits, progress=progress.stage, cancelled=progress.cancelled)
+            crawler = Crawler(
+                client, limits, progress=progress.stage, cancelled=progress.cancelled, on_page=progress.pages
+            )
             snapshot = crawler.run(url)
 
         result: AnalysisResult | None = None

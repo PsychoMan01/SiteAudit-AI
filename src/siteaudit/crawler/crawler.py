@@ -157,12 +157,14 @@ class Crawler:
         *,
         progress: Progress | None = None,
         cancelled: CancelCheck | None = None,
+        on_page: Callable[[int], None] | None = None,
         sleep: Callable[[float], None] = time.sleep,
     ) -> None:
         self.client = client
         self.limits = limits
         self.progress = progress or (lambda _stage: None)
         self.cancelled = cancelled or (lambda: False)
+        self.on_page = on_page or (lambda _count: None)
         self.sleep = sleep
         self._deadline = 0.0
         self._next_slot: dict[str, float] = {}
@@ -368,6 +370,7 @@ class Crawler:
                 log.warning("extraction failed", extra={"event": "extract_failed"})
                 page.error = "parse_error"
         snap.pages.append(page)
+        self.on_page(len(snap.pages))
         snap.link_checks[normalize_url(url)] = LinkCheck(
             url, res.status, res.error, bool(res.redirects), res.final_url
         )
@@ -396,7 +399,8 @@ class Crawler:
 
         def check(url: str) -> None:
             res = self._polite_fetch(url, method="HEAD")
-            if res.error is None and res.status in (405, 501, 403, 400):
+            # Some servers mishandle HEAD; confirm any failure with a small GET before reporting it.
+            if res.error is not None or (res.status is not None and res.status >= 400 and res.status != 429):
                 res = self._polite_fetch(url, max_bytes=64 * 1024)
             snap.link_checks[url] = LinkCheck(url, res.status, res.error, bool(res.redirects), res.final_url)
 

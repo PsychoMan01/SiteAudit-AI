@@ -10,13 +10,14 @@
     </div>
   </div>
 
+  <div class="stack">
   <section class="panel" aria-labelledby="new-title">
     <div class="panel-head"><h2 id="new-title">{{ t('dash.new_audit') }}</h2>
       <span class="muted small">{{ t('dash.new_hint', pages=plan.max_pages) }}</span></div>
     <div class="panel-body">{{ url_form(user, csrf_token, t) }}</div>
   </section>
 
-  <br>
+  <div>
   <dl class="stats" aria-label="{{ t('dash.stats_label') }}">
     <div class="stat"><dt>{{ t('dash.total') }}</dt><dd>{{ stats.total }}</dd></div>
     <div class="stat"><dt>{{ t('dash.avg') }}</dt><dd>{{ score_value(stats.avg) }}</dd></div>
@@ -26,6 +27,7 @@
       <dd class="text">{% if latest %}<a class="break" href="/audits/{{ latest.public_id }}">{{ latest.host }}</a>{% else %}—{% endif %}</dd></div>
   </dl>
   {% if plan.history_days %}<p class="muted small">{{ t('dash.history_note', days=plan.history_days) }}</p>{% endif %}
+  </div>
 
   <section class="panel" aria-labelledby="recent-title">
     <div class="panel-head"><h2 id="recent-title">{{ t('dash.recent') }}</h2>{% if recent %}<a href="/audits">{{ t('dash.view_all') }}</a>{% endif %}</div>
@@ -47,5 +49,6 @@
       <div class="empty">{{ t('dash.empty') }}</div>
     {% endif %}
   </section>
+  </div>
 </div>
 {% endblock %}

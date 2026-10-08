@@ -48,12 +48,42 @@
     "checks_title": "Six areas, one consistent score",
     "checks_lead": "Each check is a fixed, documented rule. The same site under the same conditions gets the same result.",
     "checks": {
-      "seo": {"1": "Titles, descriptions and headings", "2": "Canonical tags, robots.txt and sitemap", "3": "Broken internal links and redirects", "4": "Duplicate and thin content"},
-      "performance": {"1": "Server response time", "2": "Compression and caching of assets", "3": "Render-blocking scripts", "4": "Oversized images and JavaScript"},
-      "accessibility": {"1": "Missing image alternatives", "2": "Unlabelled form fields and buttons", "3": "Heading structure and landmarks", "4": "Zoom restrictions and ARIA misuse"},
-      "mobile": {"1": "Viewport configuration", "2": "Fixed-width layouts", "3": "Responsive images", "4": "Plugins that do not run on phones"},
-      "security": {"1": "HTTPS, redirects and certificate expiry", "2": "Security headers (HSTS, CSP, framing)", "3": "Cookie flags", "4": "Mixed content and version disclosure"},
-      "best_practices": {"1": "Server errors and unreachable pages", "2": "Broken outbound links", "3": "Document type and character set", "4": "Deprecated HTML"}
+      "seo": {
+        "1": "Titles, descriptions and headings",
+        "2": "Canonical tags, robots.txt and sitemap",
+        "3": "Broken internal links and redirects",
+        "4": "Duplicate and thin content"
+      },
+      "performance": {
+        "1": "Server response time",
+        "2": "Compression and caching of assets",
+        "3": "Render-blocking scripts",
+        "4": "Oversized images and JavaScript"
+      },
+      "accessibility": {
+        "1": "Missing image alternatives",
+        "2": "Unlabelled form fields and buttons",
+        "3": "Heading structure and landmarks",
+        "4": "Zoom restrictions and ARIA misuse"
+      },
+      "mobile": {
+        "1": "Viewport configuration",
+        "2": "Fixed-width layouts",
+        "3": "Responsive images",
+        "4": "Plugins that do not run on phones"
+      },
+      "security": {
+        "1": "HTTPS, redirects and certificate expiry",
+        "2": "Security headers (HSTS, CSP, framing)",
+        "3": "Cookie flags",
+        "4": "Mixed content and version disclosure"
+      },
+      "best_practices": {
+        "1": "Server errors and unreachable pages",
+        "2": "Broken outbound links",
+        "3": "Document type and character set",
+        "4": "Deprecated HTML"
+      }
     },
     "sample_eyebrow": "The report",
     "sample_title": "A score you can explain, and a list you can act on",
@@ -87,18 +117,29 @@
     "a8": "No. Requests are made one at a time with a pause between them, and we follow any Crawl-delay you set in robots.txt."
   },
   "plans": {
-    "free": {"name": "Free", "for": "For checking your own site from time to time.", "cta": "Create free account"},
-    "pro": {"name": "Pro", "for": "For freelancers and site owners who audit regularly."},
-    "agency": {"name": "Agency", "for": "For teams auditing many client websites."},
+    "free": {
+      "name": "Free",
+      "for": "For checking your own site from time to time.",
+      "cta": "Create free account"
+    },
+    "pro": {
+      "name": "Pro",
+      "for": "For freelancers and site owners who audit regularly."
+    },
+    "agency": {
+      "name": "Agency",
+      "for": "For teams auditing many client websites."
+    },
     "audits_per_month": "{n} audits per month",
     "pages_per_audit": "Up to {n} pages per audit",
-    "concurrent": "{n} audit(s) at the same time",
+    "concurrent": "{n} audits at the same time",
     "report_full": "Full PDF report",
     "report_summary": "Summary PDF report",
     "history_unlimited": "Unlimited audit history",
     "history_days": "{n}-day audit history",
     "contact_cta": "Contact us",
-    "paid_note": "Paid plans are not open for self-service sign-up yet."
+    "paid_note": "Paid plans are not open for self-service sign-up yet.",
+    "concurrent_one": "1 audit at a time"
   },
   "category": {
     "seo": "SEO",
@@ -228,7 +269,7 @@
   },
   "audits": {
     "title": "Audits",
-    "count": "{n} audit(s)",
+    "count": "{n} audits",
     "search": "Filter by domain",
     "search_submit": "Search",
     "site": "Website",
@@ -240,7 +281,8 @@
     "pagination": "Pagination",
     "prev": "Previous",
     "next": "Next",
-    "page_of": "Page {page} of {pages}"
+    "page_of": "Page {page} of {pages}",
+    "count_one": "1 audit"
   },
   "audit_error": {
     "url_empty": "Enter a website address.",
@@ -253,8 +295,9 @@
     "url_port": "Only websites on the standard ports (80 and 443) can be audited.",
     "url_private_address": "This address points to a private, local or reserved network and cannot be audited.",
     "url_dns": "We could not find this domain. Check the spelling and try again.",
-    "too_many_running": "Your plan allows {limit} audit(s) at the same time. Wait for the current one to finish.",
-    "monthly_limit": "You have used all {limit} audits included in your plan this month."
+    "too_many_running": "Your plan allows {n} audits at the same time. Wait for one to finish.",
+    "monthly_limit": "You have used all {limit} audits included in your plan this month.",
+    "too_many_running_one": "Your plan allows one audit at a time. Wait for the current one to finish."
   },
   "progress": {
     "eyebrow": "Audit in progress",
@@ -306,7 +349,7 @@
   "result": {
     "title": "Audit results",
     "eyebrow": "Audit results",
-    "pages_audited": "{n} page(s) audited",
+    "pages_audited": "{n} pages audited",
     "download_pdf": "Download PDF report",
     "download_summary_pdf": "Download summary PDF",
     "rerun": "Run again",
@@ -315,7 +358,7 @@
     "how_scored": "How scores are calculated:",
     "summary": "Summary",
     "summary_clean": "No issues were found by the checks that could run on this website.",
-    "summary_counts": "We found {total} issue(s) that affect the score, of which {critical} critical and {high} high severity.",
+    "summary_counts": "We found {total} issues that affect the score: {critical} critical and {high} high severity.",
     "summary_weakest": "{weakest} is the weakest area; {strongest} is the strongest.",
     "priorities_intro": "Start with these:",
     "on_pages": "{n} pages",
@@ -345,9 +388,13 @@
     "facts": "Measurements",
     "technologies": "Detected technologies",
     "pages": "Pages audited",
-    "pages_count": "{n} URL(s)",
+    "pages_count": "{n} URLs",
     "delete": "Delete audit",
-    "delete_confirm": "Delete this audit permanently?"
+    "delete_confirm": "Delete this audit permanently?",
+    "pages_audited_one": "1 page audited",
+    "pages_count_one": "1 URL",
+    "on_pages_one": "1 page",
+    "summary_counts_one": "We found 1 issue that affects the score."
   },
   "facts": {
     "response": "Home page response time",
@@ -385,7 +432,11 @@
       "hosting": "Hosting",
       "ecommerce": "E-commerce"
     },
-    "level": {"high": "High", "medium": "Medium", "low": "Low"}
+    "level": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    }
   },
   "undetermined": {
     "needs_rendering": "requires rendering the page in a browser, which this audit does not do",
@@ -452,9 +503,18 @@
   "error": {
     "code": "Error {code}",
     "back": "Go back",
-    "not_found": {"title": "Page not found", "text": "The page you are looking for does not exist or you do not have access to it."},
-    "forbidden": {"title": "Request rejected", "text": "The form expired or the request did not come from this site. Go back, reload the page and try again."},
-    "generic": {"title": "Something went wrong", "text": "An unexpected error occurred. It has been logged. Please try again in a moment."}
+    "not_found": {
+      "title": "Page not found",
+      "text": "The page you are looking for does not exist or you do not have access to it."
+    },
+    "forbidden": {
+      "title": "Request rejected",
+      "text": "The form expired or the request did not come from this site. Go back, reload the page and try again."
+    },
+    "generic": {
+      "title": "Something went wrong",
+      "text": "An unexpected error occurred. It has been logged. Please try again in a moment."
+    }
   },
   "method": {
     "title": "Methodology",
@@ -557,106 +617,623 @@
   },
   "rules": {
     "seo": {
-      "title_missing": {"title": "Page has no title", "description": "The page has no <title> element, or it is empty.", "impact": "Search engines show the title as the headline of your result. Without one, they invent a title and your listing is less likely to be clicked.", "recommendation": "Add a unique, descriptive <title> of 15–60 characters that names the page's topic and your brand."},
-      "title_length": {"title": "Title is too short or too long", "description": "The page title falls outside the recommended length.", "impact": "Long titles are cut off in search results; very short titles waste the most visible part of your listing.", "recommendation": "Keep titles between 15 and 60 characters, with the most important words first.", "evidence": "“{title}” — {length} characters (recommended {min}–{max})"},
-      "title_multiple": {"title": "Page has several title elements", "description": "More than one <title> element was found.", "impact": "Search engines will use only one, and which one is not guaranteed.", "recommendation": "Keep a single <title> in the <head> and remove the others.", "evidence": "{count} title elements"},
-      "description_missing": {"title": "Meta description is missing", "description": "The page has no meta description.", "impact": "Search engines will pick a snippet of page text for your result, which is often less persuasive.", "recommendation": "Write a unique meta description of 70–160 characters that summarises the page and gives a reason to click."},
-      "description_length": {"title": "Meta description is too short or too long", "description": "The meta description falls outside the recommended length.", "impact": "Long descriptions are truncated; short ones miss the chance to persuade.", "recommendation": "Aim for 70–160 characters.", "evidence": "{length} characters (recommended {min}–{max}): “{description}”"},
-      "h1_missing": {"title": "Page has no H1 heading", "description": "No non-empty <h1> heading was found.", "impact": "The main heading tells readers and search engines what the page is about.", "recommendation": "Add one <h1> that states the page's main topic."},
-      "h1_multiple": {"title": "Page has several H1 headings", "description": "More than one <h1> heading was found.", "impact": "Several top-level headings dilute the page's main topic and make the outline harder to follow.", "recommendation": "Use one <h1> for the main topic and <h2>–<h6> for sections.", "evidence": "{count} H1 headings: {headings}"},
-      "canonical_missing": {"title": "No canonical URL", "description": "The page does not declare a canonical URL.", "impact": "When the same content is reachable at several addresses, search engines may split ranking signals between them.", "recommendation": "Add <link rel=\"canonical\" href=\"…\"> pointing to the preferred address of the page."},
-      "canonical_conflict": {"title": "Conflicting canonical URLs", "description": "The page declares more than one different canonical URL.", "impact": "Search engines ignore conflicting canonicals, so duplicate pages are not consolidated.", "recommendation": "Keep exactly one canonical link per page.", "evidence": "Canonicals: {canonicals}"},
-      "canonical_other_site": {"title": "Canonical points to another website", "description": "The canonical URL is on a different domain.", "impact": "Search engines may drop this page from results in favour of the other site.", "recommendation": "Unless the content intentionally belongs to the other site, point the canonical to this page.", "evidence": "Canonical: {canonical}"},
-      "noindex": {"title": "Page is excluded from search results", "description": "The page asks search engines not to index it (noindex).", "impact": "The page will not appear in search results. This is fine for private or utility pages, but not for content you want found.", "recommendation": "Remove noindex from pages that should be found in search.", "evidence": "Set via {source}"},
-      "noindex_home": {"title": "Home page is excluded from search results", "description": "The home page tells search engines not to index it.", "impact": "Your home page will disappear from search results, usually taking most of your search traffic with it.", "recommendation": "Remove the noindex directive from the robots meta tag or the X-Robots-Tag header.", "evidence": "Set via {source}"},
-      "thin_content": {"title": "Little text content", "description": "The page has very little readable text.", "impact": "Pages with little content rarely rank and give visitors few reasons to stay.", "recommendation": "Make sure important pages explain their topic in enough detail. Ignore this for pages that are intentionally short.", "evidence": "{words} words (threshold {min})"},
-      "generic_anchor": {"title": "Links with vague text", "description": "Some links use text such as “click here” or “read more”.", "impact": "Link text tells search engines and screen-reader users where a link goes. Vague text says nothing.", "recommendation": "Describe the destination in the link text, e.g. “Download the 2024 price list”.", "evidence": "{anchors}"},
-      "duplicate_title": {"title": "Same title used on several pages", "description": "Several pages share the same title.", "impact": "Search engines struggle to tell the pages apart and may show the wrong one.", "recommendation": "Give every page a unique title.", "evidence": "“{title}” used on {count} pages"},
-      "duplicate_description": {"title": "Same meta description on several pages", "description": "Several pages share the same meta description.", "impact": "Duplicate descriptions make results look identical and are often ignored by search engines.", "recommendation": "Write a specific description for each important page.", "evidence": "Shared by {count} pages"},
-      "duplicate_content": {"title": "Duplicate page content", "description": "Pages with identical text were found at different addresses.", "impact": "Search engines may index the wrong version or split ranking signals between copies.", "recommendation": "Redirect duplicates to one address or set a canonical URL.", "evidence": "Same text as: {duplicates}"},
-      "robots_missing": {"title": "No robots.txt file", "description": "The site has no robots.txt file.", "impact": "Not harmful on its own, but robots.txt is where you point crawlers to your sitemap and keep them out of areas that should not be crawled.", "recommendation": "Add a robots.txt at the site root with at least a Sitemap line.", "evidence": "{url} returned {status}"},
-      "robots_blocks_all": {"title": "robots.txt blocks search engines", "description": "robots.txt disallows the whole site for search engine crawlers.", "impact": "Search engines will stop crawling your pages and they will drop out of results.", "recommendation": "Remove “Disallow: /” for search engines unless the site is intentionally private.", "evidence": "{url}"},
-      "sitemap_missing": {"title": "No XML sitemap found", "description": "No sitemap was found in robots.txt or at /sitemap.xml.", "impact": "Sitemaps help search engines discover all your pages, especially new or deeply linked ones.", "recommendation": "Publish an XML sitemap and reference it in robots.txt.", "evidence": "{url} returned {status}"},
-      "sitemap_invalid": {"title": "Sitemap is not valid XML", "description": "The sitemap could not be read as a valid XML sitemap.", "impact": "Search engines cannot use a sitemap they cannot parse.", "recommendation": "Fix the XML so it follows the sitemaps.org format.", "evidence": "{url}"},
-      "broken_internal_links": {"title": "Broken internal links", "description": "Links point to pages on your site that return an error or cannot be reached.", "impact": "Visitors hit dead ends and search engines waste crawl budget on missing pages.", "recommendation": "Update or remove the links, or redirect the missing pages to their replacements.", "evidence": "{link} — {result}"},
-      "internal_redirects": {"title": "Internal links that redirect", "description": "Some internal links point to an address that redirects elsewhere.", "impact": "Each redirect adds a round trip for visitors and crawlers.", "recommendation": "Link directly to the final address.", "evidence": "{link} → {target}"},
-      "open_graph_missing": {"title": "Open Graph tags missing", "description": "The home page is missing Open Graph tags used for link previews.", "impact": "Links shared on social networks and messaging apps show without a proper title, description or image.", "recommendation": "Add og:title, og:description and og:image to the home page and key pages.", "evidence": "Missing: {missing}"},
-      "structured_data_missing": {"title": "No structured data", "description": "No JSON-LD structured data was found on the audited pages.", "impact": "Structured data can make your results eligible for richer search features.", "recommendation": "Consider adding schema.org markup appropriate for your content, e.g. Organization or Product."},
-      "https_canonical_mismatch": {"title": "Canonical uses http:// on an HTTPS site", "description": "The site is served over HTTPS but the canonical URL uses http://.", "impact": "Search engines receive mixed signals about which version to index.", "recommendation": "Use https:// in canonical URLs.", "evidence": "Canonical: {canonical}"}
+      "title_missing": {
+        "title": "Page has no title",
+        "description": "The page has no <title> element, or it is empty.",
+        "impact": "Search engines show the title as the headline of your result. Without one, they invent a title and your listing is less likely to be clicked.",
+        "recommendation": "Add a unique, descriptive <title> of 15–60 characters that names the page's topic and your brand."
+      },
+      "title_length": {
+        "title": "Title is too short or too long",
+        "description": "The page title falls outside the recommended length.",
+        "impact": "Long titles are cut off in search results; very short titles waste the most visible part of your listing.",
+        "recommendation": "Keep titles between 15 and 60 characters, with the most important words first.",
+        "evidence": "“{title}” — {length} characters (recommended {min}–{max})"
+      },
+      "title_multiple": {
+        "title": "Page has several title elements",
+        "description": "More than one <title> element was found.",
+        "impact": "Search engines will use only one, and which one is not guaranteed.",
+        "recommendation": "Keep a single <title> in the <head> and remove the others.",
+        "evidence": "{count} title elements"
+      },
+      "description_missing": {
+        "title": "Meta description is missing",
+        "description": "The page has no meta description.",
+        "impact": "Search engines will pick a snippet of page text for your result, which is often less persuasive.",
+        "recommendation": "Write a unique meta description of 70–160 characters that summarises the page and gives a reason to click."
+      },
+      "description_length": {
+        "title": "Meta description is too short or too long",
+        "description": "The meta description falls outside the recommended length.",
+        "impact": "Long descriptions are truncated; short ones miss the chance to persuade.",
+        "recommendation": "Aim for 70–160 characters.",
+        "evidence": "{length} characters (recommended {min}–{max}): “{description}”"
+      },
+      "h1_missing": {
+        "title": "Page has no H1 heading",
+        "description": "No non-empty <h1> heading was found.",
+        "impact": "The main heading tells readers and search engines what the page is about.",
+        "recommendation": "Add one <h1> that states the page's main topic."
+      },
+      "h1_multiple": {
+        "title": "Page has several H1 headings",
+        "description": "More than one <h1> heading was found.",
+        "impact": "Several top-level headings dilute the page's main topic and make the outline harder to follow.",
+        "recommendation": "Use one <h1> for the main topic and <h2>–<h6> for sections.",
+        "evidence": "{count} H1 headings: {headings}"
+      },
+      "canonical_missing": {
+        "title": "No canonical URL",
+        "description": "The page does not declare a canonical URL.",
+        "impact": "When the same content is reachable at several addresses, search engines may split ranking signals between them.",
+        "recommendation": "Add <link rel=\"canonical\" href=\"…\"> pointing to the preferred address of the page."
+      },
+      "canonical_conflict": {
+        "title": "Conflicting canonical URLs",
+        "description": "The page declares more than one different canonical URL.",
+        "impact": "Search engines ignore conflicting canonicals, so duplicate pages are not consolidated.",
+        "recommendation": "Keep exactly one canonical link per page.",
+        "evidence": "Canonicals: {canonicals}"
+      },
+      "canonical_other_site": {
+        "title": "Canonical points to another website",
+        "description": "The canonical URL is on a different domain.",
+        "impact": "Search engines may drop this page from results in favour of the other site.",
+        "recommendation": "Unless the content intentionally belongs to the other site, point the canonical to this page.",
+        "evidence": "Canonical: {canonical}"
+      },
+      "noindex": {
+        "title": "Page is excluded from search results",
+        "description": "The page asks search engines not to index it (noindex).",
+        "impact": "The page will not appear in search results. This is fine for private or utility pages, but not for content you want found.",
+        "recommendation": "Remove noindex from pages that should be found in search.",
+        "evidence": "Set via {source}"
+      },
+      "noindex_home": {
+        "title": "Home page is excluded from search results",
+        "description": "The home page tells search engines not to index it.",
+        "impact": "Your home page will disappear from search results, usually taking most of your search traffic with it.",
+        "recommendation": "Remove the noindex directive from the robots meta tag or the X-Robots-Tag header.",
+        "evidence": "Set via {source}"
+      },
+      "thin_content": {
+        "title": "Little text content",
+        "description": "The page has very little readable text.",
+        "impact": "Pages with little content rarely rank and give visitors few reasons to stay.",
+        "recommendation": "Make sure important pages explain their topic in enough detail. Ignore this for pages that are intentionally short.",
+        "evidence": "{words} words (threshold {min})"
+      },
+      "generic_anchor": {
+        "title": "Links with vague text",
+        "description": "Some links use text such as “click here” or “read more”.",
+        "impact": "Link text tells search engines and screen-reader users where a link goes. Vague text says nothing.",
+        "recommendation": "Describe the destination in the link text, e.g. “Download the 2024 price list”.",
+        "evidence": "{anchors}"
+      },
+      "duplicate_title": {
+        "title": "Same title used on several pages",
+        "description": "Several pages share the same title.",
+        "impact": "Search engines struggle to tell the pages apart and may show the wrong one.",
+        "recommendation": "Give every page a unique title.",
+        "evidence": "“{title}” used on {count} pages"
+      },
+      "duplicate_description": {
+        "title": "Same meta description on several pages",
+        "description": "Several pages share the same meta description.",
+        "impact": "Duplicate descriptions make results look identical and are often ignored by search engines.",
+        "recommendation": "Write a specific description for each important page.",
+        "evidence": "Shared by {count} pages"
+      },
+      "duplicate_content": {
+        "title": "Duplicate page content",
+        "description": "Pages with identical text were found at different addresses.",
+        "impact": "Search engines may index the wrong version or split ranking signals between copies.",
+        "recommendation": "Redirect duplicates to one address or set a canonical URL.",
+        "evidence": "Same text as: {duplicates}"
+      },
+      "robots_missing": {
+        "title": "No robots.txt file",
+        "description": "The site has no robots.txt file.",
+        "impact": "Not harmful on its own, but robots.txt is where you point crawlers to your sitemap and keep them out of areas that should not be crawled.",
+        "recommendation": "Add a robots.txt at the site root with at least a Sitemap line.",
+        "evidence": "{url} returned {status}"
+      },
+      "robots_blocks_all": {
+        "title": "robots.txt blocks search engines",
+        "description": "robots.txt disallows the whole site for search engine crawlers.",
+        "impact": "Search engines will stop crawling your pages and they will drop out of results.",
+        "recommendation": "Remove “Disallow: /” for search engines unless the site is intentionally private.",
+        "evidence": "{url}"
+      },
+      "sitemap_missing": {
+        "title": "No XML sitemap found",
+        "description": "No sitemap was found in robots.txt or at /sitemap.xml.",
+        "impact": "Sitemaps help search engines discover all your pages, especially new or deeply linked ones.",
+        "recommendation": "Publish an XML sitemap and reference it in robots.txt.",
+        "evidence": "{url} returned {status}"
+      },
+      "sitemap_invalid": {
+        "title": "Sitemap is not valid XML",
+        "description": "The sitemap could not be read as a valid XML sitemap.",
+        "impact": "Search engines cannot use a sitemap they cannot parse.",
+        "recommendation": "Fix the XML so it follows the sitemaps.org format.",
+        "evidence": "{url}"
+      },
+      "broken_internal_links": {
+        "title": "Broken internal links",
+        "description": "Links point to pages on your site that return an error or cannot be reached.",
+        "impact": "Visitors hit dead ends and search engines waste crawl budget on missing pages.",
+        "recommendation": "Update or remove the links, or redirect the missing pages to their replacements.",
+        "evidence": "{link} — {result}"
+      },
+      "internal_redirects": {
+        "title": "Internal links that redirect",
+        "description": "Some internal links point to an address that redirects elsewhere.",
+        "impact": "Each redirect adds a round trip for visitors and crawlers.",
+        "recommendation": "Link directly to the final address.",
+        "evidence": "{link} → {target}"
+      },
+      "open_graph_missing": {
+        "title": "Open Graph tags missing",
+        "description": "The home page is missing Open Graph tags used for link previews.",
+        "impact": "Links shared on social networks and messaging apps show without a proper title, description or image.",
+        "recommendation": "Add og:title, og:description and og:image to the home page and key pages.",
+        "evidence": "Missing: {missing}"
+      },
+      "structured_data_missing": {
+        "title": "No structured data",
+        "description": "No JSON-LD structured data was found on the audited pages.",
+        "impact": "Structured data can make your results eligible for richer search features.",
+        "recommendation": "Consider adding schema.org markup appropriate for your content, e.g. Organization or Product."
+      },
+      "https_canonical_mismatch": {
+        "title": "Canonical uses http:// on an HTTPS site",
+        "description": "The site is served over HTTPS but the canonical URL uses http://.",
+        "impact": "Search engines receive mixed signals about which version to index.",
+        "recommendation": "Use https:// in canonical URLs.",
+        "evidence": "Canonical: {canonical}"
+      }
     },
     "performance": {
-      "response_very_slow": {"title": "Very slow server response", "description": "The server took a long time to send the page.", "impact": "Visitors wait before anything appears and many leave. Slow responses also reduce how much of your site search engines crawl.", "recommendation": "Look at server-side caching, database queries and hosting capacity, or put a CDN in front of the site.", "evidence": "{ms} ms (threshold {threshold} ms)"},
-      "response_slow": {"title": "Slow server response", "description": "The server was slower than recommended to send the page.", "impact": "Every visit starts with this delay.", "recommendation": "Enable page caching and check server performance.", "evidence": "{ms} ms (threshold {threshold} ms)"},
-      "html_large": {"title": "Very large HTML document", "description": "The page's HTML is unusually large.", "impact": "Large documents take longer to download and parse, especially on mobile networks.", "recommendation": "Remove inlined data and unused markup; paginate long lists.", "evidence": "{kb} KB (threshold {threshold_kb} KB)"},
-      "html_uncompressed": {"title": "HTML is not compressed", "description": "The server sends HTML without gzip or Brotli compression.", "impact": "Compression typically reduces HTML size by 70% or more.", "recommendation": "Enable gzip or Brotli compression on the web server or CDN.", "evidence": "{kb} KB sent uncompressed"},
-      "render_blocking_scripts": {"title": "Render-blocking scripts", "description": "Scripts in the <head> load without async or defer.", "impact": "The browser stops drawing the page until each script has downloaded and run.", "recommendation": "Add defer (or async for independent scripts), or move scripts to the end of <body>.", "evidence": "{count} script(s): {scripts}"},
-      "many_stylesheets": {"title": "Many render-blocking stylesheets", "description": "The page loads more than five stylesheets in the <head>.", "impact": "Each stylesheet must download before the page is displayed.", "recommendation": "Combine stylesheets and inline the critical CSS.", "evidence": "{count} stylesheets"},
-      "images_without_dimensions": {"title": "Images without width and height", "description": "Images do not declare their dimensions.", "impact": "The layout jumps as images load (layout shift), which is distracting and can cause mis-clicks.", "recommendation": "Set width and height attributes on images, or reserve space with CSS aspect-ratio.", "evidence": "{count} of {total} images, e.g. {images}"},
-      "no_lazy_loading": {"title": "No lazy loading for images", "description": "The page has many images and none use lazy loading.", "impact": "Images below the fold are downloaded up front, competing with what the visitor sees first.", "recommendation": "Add loading=\"lazy\" to images that are not visible on the first screen.", "evidence": "{images} images"},
-      "large_inline_code": {"title": "Large inline scripts or styles", "description": "The HTML contains a large amount of inline JavaScript or CSS.", "impact": "Inline code cannot be cached separately and is re-downloaded on every page.", "recommendation": "Move large inline code to external, cacheable files.", "evidence": "{kb} KB inline"},
-      "many_requests": {"title": "Many resources on the home page", "description": "The home page references a large number of scripts, stylesheets and images.", "impact": "Every resource costs a request; many requests slow down the page, especially on mobile.", "recommendation": "Remove unused resources, combine files and lazy-load images.", "evidence": "{count} resources (threshold {threshold})"},
-      "entry_redirects": {"title": "Redirect chain on the entry URL", "description": "Reaching the home page takes several redirects.", "impact": "Each hop adds a full round trip before the page starts loading.", "recommendation": "Redirect directly to the final address in a single step.", "evidence": "{hops} redirects: {chain}"},
-      "static_not_cached": {"title": "Assets without long-term caching", "description": "Stylesheets, scripts or images are served without a long cache lifetime.", "impact": "Returning visitors download the same files again.", "recommendation": "Serve versioned static files with Cache-Control: max-age of at least a week (ideally a year, with immutable).", "evidence": "{resource} — Cache-Control: {cache_control}"},
-      "text_resources_uncompressed": {"title": "Uncompressed CSS or JavaScript", "description": "Text assets are served without compression.", "impact": "CSS and JavaScript typically shrink by 60–80% with compression.", "recommendation": "Enable gzip or Brotli for CSS, JavaScript, SVG and JSON.", "evidence": "{resource} — {kb} KB"},
-      "large_images": {"title": "Large images", "description": "Some images are larger than recommended.", "impact": "Heavy images are the most common cause of slow pages on mobile.", "recommendation": "Resize images to the size they are displayed at and use modern formats such as WebP or AVIF.", "evidence": "{resource} — {kb} KB (threshold {threshold_kb} KB)"},
-      "heavy_javascript": {"title": "Heavy JavaScript", "description": "The home page loads a large amount of JavaScript.", "impact": "JavaScript must be downloaded, parsed and executed, which delays interactivity on slower devices.", "recommendation": "Remove unused libraries, split code by page and defer non-essential scripts.", "evidence": "{kb} KB across {files} file(s) checked (threshold {threshold_kb} KB)"},
-      "fonts_without_preconnect": {"title": "Web fonts without preconnect", "description": "Google Fonts are used without a preconnect hint.", "impact": "Text may render late while the browser connects to the font servers.", "recommendation": "Add <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>, or self-host the fonts."}
+      "response_very_slow": {
+        "title": "Very slow server response",
+        "description": "The server took a long time to send the page.",
+        "impact": "Visitors wait before anything appears and many leave. Slow responses also reduce how much of your site search engines crawl.",
+        "recommendation": "Look at server-side caching, database queries and hosting capacity, or put a CDN in front of the site.",
+        "evidence": "{ms} ms (threshold {threshold} ms)"
+      },
+      "response_slow": {
+        "title": "Slow server response",
+        "description": "The server was slower than recommended to send the page.",
+        "impact": "Every visit starts with this delay.",
+        "recommendation": "Enable page caching and check server performance.",
+        "evidence": "{ms} ms (threshold {threshold} ms)"
+      },
+      "html_large": {
+        "title": "Very large HTML document",
+        "description": "The page's HTML is unusually large.",
+        "impact": "Large documents take longer to download and parse, especially on mobile networks.",
+        "recommendation": "Remove inlined data and unused markup; paginate long lists.",
+        "evidence": "{kb} KB (threshold {threshold_kb} KB)"
+      },
+      "html_uncompressed": {
+        "title": "HTML is not compressed",
+        "description": "The server sends HTML without gzip or Brotli compression.",
+        "impact": "Compression typically reduces HTML size by 70% or more.",
+        "recommendation": "Enable gzip or Brotli compression on the web server or CDN.",
+        "evidence": "{kb} KB sent uncompressed"
+      },
+      "render_blocking_scripts": {
+        "title": "Render-blocking scripts",
+        "description": "Scripts in the <head> load without async or defer.",
+        "impact": "The browser stops drawing the page until each script has downloaded and run.",
+        "recommendation": "Add defer (or async for independent scripts), or move scripts to the end of <body>.",
+        "evidence": "{count} script(s): {scripts}"
+      },
+      "many_stylesheets": {
+        "title": "Many render-blocking stylesheets",
+        "description": "The page loads more than five stylesheets in the <head>.",
+        "impact": "Each stylesheet must download before the page is displayed.",
+        "recommendation": "Combine stylesheets and inline the critical CSS.",
+        "evidence": "{count} stylesheets"
+      },
+      "images_without_dimensions": {
+        "title": "Images without width and height",
+        "description": "Images do not declare their dimensions.",
+        "impact": "The layout jumps as images load (layout shift), which is distracting and can cause mis-clicks.",
+        "recommendation": "Set width and height attributes on images, or reserve space with CSS aspect-ratio.",
+        "evidence": "{count} of {total} images, e.g. {images}"
+      },
+      "no_lazy_loading": {
+        "title": "No lazy loading for images",
+        "description": "The page has many images and none use lazy loading.",
+        "impact": "Images below the fold are downloaded up front, competing with what the visitor sees first.",
+        "recommendation": "Add loading=\"lazy\" to images that are not visible on the first screen.",
+        "evidence": "{images} images"
+      },
+      "large_inline_code": {
+        "title": "Large inline scripts or styles",
+        "description": "The HTML contains a large amount of inline JavaScript or CSS.",
+        "impact": "Inline code cannot be cached separately and is re-downloaded on every page.",
+        "recommendation": "Move large inline code to external, cacheable files.",
+        "evidence": "{kb} KB inline"
+      },
+      "many_requests": {
+        "title": "Many resources on the home page",
+        "description": "The home page references a large number of scripts, stylesheets and images.",
+        "impact": "Every resource costs a request; many requests slow down the page, especially on mobile.",
+        "recommendation": "Remove unused resources, combine files and lazy-load images.",
+        "evidence": "{count} resources (threshold {threshold})"
+      },
+      "entry_redirects": {
+        "title": "Redirect chain on the entry URL",
+        "description": "Reaching the home page takes several redirects.",
+        "impact": "Each hop adds a full round trip before the page starts loading.",
+        "recommendation": "Redirect directly to the final address in a single step.",
+        "evidence": "{hops} redirects: {chain}"
+      },
+      "static_not_cached": {
+        "title": "Assets without long-term caching",
+        "description": "Stylesheets, scripts or images are served without a long cache lifetime.",
+        "impact": "Returning visitors download the same files again.",
+        "recommendation": "Serve versioned static files with Cache-Control: max-age of at least a week (ideally a year, with immutable).",
+        "evidence": "{resource} — Cache-Control: {cache_control}"
+      },
+      "text_resources_uncompressed": {
+        "title": "Uncompressed CSS or JavaScript",
+        "description": "Text assets are served without compression.",
+        "impact": "CSS and JavaScript typically shrink by 60–80% with compression.",
+        "recommendation": "Enable gzip or Brotli for CSS, JavaScript, SVG and JSON.",
+        "evidence": "{resource} — {kb} KB"
+      },
+      "large_images": {
+        "title": "Large images",
+        "description": "Some images are larger than recommended.",
+        "impact": "Heavy images are the most common cause of slow pages on mobile.",
+        "recommendation": "Resize images to the size they are displayed at and use modern formats such as WebP or AVIF.",
+        "evidence": "{resource} — {kb} KB (threshold {threshold_kb} KB)"
+      },
+      "heavy_javascript": {
+        "title": "Heavy JavaScript",
+        "description": "The home page loads a large amount of JavaScript.",
+        "impact": "JavaScript must be downloaded, parsed and executed, which delays interactivity on slower devices.",
+        "recommendation": "Remove unused libraries, split code by page and defer non-essential scripts.",
+        "evidence": "{kb} KB across {files} file(s) checked (threshold {threshold_kb} KB)"
+      },
+      "fonts_without_preconnect": {
+        "title": "Web fonts without preconnect",
+        "description": "Google Fonts are used without a preconnect hint.",
+        "impact": "Text may render late while the browser connects to the font servers.",
+        "recommendation": "Add <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>, or self-host the fonts."
+      }
     },
     "accessibility": {
-      "lang_missing": {"title": "Page language not declared", "description": "The <html> element has no lang attribute.", "impact": "Screen readers may pronounce the content in the wrong language. (WCAG 3.1.1)", "recommendation": "Add the language, e.g. <html lang=\"en\">."},
-      "image_alt_missing": {"title": "Images without alternative text", "description": "Images have no alt attribute.", "impact": "Screen-reader users get no description of the image, or hear the file name. (WCAG 1.1.1)", "recommendation": "Add alt text describing each informative image; use alt=\"\" for purely decorative images.", "evidence": "{count} of {total} images, e.g. {images}"},
-      "control_unlabeled": {"title": "Form fields without labels", "description": "Form fields have no associated label.", "impact": "Screen-reader users cannot tell what to enter. Placeholders disappear while typing and are not a substitute. (WCAG 1.3.1, 4.1.2)", "recommendation": "Connect a <label for=\"…\"> to every field, or use aria-label when a visible label is not possible.", "evidence": "{count} field(s), {placeholder_only} with placeholder only, e.g. {elements}"},
-      "button_unnamed": {"title": "Buttons without an accessible name", "description": "Buttons have no text, label or title.", "impact": "Assistive technology announces them only as “button”, so users cannot tell what they do. (WCAG 4.1.2)", "recommendation": "Give every button visible text, or an aria-label for icon-only buttons.", "evidence": "{count} button(s), e.g. {elements}"},
-      "link_unnamed": {"title": "Links without an accessible name", "description": "Links have no text, label or image alternative.", "impact": "Screen-reader users hear only the address, or nothing. (WCAG 2.4.4)", "recommendation": "Add link text, or alt text to the image inside the link.", "evidence": "{count} link(s), e.g. {elements}"},
-      "iframe_untitled": {"title": "Frames without a title", "description": "<iframe> elements have no title attribute.", "impact": "Users of assistive technology cannot tell what the embedded content is. (WCAG 4.1.2)", "recommendation": "Add a short title, e.g. title=\"Location map\".", "evidence": "{count} frame(s)"},
-      "invalid_role": {"title": "Invalid ARIA roles", "description": "Elements use role values that do not exist in ARIA.", "impact": "Assistive technology ignores or misinterprets the element.", "recommendation": "Use valid ARIA roles, or preferably the native HTML element.", "evidence": "Roles: {roles}"},
-      "duplicate_ids": {"title": "Duplicate element IDs", "description": "Several elements share the same id.", "impact": "Labels, ARIA references and in-page links may point to the wrong element.", "recommendation": "Make every id unique within the page.", "evidence": "{count} duplicated: {ids}"},
-      "positive_tabindex": {"title": "Positive tabindex values", "description": "Elements use tabindex greater than 0.", "impact": "Keyboard focus jumps in an unexpected order. (WCAG 2.4.3)", "recommendation": "Use tabindex=\"0\" or -1 only, and order elements correctly in the HTML.", "evidence": "{count} element(s)"},
-      "heading_order": {"title": "Heading levels are skipped", "description": "Headings jump more than one level (for example from H2 to H4).", "impact": "Screen-reader users navigate by headings; skipped levels suggest missing sections.", "recommendation": "Use heading levels in order, without gaps.", "evidence": "{skips}"},
-      "empty_heading": {"title": "Empty headings", "description": "Heading elements contain no text.", "impact": "Screen readers announce a heading with nothing in it.", "recommendation": "Add text to the heading or remove the element.", "evidence": "{count} empty heading(s)"},
-      "main_landmark_missing": {"title": "No main landmark", "description": "The page has no <main> element or role=\"main\".", "impact": "Keyboard and screen-reader users cannot jump straight to the main content.", "recommendation": "Wrap the primary content in a <main> element."},
-      "table_headers_missing": {"title": "Data tables without headers", "description": "Tables have several rows but no header cells.", "impact": "Screen readers cannot tell which column or row a value belongs to. (WCAG 1.3.1)", "recommendation": "Use <th> for header cells, or role=\"presentation\" for layout tables.", "evidence": "{count} table(s)"},
-      "zoom_disabled": {"title": "Zoom is disabled", "description": "The viewport prevents users from zooming in.", "impact": "People with low vision cannot enlarge the text. (WCAG 1.4.4)", "recommendation": "Remove user-scalable=no and any maximum-scale below 2 from the viewport tag.", "evidence": "viewport: {viewport}"},
-      "low_contrast": {"title": "Low colour contrast", "description": "Text colours set inline have insufficient contrast with their background.", "impact": "Text is hard to read for people with low vision or in bright light. (WCAG 1.4.3 requires 4.5:1)", "recommendation": "Darken the text or lighten the background to reach at least 4.5:1.", "evidence": "{count} element(s): {elements}"},
-      "contrast_stylesheets": {"title": "Colour contrast of styled text", "description": "Contrast of colours defined in stylesheets.", "impact": "—", "recommendation": "Check contrast with a browser-based tool."}
+      "lang_missing": {
+        "title": "Page language not declared",
+        "description": "The <html> element has no lang attribute.",
+        "impact": "Screen readers may pronounce the content in the wrong language. (WCAG 3.1.1)",
+        "recommendation": "Add the language, e.g. <html lang=\"en\">."
+      },
+      "image_alt_missing": {
+        "title": "Images without alternative text",
+        "description": "Images have no alt attribute.",
+        "impact": "Screen-reader users get no description of the image, or hear the file name. (WCAG 1.1.1)",
+        "recommendation": "Add alt text describing each informative image; use alt=\"\" for purely decorative images.",
+        "evidence": "{count} of {total} images, e.g. {images}"
+      },
+      "control_unlabeled": {
+        "title": "Form fields without labels",
+        "description": "Form fields have no associated label.",
+        "impact": "Screen-reader users cannot tell what to enter. Placeholders disappear while typing and are not a substitute. (WCAG 1.3.1, 4.1.2)",
+        "recommendation": "Connect a <label for=\"…\"> to every field, or use aria-label when a visible label is not possible.",
+        "evidence": "{count} field(s), {placeholder_only} with placeholder only, e.g. {elements}"
+      },
+      "button_unnamed": {
+        "title": "Buttons without an accessible name",
+        "description": "Buttons have no text, label or title.",
+        "impact": "Assistive technology announces them only as “button”, so users cannot tell what they do. (WCAG 4.1.2)",
+        "recommendation": "Give every button visible text, or an aria-label for icon-only buttons.",
+        "evidence": "{count} button(s), e.g. {elements}"
+      },
+      "link_unnamed": {
+        "title": "Links without an accessible name",
+        "description": "Links have no text, label or image alternative.",
+        "impact": "Screen-reader users hear only the address, or nothing. (WCAG 2.4.4)",
+        "recommendation": "Add link text, or alt text to the image inside the link.",
+        "evidence": "{count} link(s), e.g. {elements}"
+      },
+      "iframe_untitled": {
+        "title": "Frames without a title",
+        "description": "<iframe> elements have no title attribute.",
+        "impact": "Users of assistive technology cannot tell what the embedded content is. (WCAG 4.1.2)",
+        "recommendation": "Add a short title, e.g. title=\"Location map\".",
+        "evidence": "{count} frame(s)"
+      },
+      "invalid_role": {
+        "title": "Invalid ARIA roles",
+        "description": "Elements use role values that do not exist in ARIA.",
+        "impact": "Assistive technology ignores or misinterprets the element.",
+        "recommendation": "Use valid ARIA roles, or preferably the native HTML element.",
+        "evidence": "Roles: {roles}"
+      },
+      "duplicate_ids": {
+        "title": "Duplicate element IDs",
+        "description": "Several elements share the same id.",
+        "impact": "Labels, ARIA references and in-page links may point to the wrong element.",
+        "recommendation": "Make every id unique within the page.",
+        "evidence": "{count} duplicated: {ids}"
+      },
+      "positive_tabindex": {
+        "title": "Positive tabindex values",
+        "description": "Elements use tabindex greater than 0.",
+        "impact": "Keyboard focus jumps in an unexpected order. (WCAG 2.4.3)",
+        "recommendation": "Use tabindex=\"0\" or -1 only, and order elements correctly in the HTML.",
+        "evidence": "{count} element(s)"
+      },
+      "heading_order": {
+        "title": "Heading levels are skipped",
+        "description": "Headings jump more than one level (for example from H2 to H4).",
+        "impact": "Screen-reader users navigate by headings; skipped levels suggest missing sections.",
+        "recommendation": "Use heading levels in order, without gaps.",
+        "evidence": "{skips}"
+      },
+      "empty_heading": {
+        "title": "Empty headings",
+        "description": "Heading elements contain no text.",
+        "impact": "Screen readers announce a heading with nothing in it.",
+        "recommendation": "Add text to the heading or remove the element.",
+        "evidence": "{count} empty heading(s)"
+      },
+      "main_landmark_missing": {
+        "title": "No main landmark",
+        "description": "The page has no <main> element or role=\"main\".",
+        "impact": "Keyboard and screen-reader users cannot jump straight to the main content.",
+        "recommendation": "Wrap the primary content in a <main> element."
+      },
+      "table_headers_missing": {
+        "title": "Data tables without headers",
+        "description": "Tables have several rows but no header cells.",
+        "impact": "Screen readers cannot tell which column or row a value belongs to. (WCAG 1.3.1)",
+        "recommendation": "Use <th> for header cells, or role=\"presentation\" for layout tables.",
+        "evidence": "{count} table(s)"
+      },
+      "zoom_disabled": {
+        "title": "Zoom is disabled",
+        "description": "The viewport prevents users from zooming in.",
+        "impact": "People with low vision cannot enlarge the text. (WCAG 1.4.4)",
+        "recommendation": "Remove user-scalable=no and any maximum-scale below 2 from the viewport tag.",
+        "evidence": "viewport: {viewport}"
+      },
+      "low_contrast": {
+        "title": "Low colour contrast",
+        "description": "Text colours set inline have insufficient contrast with their background.",
+        "impact": "Text is hard to read for people with low vision or in bright light. (WCAG 1.4.3 requires 4.5:1)",
+        "recommendation": "Darken the text or lighten the background to reach at least 4.5:1.",
+        "evidence": "{count} element(s): {elements}"
+      },
+      "contrast_stylesheets": {
+        "title": "Colour contrast of styled text",
+        "description": "Contrast of colours defined in stylesheets.",
+        "impact": "—",
+        "recommendation": "Check contrast with a browser-based tool."
+      }
     },
     "mobile": {
-      "viewport_missing": {"title": "No mobile viewport", "description": "The page has no viewport meta tag.", "impact": "Phones render the page at desktop width and shrink it, so text is tiny and users must zoom.", "recommendation": "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">."},
-      "viewport_fixed_width": {"title": "Viewport has a fixed width", "description": "The viewport is set to a fixed pixel width instead of the device width.", "impact": "The layout does not adapt to the screen size of the phone.", "recommendation": "Use width=device-width.", "evidence": "viewport: {viewport}"},
-      "plugins": {"title": "Embedded plugins", "description": "The page uses <object>, <embed> or <applet> elements.", "impact": "Plugin content does not work on most mobile devices.", "recommendation": "Replace plugin content with HTML5 video, audio or images.", "evidence": "{count} element(s)"},
-      "wide_fixed_elements": {"title": "Wide fixed-width elements", "description": "Elements have inline widths larger than a phone screen.", "impact": "They may force horizontal scrolling on small screens.", "recommendation": "Use relative widths (%, max-width: 100%) instead of fixed pixel widths.", "evidence": "{count} element(s) wider than 640 px"},
-      "small_inline_fonts": {"title": "Very small text", "description": "Text is set inline to a font size below 12 px.", "impact": "Small text is hard to read on phones.", "recommendation": "Use at least 16 px for body text and 12 px for fine print.", "evidence": "{count} element(s)"},
-      "images_not_responsive": {"title": "Images are not responsive", "description": "None of the page's images provide alternative sizes (srcset or <picture>).", "impact": "Phones download desktop-sized images.", "recommendation": "Provide srcset and sizes so browsers can pick an appropriate size.", "evidence": "{images} images without srcset"},
-      "layout_overflow": {"title": "Horizontal overflow on small screens", "description": "Whether content overflows narrow screens.", "impact": "—", "recommendation": "Check the page on a phone or with browser developer tools."},
-      "tap_targets": {"title": "Size of tap targets", "description": "Whether buttons and links are large enough to tap.", "impact": "—", "recommendation": "Check that interactive elements are at least 24×24 px (WCAG 2.5.8)."}
+      "viewport_missing": {
+        "title": "No mobile viewport",
+        "description": "The page has no viewport meta tag.",
+        "impact": "Phones render the page at desktop width and shrink it, so text is tiny and users must zoom.",
+        "recommendation": "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">."
+      },
+      "viewport_fixed_width": {
+        "title": "Viewport has a fixed width",
+        "description": "The viewport is set to a fixed pixel width instead of the device width.",
+        "impact": "The layout does not adapt to the screen size of the phone.",
+        "recommendation": "Use width=device-width.",
+        "evidence": "viewport: {viewport}"
+      },
+      "plugins": {
+        "title": "Embedded plugins",
+        "description": "The page uses <object>, <embed> or <applet> elements.",
+        "impact": "Plugin content does not work on most mobile devices.",
+        "recommendation": "Replace plugin content with HTML5 video, audio or images.",
+        "evidence": "{count} element(s)"
+      },
+      "wide_fixed_elements": {
+        "title": "Wide fixed-width elements",
+        "description": "Elements have inline widths larger than a phone screen.",
+        "impact": "They may force horizontal scrolling on small screens.",
+        "recommendation": "Use relative widths (%, max-width: 100%) instead of fixed pixel widths.",
+        "evidence": "{count} element(s) wider than 640 px"
+      },
+      "small_inline_fonts": {
+        "title": "Very small text",
+        "description": "Text is set inline to a font size below 12 px.",
+        "impact": "Small text is hard to read on phones.",
+        "recommendation": "Use at least 16 px for body text and 12 px for fine print.",
+        "evidence": "{count} element(s)"
+      },
+      "images_not_responsive": {
+        "title": "Images are not responsive",
+        "description": "None of the page's images provide alternative sizes (srcset or <picture>).",
+        "impact": "Phones download desktop-sized images.",
+        "recommendation": "Provide srcset and sizes so browsers can pick an appropriate size.",
+        "evidence": "{images} images without srcset"
+      },
+      "layout_overflow": {
+        "title": "Horizontal overflow on small screens",
+        "description": "Whether content overflows narrow screens.",
+        "impact": "—",
+        "recommendation": "Check the page on a phone or with browser developer tools."
+      },
+      "tap_targets": {
+        "title": "Size of tap targets",
+        "description": "Whether buttons and links are large enough to tap.",
+        "impact": "—",
+        "recommendation": "Check that interactive elements are at least 24×24 px (WCAG 2.5.8)."
+      }
     },
     "security": {
-      "no_https": {"title": "Site is not served over HTTPS", "description": "The site is delivered over unencrypted HTTP.", "impact": "Anyone on the network can read or alter what visitors see and send. Browsers mark the site as “Not secure”.", "recommendation": "Install a TLS certificate (free from Let's Encrypt) and redirect all HTTP traffic to HTTPS."},
-      "http_not_redirected": {"title": "HTTP does not redirect to HTTPS", "description": "The http:// version of the site does not redirect to https://.", "impact": "Visitors who type the address or follow old links stay on an unencrypted connection.", "recommendation": "Add a permanent (301) redirect from HTTP to HTTPS.", "evidence": "http:// responded with HTTP {status}"},
-      "certificate_invalid": {"title": "TLS certificate is not valid", "description": "The certificate could not be verified.", "impact": "Browsers show a full-page security warning and most visitors leave.", "recommendation": "Install a valid certificate for this host name, including the full intermediate chain.", "evidence": "{error}"},
-      "certificate_expiring": {"title": "TLS certificate expires soon", "description": "The certificate will expire shortly.", "impact": "When it expires, browsers will block access to the site with a security warning.", "recommendation": "Renew the certificate and make sure renewal is automated.", "evidence": "Expires on {expires} ({days} days)"},
-      "hsts_missing": {"title": "HSTS header missing", "description": "The Strict-Transport-Security header is not set.", "impact": "Browsers may still try plain HTTP first, which can be intercepted.", "recommendation": "Send Strict-Transport-Security: max-age=31536000; includeSubDomains once HTTPS works everywhere."},
-      "csp_missing": {"title": "No Content Security Policy", "description": "The Content-Security-Policy header is not set.", "impact": "A CSP limits the damage of cross-site scripting by restricting where scripts can load from.", "recommendation": "Define a Content-Security-Policy, starting in report-only mode to find what needs to be allowed."},
-      "clickjacking": {"title": "Page can be embedded by other sites", "description": "Neither X-Frame-Options nor CSP frame-ancestors is set.", "impact": "Attackers can load your page in an invisible frame and trick users into clicking (clickjacking).", "recommendation": "Send X-Frame-Options: DENY (or SAMEORIGIN), or CSP frame-ancestors 'self'."},
-      "nosniff_missing": {"title": "X-Content-Type-Options missing", "description": "The X-Content-Type-Options: nosniff header is not set.", "impact": "Browsers may guess content types, which can turn uploaded files into executable scripts.", "recommendation": "Send X-Content-Type-Options: nosniff."},
-      "referrer_policy_missing": {"title": "Referrer-Policy missing", "description": "No Referrer-Policy header is set.", "impact": "Full page addresses, which may contain private data, can leak to other sites.", "recommendation": "Send Referrer-Policy: strict-origin-when-cross-origin."},
-      "permissions_policy_missing": {"title": "Permissions-Policy missing", "description": "No Permissions-Policy header is set.", "impact": "Embedded third-party content could request features such as camera or location.", "recommendation": "Send a Permissions-Policy that disables features you do not use, e.g. camera=(), microphone=(), geolocation=()."},
-      "cookie_not_secure": {"title": "Cookies without the Secure flag", "description": "Cookies are set without the Secure attribute.", "impact": "They can be sent over unencrypted connections and intercepted.", "recommendation": "Set the Secure attribute on all cookies.", "evidence": "Cookie: {cookie}"},
-      "cookie_not_httponly": {"title": "Cookies readable by JavaScript", "description": "Cookies are set without the HttpOnly attribute.", "impact": "If a session cookie is readable by JavaScript, a cross-site scripting flaw can steal it. Analytics cookies do not need HttpOnly.", "recommendation": "Set HttpOnly on session and authentication cookies.", "evidence": "Cookie: {cookie}"},
-      "cookie_no_samesite": {"title": "Cookies without SameSite", "description": "Cookies are set without the SameSite attribute.", "impact": "Without SameSite, cookies are more exposed to cross-site request forgery.", "recommendation": "Set SameSite=Lax (or Strict) on cookies.", "evidence": "Cookie: {cookie}"},
-      "mixed_content": {"title": "Mixed content", "description": "An HTTPS page loads resources over plain HTTP.", "impact": "Browsers block or warn about insecure resources, which can break the page and expose visitors.", "recommendation": "Load every resource over https://.", "evidence": "{count} resource(s), e.g. {resources}"},
-      "version_disclosure": {"title": "Server software version disclosed", "description": "Response headers reveal software names and versions.", "impact": "Version numbers make it easier for attackers to find known vulnerabilities.", "recommendation": "Remove version numbers from the Server header and remove X-Powered-By.", "evidence": "{headers}"}
+      "no_https": {
+        "title": "Site is not served over HTTPS",
+        "description": "The site is delivered over unencrypted HTTP.",
+        "impact": "Anyone on the network can read or alter what visitors see and send. Browsers mark the site as “Not secure”.",
+        "recommendation": "Install a TLS certificate (free from Let's Encrypt) and redirect all HTTP traffic to HTTPS."
+      },
+      "http_not_redirected": {
+        "title": "HTTP does not redirect to HTTPS",
+        "description": "The http:// version of the site does not redirect to https://.",
+        "impact": "Visitors who type the address or follow old links stay on an unencrypted connection.",
+        "recommendation": "Add a permanent (301) redirect from HTTP to HTTPS.",
+        "evidence": "http:// responded with HTTP {status}"
+      },
+      "certificate_invalid": {
+        "title": "TLS certificate is not valid",
+        "description": "The certificate could not be verified.",
+        "impact": "Browsers show a full-page security warning and most visitors leave.",
+        "recommendation": "Install a valid certificate for this host name, including the full intermediate chain.",
+        "evidence": "{error}"
+      },
+      "certificate_expiring": {
+        "title": "TLS certificate expires soon",
+        "description": "The certificate will expire shortly.",
+        "impact": "When it expires, browsers will block access to the site with a security warning.",
+        "recommendation": "Renew the certificate and make sure renewal is automated.",
+        "evidence": "Expires on {expires} ({days} days)"
+      },
+      "hsts_missing": {
+        "title": "HSTS header missing",
+        "description": "The Strict-Transport-Security header is not set.",
+        "impact": "Browsers may still try plain HTTP first, which can be intercepted.",
+        "recommendation": "Send Strict-Transport-Security: max-age=31536000; includeSubDomains once HTTPS works everywhere."
+      },
+      "csp_missing": {
+        "title": "No Content Security Policy",
+        "description": "The Content-Security-Policy header is not set.",
+        "impact": "A CSP limits the damage of cross-site scripting by restricting where scripts can load from.",
+        "recommendation": "Define a Content-Security-Policy, starting in report-only mode to find what needs to be allowed."
+      },
+      "clickjacking": {
+        "title": "Page can be embedded by other sites",
+        "description": "Neither X-Frame-Options nor CSP frame-ancestors is set.",
+        "impact": "Attackers can load your page in an invisible frame and trick users into clicking (clickjacking).",
+        "recommendation": "Send X-Frame-Options: DENY (or SAMEORIGIN), or CSP frame-ancestors 'self'."
+      },
+      "nosniff_missing": {
+        "title": "X-Content-Type-Options missing",
+        "description": "The X-Content-Type-Options: nosniff header is not set.",
+        "impact": "Browsers may guess content types, which can turn uploaded files into executable scripts.",
+        "recommendation": "Send X-Content-Type-Options: nosniff."
+      },
+      "referrer_policy_missing": {
+        "title": "Referrer-Policy missing",
+        "description": "No Referrer-Policy header is set.",
+        "impact": "Full page addresses, which may contain private data, can leak to other sites.",
+        "recommendation": "Send Referrer-Policy: strict-origin-when-cross-origin."
+      },
+      "permissions_policy_missing": {
+        "title": "Permissions-Policy missing",
+        "description": "No Permissions-Policy header is set.",
+        "impact": "Embedded third-party content could request features such as camera or location.",
+        "recommendation": "Send a Permissions-Policy that disables features you do not use, e.g. camera=(), microphone=(), geolocation=()."
+      },
+      "cookie_not_secure": {
+        "title": "Cookies without the Secure flag",
+        "description": "Cookies are set without the Secure attribute.",
+        "impact": "They can be sent over unencrypted connections and intercepted.",
+        "recommendation": "Set the Secure attribute on all cookies.",
+        "evidence": "Cookie: {cookie}"
+      },
+      "cookie_not_httponly": {
+        "title": "Cookies readable by JavaScript",
+        "description": "Cookies are set without the HttpOnly attribute.",
+        "impact": "If a session cookie is readable by JavaScript, a cross-site scripting flaw can steal it. Analytics cookies do not need HttpOnly.",
+        "recommendation": "Set HttpOnly on session and authentication cookies.",
+        "evidence": "Cookie: {cookie}"
+      },
+      "cookie_no_samesite": {
+        "title": "Cookies without SameSite",
+        "description": "Cookies are set without the SameSite attribute.",
+        "impact": "Without SameSite, cookies are more exposed to cross-site request forgery.",
+        "recommendation": "Set SameSite=Lax (or Strict) on cookies.",
+        "evidence": "Cookie: {cookie}"
+      },
+      "mixed_content": {
+        "title": "Mixed content",
+        "description": "An HTTPS page loads resources over plain HTTP.",
+        "impact": "Browsers block or warn about insecure resources, which can break the page and expose visitors.",
+        "recommendation": "Load every resource over https://.",
+        "evidence": "{count} resource(s), e.g. {resources}"
+      },
+      "version_disclosure": {
+        "title": "Server software version disclosed",
+        "description": "Response headers reveal software names and versions.",
+        "impact": "Version numbers make it easier for attackers to find known vulnerabilities.",
+        "recommendation": "Remove version numbers from the Server header and remove X-Powered-By.",
+        "evidence": "{headers}"
+      }
     },
     "best_practices": {
-      "doctype_missing": {"title": "No HTML doctype", "description": "The page does not start with <!doctype html>.", "impact": "Browsers render the page in quirks mode, which causes inconsistent layout.", "recommendation": "Start every page with <!doctype html>."},
-      "charset_missing": {"title": "Character encoding not declared", "description": "Neither the HTML nor the Content-Type header declares a character set.", "impact": "Accented characters may display incorrectly.", "recommendation": "Add <meta charset=\"utf-8\"> as the first element of <head>."},
-      "deprecated_html": {"title": "Deprecated HTML elements", "description": "The page uses elements removed from HTML.", "impact": "They may render inconsistently and signal outdated markup.", "recommendation": "Replace them with CSS and current HTML elements.", "evidence": "Elements: {tags}"},
-      "meta_refresh": {"title": "Meta refresh used", "description": "The page uses a meta refresh to reload or redirect.", "impact": "Automatic refreshes disorient users and are a weak redirect signal for search engines.", "recommendation": "Use a server-side 301 redirect instead."},
-      "target_blank": {"title": "External links opening new tabs without rel=noopener", "description": "Links with target=\"_blank\" do not set rel=\"noopener\".", "impact": "Current browsers apply noopener automatically; older browsers let the opened page control yours.", "recommendation": "Add rel=\"noopener\" to links that open in a new tab.", "evidence": "{count} link(s), e.g. {links}"},
-      "favicon_missing": {"title": "No favicon declared", "description": "The home page does not declare a favicon.", "impact": "Browser tabs, bookmarks and some search results show a generic icon.", "recommendation": "Add <link rel=\"icon\" href=\"/favicon.svg\">."},
-      "server_errors": {"title": "Pages return server errors", "description": "Some pages respond with a 5xx server error.", "impact": "Visitors see an error page and search engines may drop the page.", "recommendation": "Check the server logs for these addresses and fix the underlying errors.", "evidence": "HTTP {status}"},
-      "unreachable_pages": {"title": "Pages could not be reached", "description": "Some linked pages could not be fetched.", "impact": "Visitors and search engines cannot reach these pages either.", "recommendation": "Check that these pages are online and respond within a few seconds.", "evidence": "Error: {error}"},
-      "broken_external_links": {"title": "Broken outbound links", "description": "Links to other websites point to pages that no longer exist or do not respond.", "impact": "Dead links frustrate visitors and make content look neglected.", "recommendation": "Update or remove these links.", "evidence": "{link} — {result}"}
+      "doctype_missing": {
+        "title": "No HTML doctype",
+        "description": "The page does not start with <!doctype html>.",
+        "impact": "Browsers render the page in quirks mode, which causes inconsistent layout.",
+        "recommendation": "Start every page with <!doctype html>."
+      },
+      "charset_missing": {
+        "title": "Character encoding not declared",
+        "description": "Neither the HTML nor the Content-Type header declares a character set.",
+        "impact": "Accented characters may display incorrectly.",
+        "recommendation": "Add <meta charset=\"utf-8\"> as the first element of <head>."
+      },
+      "deprecated_html": {
+        "title": "Deprecated HTML elements",
+        "description": "The page uses elements removed from HTML.",
+        "impact": "They may render inconsistently and signal outdated markup.",
+        "recommendation": "Replace them with CSS and current HTML elements.",
+        "evidence": "Elements: {tags}"
+      },
+      "meta_refresh": {
+        "title": "Meta refresh used",
+        "description": "The page uses a meta refresh to reload or redirect.",
+        "impact": "Automatic refreshes disorient users and are a weak redirect signal for search engines.",
+        "recommendation": "Use a server-side 301 redirect instead."
+      },
+      "target_blank": {
+        "title": "External links opening new tabs without rel=noopener",
+        "description": "Links with target=\"_blank\" do not set rel=\"noopener\".",
+        "impact": "Current browsers apply noopener automatically; older browsers let the opened page control yours.",
+        "recommendation": "Add rel=\"noopener\" to links that open in a new tab.",
+        "evidence": "{count} link(s), e.g. {links}"
+      },
+      "favicon_missing": {
+        "title": "No favicon declared",
+        "description": "The home page does not declare a favicon.",
+        "impact": "Browser tabs, bookmarks and some search results show a generic icon.",
+        "recommendation": "Add <link rel=\"icon\" href=\"/favicon.svg\">."
+      },
+      "server_errors": {
+        "title": "Pages return server errors",
+        "description": "Some pages respond with a 5xx server error.",
+        "impact": "Visitors see an error page and search engines may drop the page.",
+        "recommendation": "Check the server logs for these addresses and fix the underlying errors.",
+        "evidence": "HTTP {status}"
+      },
+      "unreachable_pages": {
+        "title": "Pages could not be reached",
+        "description": "Some linked pages could not be fetched.",
+        "impact": "Visitors and search engines cannot reach these pages either.",
+        "recommendation": "Check that these pages are online and respond within a few seconds.",
+        "evidence": "Error: {error}"
+      },
+      "broken_external_links": {
+        "title": "Broken outbound links",
+        "description": "Links to other websites point to pages that no longer exist or do not respond.",
+        "impact": "Dead links frustrate visitors and make content look neglected.",
+        "recommendation": "Update or remove these links.",
+        "evidence": "{link} — {result}"
+      }
     }
   }
 }

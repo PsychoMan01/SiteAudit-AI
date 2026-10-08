@@ -33,7 +33,7 @@
   {% if summary.groups|length == 0 %}
     <p>{{ t('result.summary_clean') }}</p>
   {% else %}
-    <p>{{ t('result.summary_counts', total=(c.critical + c.high + c.medium + c.low), critical=c.critical, high=c.high) }}
+    <p>{{ tn('result.summary_counts', c.critical + c.high + c.medium + c.low, total=(c.critical + c.high + c.medium + c.low), critical=c.critical, high=c.high) }}
     {% if summary.weakest and summary.weakest != summary.strongest %}{{ t('result.summary_weakest', weakest=t('category.' ~ summary.weakest), strongest=t('category.' ~ summary.strongest)) }}{% endif %}</p>
   {% endif %}
   {% if show_ai %}{% for para in audit.ai_summary.split('\n\n') %}<p>{{ para }}</p>{% endfor %}<p class="note">{{ t('result.ai_note') }}</p>{% endif %}

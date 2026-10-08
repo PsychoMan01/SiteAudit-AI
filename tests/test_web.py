@@ -321,7 +321,7 @@ def test_concurrent_and_monthly_limits(client, site) -> None:  # type: ignore[no
     register(client)
     assert _start_audit(client, site.base + "/").status_code == 303
     resp = _start_audit(client, site.base + "/")
-    assert resp.status_code == 429 and "at the same time" in resp.text
+    assert resp.status_code == 429 and "one audit at a time" in resp.text
     run_queued_audits()
     for _ in range(4):
         assert _start_audit(client, site.base + "/").status_code == 303
