@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="{{ locale }}">
+<head>
+<meta charset="utf-8">
+<title>SiteAudit — {{ audit.host }}</title>
+<link rel="stylesheet" href="report.css">
+</head>
+<body>
+{% set overall = audit.overall_score %}
+<div class="running-head">SiteAudit · {{ audit.host }} · {{ audit.finished_at.strftime('%Y-%m-%d') }}</div>
+
+<section class="cover">
+  <div class="brand"><img src="logo.svg" alt=""> SiteAudit</div>
+  <p class="kicker">{{ t('report.kicker') }}</p>
+  <h1>{{ audit.host }}</h1>
+  <p class="url">{{ audit.final_url or audit.url }}</p>
+  <table class="meta">
+    <tr><th>{{ t('report.date') }}</th><td>{{ audit.finished_at.strftime('%Y-%m-%d %H:%M') }} UTC</td></tr>
+    <tr><th>{{ t('report.pages') }}</th><td>{{ facts.get('html_pages', audit.pages_crawled) }}</td></tr>
+    <tr><th>{{ t('report.edition') }}</th><td>{{ t('report.full') if full else t('report.summary_edition') }}</td></tr>
+    <tr><th>{{ t('report.reference') }}</th><td>{{ audit.public_id[:12] }}</td></tr>
+  </table>
+  <div class="overall">
+    <div class="label">{{ t('result.overall') }}</div>
+    <div class="value g-{{ grade(overall) }}">{{ overall if overall is not none else '—' }}<span>/100</span></div>
+    <div class="verdict">{{ t('grade.' ~ grade(overall)) }}</div>
+  </div>
+</section>
+
+<section class="page">
+  <h2>{{ t('report.exec_summary') }}</h2>
+  {% set c = summary.severity_counts %}
+  {% if summary.groups|length == 0 %}
+    <p>{{ t('result.summary_clean') }}</p>
+  {% else %}
+    <p>{{ t('result.summary_counts', total=(c.critical + c.high + c.medium + c.low), critical=c.critical, high=c.high) }}
+    {% if summary.weakest and summary.weakest != summary.strongest %}{{ t('result.summary_weakest', weakest=t('category.' ~ summary.weakest), strongest=t('category.' ~ summary.strongest)) }}{% endif %}</p>
+  {% endif %}
+  {% if show_ai %}{% for para in audit.ai_summary.split('\n\n') %}<p>{{ para }}</p>{% endfor %}<p class="note">{{ t('result.ai_note') }}</p>{% endif %}
+
+  <h3>{{ t('report.scores') }}</h3>
+  <table class="scores">
+    <thead><tr><th>{{ t('result.category') }}</th><th class="num">{{ t('audits.score') }}</th><th></th><th class="num">{{ t('report.checks') }}</th></tr></thead>
+    <tbody>
+    {% for cat in categories %}
+      {% set s = scores.get(cat) %}
+      <tr>
+        <td>{{ t('category.' ~ cat) }}</td>
+        <td class="num g-{{ grade(s.score if s else none) }}"><strong>{{ s.score if s and s.score is not none else '—' }}</strong></td>
+        <td class="barcell"><div class="bar"><div class="fill b-{{ grade(s.score if s else none) }} w{{ ((s.score or 0) // 5 * 5) if s else 0 }}"></div></div></td>
+        <td class="num">{{ (s.checks_run - s.checks_failed) if s else 0 }} / {{ s.checks_run if s else 0 }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p class="note">{{ t('report.checks_note') }}</p>
+
+  <h3>{{ t('result.issues_found') }}</h3>
+  <table class="counts"><tr>
+    {% for sev in ('critical', 'high', 'medium', 'low', 'info') %}<td><strong>{{ c[sev] }}</strong><br><span class="sev s-{{ sev }}">{{ t('severity.' ~ sev) }}</span></td>{% endfor %}
+  </tr></table>
+
+  {% if summary.priorities %}
+  <h3>{{ t('report.priorities') }}</h3>
+  <ol class="priorities">
+    {% for g in summary.priorities %}
+      <li><strong>{{ t('rules.' ~ g.rule_id ~ '.title') }}</strong> <span class="sev s-{{ g.severity }}">{{ t('severity.' ~ g.severity) }}</span><br>
+        <span class="muted">{{ t('rules.' ~ g.rule_id ~ '.recommendation') }}</span></li>
+    {% endfor %}
+  </ol>
+  {% endif %}
+</section>
+
+<section class="page">
+  <h2>{{ t('report.findings') if full else t('report.findings_top') }}</h2>
+  {% if not full %}<p class="note">{{ t('report.summary_notice') }}</p>{% endif %}
+  {% for g in groups %}
+    {% set key = 'rules.' ~ g.rule_id %}
+    <div class="finding">
+      <div class="finding-head">
+        <span class="sev s-{{ g.severity }}">{{ t('severity.' ~ g.severity) }}</span>
+        <span class="cat">{{ t('category.' ~ g.category) }}</span>
+      </div>
+      <h4>{{ t(key ~ '.title') }}</h4>
+      <p>{{ t(key ~ '.description') }}</p>
+      <p><span class="lbl">{{ t('result.impact') }}.</span> {{ t(key ~ '.impact') }}</p>
+      <p><span class="lbl">{{ t('result.fix') }}.</span> {{ t(key ~ '.recommendation') }}</p>
+      <ul class="occ">
+        {% for issue in g.occurrences[:8] %}
+          {% set ev = evidence(issue.evidence) %}
+          <li><span class="u">{{ issue.page_url or t('result.sitewide') }}</span>{% if ev and t(key ~ '.evidence') != key ~ '.evidence' %} — {{ t(key ~ '.evidence', **ev) }}{% endif %}</li>
+        {% endfor %}
+        {% if g.occurrences|length > 8 %}<li class="muted">{{ t('result.more', n=g.occurrences|length - 8) }}</li>{% endif %}
+      </ul>
+    </div>
+  {% else %}
+    <p>{{ t('result.summary_clean') }}</p>
+  {% endfor %}
+</section>
+
+{% if full and pages_ranked %}
+<section class="page">
+  <h2>{{ t('report.affected_pages') }}</h2>
+  <table class="pages">
+    <thead><tr><th>URL</th><th class="num">{{ t('pages.issues') }}</th></tr></thead>
+    <tbody>{% for url, n in pages_ranked %}<tr><td class="u">{{ url }}</td><td class="num">{{ n }}</td></tr>{% endfor %}</tbody>
+  </table>
+</section>
+{% endif %}
+
+<section class="page methodology">
+  <h2>{{ t('report.methodology') }}</h2>
+  <p>{{ t('method.collect_text') }}</p>
+  <p>{{ t('method.score_text') }}</p>
+  <p class="formula">deduction = weight(severity) × (0.5 + 0.5 × affected_pages / audited_pages)<br>category = max(0, 100 − Σ deductions)</p>
+  <p>{{ t('report.weights', critical=severity_weights.critical|int, high=severity_weights.high|int, medium=severity_weights.medium|int, low=severity_weights.low|int) }}</p>
+  {% if facts.get('undetermined') %}
+  <h3>{{ t('result.undetermined') }}</h3>
+  <ul>{% for rule_id, reason in facts['undetermined'].items() %}<li>{{ t('rules.' ~ rule_id ~ '.title') }} — {{ t('undetermined.' ~ reason) }}</li>{% endfor %}</ul>
+  {% endif %}
+  <h3>{{ t('report.limits') }}</h3>
+  <ul><li>{{ t('method.limit_1') }}</li><li>{{ t('method.limit_2') }}</li><li>{{ t('method.limit_3') }}</li></ul>
+  <p class="note">{{ t('report.generated', date=generated.strftime('%Y-%m-%d %H:%M')) }}</p>
+</section>
+</body>
+</html>
